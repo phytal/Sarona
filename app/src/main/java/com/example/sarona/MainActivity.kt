@@ -2,6 +2,7 @@ package com.example.sarona
 
 import android.os.Bundle
 import android.view.Menu
+import androidx.appcompat.app.ActionBarDrawerToggle
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.navigation.NavigationView
@@ -13,17 +14,35 @@ import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import com.example.sarona.ui.classes.ClassesFragment
+import com.example.sarona.ui.grades.GradesFragment
+import com.example.sarona.ui.home.HomeFragment
+import com.example.sarona.ui.calculator.CalculatorFragment
+import com.example.sarona.ui.schedule.ScheduleFragment
+import com.example.sarona.ui.transcript.TranscriptFragment
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
+    /*
+    private lateinit var homeFragment: HomeFragment
+    private lateinit var classesFragment: ClassesFragment
+    private lateinit var gradesFragment: GradesFragment
+    private lateinit var scheduleFragment: ScheduleFragment
+    private lateinit var transcriptFragment: TranscriptFragment
+    private lateinit var calculatorFragment: CalculatorFragment
+
+     */
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
+        val actionBar = supportActionBar
+        actionBar?.title = "Navigation Drawer"
 
+        //val drawerToggle: ActionBarDrawerToggle = object : ActionBarDrawerToggle(this, drawerLayout, toolBar, "open", "close")
         val fab: FloatingActionButton = findViewById(R.id.fab)
         fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
@@ -35,7 +54,7 @@ class MainActivity : AppCompatActivity() {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         appBarConfiguration = AppBarConfiguration(setOf(
-                R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow), drawerLayout)
+                R.id.nav_home, R.id.nav_classes, R.id.nav_grades, R.id.nav_schedule, R.id.nav_transcript, R.id.nav_calculator, R.id.nav_settings), drawerLayout)
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
     }

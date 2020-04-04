@@ -19,7 +19,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Settings" />
+        <activity android:name=".SettingsFragment" />
+        <activity android:name=".ClassesFragment" />
+        <activity android:name=".CalculatorFragment" />
     </application>
 
 </manifest>

@@ -30,14 +30,38 @@
     </fragment>
 
     <fragment
-        android:id="@+id/nav_gallery"
-        android:name="com.example.sarona.ui.gallery.GalleryFragment"
-        android:label="@string/menu_gallery"
-        tools:layout="@layout/fragment_gallery" />
+        android:id="@+id/nav_classes"
+        android:name="com.example.sarona.ui.classes.ClassesFragment"
+        android:label="@string/menu_classes"
+        tools:layout="@layout/fragment_classes" />
 
     <fragment
-        android:id="@+id/nav_slideshow"
-        android:name="com.example.sarona.ui.slideshow.SlideshowFragment"
-        android:label="@string/menu_slideshow"
-        tools:layout="@layout/fragment_slideshow" />
+        android:id="@+id/nav_grades"
+        android:name="com.example.sarona.ui.grades.GradesFragment"
+        android:label="@string/menu_grades"
+        tools:layout="@layout/fragment_grades" />
+
+    <fragment
+        android:id="@+id/nav_schedule"
+        android:name="com.example.sarona.ui.schedule.ScheduleFragment"
+        android:label="@string/menu_schedule"
+        tools:layout="@layout/fragment_schedule" />
+
+    <fragment
+        android:id="@+id/nav_transcript"
+        android:name="com.example.sarona.ui.transcript.TranscriptFragment"
+        android:label="@string/menu_transcript"
+        tools:layout="@layout/fragment_transcript" />
+
+    <fragment
+        android:id="@+id/nav_calculator"
+        android:name="com.example.sarona.ui.calculator.CalculatorFragment"
+        android:label="@string/menu_calculator"
+        tools:layout="@layout/fragment_calculator" />
+
+    <fragment
+        android:id="@+id/nav_settings"
+        android:name="com.example.sarona.ui.settings.SettingsFragment"
+        android:label="@string/menu_settings"
+        tools:layout="@layout/fragment_settings" />
 </navigation>

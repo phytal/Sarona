@@ -8,8 +8,31 @@
     <string name="action_settings">Settings</string>
 
     <string name="menu_home">Home</string>
-    <string name="menu_gallery">Gallery</string>
-    <string name="menu_slideshow">Slideshow</string>
+    <string name="menu_classes">Classes</string>
+    <string name="menu_grades">Grades</string>
+    <string name="menu_schedule">Schedule</string>
+    <string name="menu_transcript">Transcript</string>
+    <string name="menu_calculator">GPA Calculator</string>
+    <string name="menu_settings">Settings</string>
+    <string name="menu_premium"> Premium</string>
 
     <string name="home_second">Home Second</string>
+
+    <string name="settings_text_account">Account</string>
+    <string name="settings_text_preferences">Preferences</string>
+    <string name="settings_text_notifications">Notifications</string>
+    <string name="settings_text_calculator">GPA Calculator</string>
+    <string name="settings_switch_dark">Dark Theme</string>
+    <string name="settings_switch_grade_updated">Grade Updated</string>
+    <string name="settings_switch_grade_added">Grade Added</string>
+    <string name="settings_button_incremented">Incremented</string>
+    <string name="settings_button_scaled">Scaled</string>
+    <string name="settings_text_ap">AP Value</string>
+    <string name="settings_text_pap">PAP Value</string>
+    <string name="settings_test_ol">On-Level Value</string>
+    <string name="settings_premium_">Purchase Premium</string>
+    <string name="settings_privacy_policy">Privacy Policy</string>
+    <string name="settings_tos">Terms of Service</string>
+    <string name="settings_title">Settings</string>
+
 </resources>
