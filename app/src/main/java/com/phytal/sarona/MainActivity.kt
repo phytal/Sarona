@@ -1,7 +1,9 @@
 package com.phytal.sarona
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
+import android.view.MenuItem
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.navigation.NavigationView
@@ -13,19 +15,18 @@ import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import com.phytal.sarona.fragments.*
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
-    /*
+
     private lateinit var homeFragment: HomeFragment
     private lateinit var classesFragment: ClassesFragment
     private lateinit var gradesFragment: GradesFragment
     private lateinit var scheduleFragment: ScheduleFragment
     private lateinit var transcriptFragment: TranscriptFragment
     private lateinit var calculatorFragment: CalculatorFragment
-
-     */
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -54,6 +55,18 @@ class MainActivity : AppCompatActivity() {
         // Inflate the menu; this adds items to the action bar if it is present.
         menuInflater.inflate(R.menu.main, menu)
         return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val id = item.itemId
+
+        if (id == R.id.action_settings) {
+            // launch settings activity
+            startActivity(Intent(this@MainActivity, SettingsActivity::class.java))
+            return true
+        }
+
+        return super.onOptionsItemSelected(item)
     }
 
     override fun onSupportNavigateUp(): Boolean {

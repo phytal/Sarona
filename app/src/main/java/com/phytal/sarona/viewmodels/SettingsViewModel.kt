@@ -1,4 +1,4 @@
-package com.phytal.sarona.ui.settings
+package com.phytal.sarona.viewmodels
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

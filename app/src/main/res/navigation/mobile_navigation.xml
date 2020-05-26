@@ -7,43 +7,43 @@
 
     <fragment
         android:id="@+id/nav_home"
-        android:name="com.phytal.sarona.ui.home.HomeFragment"
+        android:name="com.phytal.sarona.fragments.HomeFragment"
         android:label="@string/menu_home"
         tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/nav_classes"
-        android:name="com.phytal.sarona.ui.classes.ClassesFragment"
+        android:name="com.phytal.sarona.fragments.ClassesFragment"
         android:label="@string/menu_classes"
         tools:layout="@layout/fragment_classes" />
 
     <fragment
         android:id="@+id/nav_grades"
-        android:name="com.phytal.sarona.ui.grades.GradesFragment"
+        android:name="com.phytal.sarona.fragments.GradesFragment"
         android:label="@string/menu_grades"
         tools:layout="@layout/fragment_grades" />
 
     <fragment
         android:id="@+id/nav_schedule"
-        android:name="com.phytal.sarona.ui.schedule.ScheduleFragment"
+        android:name="com.phytal.sarona.fragments.ScheduleFragment"
         android:label="@string/menu_schedule"
         tools:layout="@layout/fragment_schedule" />
 
     <fragment
         android:id="@+id/nav_transcript"
-        android:name="com.phytal.sarona.ui.transcript.TranscriptFragment"
+        android:name="com.phytal.sarona.fragments.TranscriptFragment"
         android:label="@string/menu_transcript"
         tools:layout="@layout/fragment_transcript" />
 
     <fragment
         android:id="@+id/nav_calculator"
-        android:name="com.phytal.sarona.ui.calculator.CalculatorFragment"
+        android:name="com.phytal.sarona.fragments.CalculatorFragment"
         android:label="@string/menu_calculator"
         tools:layout="@layout/fragment_calculator" />
 
     <fragment
         android:id="@+id/nav_settings"
-        android:name="com.phytal.sarona.ui.settings.SettingsFragment"
+        android:name="com.phytal.sarona.fragments.SettingsFragment"
         android:label="@string/menu_settings"
         tools:layout="@layout/fragment_settings" />
 </navigation>
