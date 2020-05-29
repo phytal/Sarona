@@ -2,6 +2,7 @@ package com.phytal.sarona
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import com.phytal.sarona.fragments.PreferencesFragment
 import com.phytal.sarona.fragments.SettingsFragment
 
 class SettingsActivity : AppCompatActivity() {
@@ -9,9 +10,8 @@ class SettingsActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         supportFragmentManager
             .beginTransaction()
-                //TODO: fix, get right view container
             .replace(R.id.nav_host_fragment,
-                SettingsFragment()
+                PreferencesFragment()
             )
             .commit()
     }

@@ -14,7 +14,8 @@
     <string name="menu_transcript">Transcript</string>
     <string name="menu_calculator">GPA Calculator</string>
     <string name="menu_settings">Settings</string>
-    <string name="menu_premium"> Premium</string>
+    <string name="menu_premium">Premium</string>
+    <string name="menu_welcome">Welcome</string>
 
     <string name="home_second">Home Second</string>
 
@@ -34,5 +35,11 @@
     <string name="settings_privacy_policy">Privacy Policy</string>
     <string name="settings_tos">Terms of Service</string>
     <string name="settings_title">Settings</string>
+
+    <string name="settings_default">Default</string>
+    <string name="settings_summary_default_gpa_calculation">Change the way how your GPA is calculated</string>
+    <string name="settings_summary_default_ap_value">Change the weighed value of an AP class</string>
+    <string name="settings_summary_default_pap_value">Change the weighed value of a Pre-AP class</string>
+    <string name="settings_summary_default_ol_value">Change the weighed value of an on-level class</string>
 
 </resources>

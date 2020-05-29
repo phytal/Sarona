@@ -8,17 +8,16 @@ import android.text.TextUtils
 import androidx.preference.*
 import com.phytal.sarona.R
 import com.phytal.sarona.SettingsActivity
-import com.phytal.sarona.ThemeHelper.applyTheme
-
-
-class SettingsFragment : SharedPreferences.OnSharedPreferenceChangeListener, PreferenceFragmentCompat() {
-
+import com.phytal.sarona.fragments.PreferencesFragment.Companion.bindPreferenceSummaryToValue
+//not working
+class PreferencesFragment : PreferenceFragmentCompat(),
+    SharedPreferences.OnSharedPreferenceChangeListener {
     //private lateinit var settingsViewModel: SettingsViewModel
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.preference_main, rootKey)
 
         preferenceManager.sharedPreferences.registerOnSharedPreferenceChangeListener(this)
-        onSharedPreferenceChanged(preferenceManager.sharedPreferences, "pref_theme")
+
 
         val myPref = findPreference<Preference>("feedback")
         myPref?.setOnPreferenceClickListener {
@@ -40,21 +39,13 @@ class SettingsFragment : SharedPreferences.OnSharedPreferenceChangeListener, Pre
             }
 
         // listeners for preferences
-        bindPreferenceSummaryToValue(findPreference("pref_gpaCalc_ap"))
-        bindPreferenceSummaryToValue(findPreference("pref_gpaCalc_pap"))
-        bindPreferenceSummaryToValue(findPreference("pref_gpaCalc_ol"))
-        bindPreferenceSummaryToValue(findPreference("pref_theme"))
-        bindPreferenceSummaryToValue(findPreference("pref_hacLink"))
-        bindPreferenceSummaryToValue(findPreference("pref_language"))
-        bindPreferenceSummaryToValue(findPreference("pref_gpaCalc_si"))
-    }
-
-    override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, key : String) {
-        if (key == "pref_theme") {
-            val newValue = sharedPreferences.getString("pref_theme","")
-            val themeOption = newValue as String
-            applyTheme(themeOption)
-        }
+        PreferencesFragment.bindPreferenceSummaryToValue(findPreference("pref_gpaCalc_ap"))
+        PreferencesFragment.bindPreferenceSummaryToValue(findPreference("pref_gpaCalc_pap"))
+        PreferencesFragment.bindPreferenceSummaryToValue(findPreference("pref_gpaCalc_ol"))
+        PreferencesFragment.bindPreferenceSummaryToValue(findPreference("pref_theme"))
+        PreferencesFragment.bindPreferenceSummaryToValue(findPreference("pref_hacLink"))
+        PreferencesFragment.bindPreferenceSummaryToValue(findPreference("pref_language"))
+        PreferencesFragment.bindPreferenceSummaryToValue(findPreference("pref_gpaCalc_si"))
     }
 
     companion object {
@@ -94,38 +85,36 @@ class SettingsFragment : SharedPreferences.OnSharedPreferenceChangeListener, Pre
                             // Empty values correspond to 'default'.
                             preference.setSummary(R.string.settings_summary_default_gpa_calculation)
                         }
-                    }
-                    else if (preference.getKey() == "pref_gpaCalc_ap") {
+                    } else if (preference.getKey() == "pref_gpaCalc_ap") {
                         if (TextUtils.isEmpty(stringValue)) {
                             // Empty values correspond to 'default'.
                             preference.setSummary(R.string.settings_summary_default_ap_value)
                         }
-                    }
-                    else if (preference.getKey() == "pref_gpaCalc_pap") {
+                    } else if (preference.getKey() == "pref_gpaCalc_pap") {
                         if (TextUtils.isEmpty(stringValue)) {
                             // Empty values correspond to 'default'.
                             preference.setSummary(R.string.settings_summary_default_pap_value)
                         }
-                    }
-                    else if (preference.getKey() == "pref_gpaCalc_ol") {
+                    } else if (preference.getKey() == "pref_gpaCalc_ol") {
                         if (TextUtils.isEmpty(stringValue)) {
                             // Empty values correspond to 'default'.
                             preference.setSummary(R.string.settings_summary_default_ol_value)
                         }
-                    }
-                    else if (TextUtils.isEmpty(stringValue)) {
+                    } else if (TextUtils.isEmpty(stringValue)) {
                         // Empty values correspond to 'default'.
                         preference.setSummary(R.string.settings_default)
                     }
 
                     // update the changed theme name to summary field
                     preference.setSummary(stringValue)
-                }
-                else {
+                } else {
                     preference.summary = stringValue
                 }
                 true
             }
     }
-}
 
+    override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences?, key: String?) {
+
+    }
+}

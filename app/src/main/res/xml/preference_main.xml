@@ -1,12 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <ListPreference
+        app:iconSpaceReserved="false"
+        app:key="pref_theme"
+        app:title="App theme"
+        app:entries="@array/pref_theme_entries"
+        app:entryValues="@array/pref_theme_values"/>\
+
+    <ListPreference
+        app:iconSpaceReserved="false"
+        app:key="pref_language"
+        app:title="App language"
+        app:entries="@array/pref_language_entries"
+        app:entryValues="@array/pref_language_values"/>
 
     <SwitchPreferenceCompat
-        app:key="notifications"
+        app:iconSpaceReserved="false"
+        app:key="pref_notification"
         app:title="Enable message notifications"/>
 
+    <EditTextPreference
+        app:iconSpaceReserved="false"
+        app:key="pref_hacLink"
+        app:title="Change your HAC link"
+        app:defaultValue="https://hac.friscoisd.org/"
+        app:dialogMessage="Ex: https://www.hac.friscoisd.org/ (follow the following format)"/>
+
+    <PreferenceCategory
+        app:key="gpa_category"
+        app:allowDividerBelow="true"
+        app:initialExpandedChildrenCount="1">
+
+        <ListPreference
+            app:iconSpaceReserved="false"
+            app:key = "pref_gpaCalc_si"
+            app:title="GPA Calculation"
+            app:summary="Change the way how your GPA is calculated"
+            app:entries="@array/pref_gpaCalc_si_entries"
+            app:entryValues="@array/pref_gpaCalc_si_entries"/>
+
+        <EditTextPreference
+            app:iconSpaceReserved="false"
+            app:key="pref_gpaCalc_ol"
+            app:title="On-level value"/>
+
+        <EditTextPreference
+            app:iconSpaceReserved="false"
+            app:key="pref_gpaCalc_pap"
+            app:title="Pre-AP value"/>
+
+        <EditTextPreference
+            app:iconSpaceReserved="false"
+            app:key="pref_gpaCalc_ap"
+            app:title="AP value"/>
+
+    </PreferenceCategory>
+
     <Preference
+        app:iconSpaceReserved="false"
         app:key="feedback"
         app:title="Send feedback"
         app:summary="Report technical issues or suggest new features"/>
