@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import com.phytal.sarona.R
 import com.phytal.sarona.viewmodels.GradesViewModel
 
@@ -21,7 +21,7 @@ class GradesFragment : Fragment() {
             savedInstanceState: Bundle?
     ): View? {
         gradesViewModel =
-                ViewModelProviders.of(this).get(GradesViewModel::class.java)
+                ViewModelProvider(this).get(GradesViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_grades, container, false)
         val textView: TextView = root.findViewById(R.id.text_grades)
         gradesViewModel.text.observe(viewLifecycleOwner, Observer {

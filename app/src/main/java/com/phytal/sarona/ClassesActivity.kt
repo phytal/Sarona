@@ -4,13 +4,16 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.phytal.sarona.fragments.PreferencesFragment
 
-class SettingsActivity : AppCompatActivity() {
+
+class ClassesActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
-        setContentView(R.layout.fragment_settings)
+        setContentView(R.layout.fragment_classes)
         super.onCreate(savedInstanceState)
         supportFragmentManager
             .beginTransaction()
-            .replace(R.id.fragment_container,
+            .addToBackStack(null)
+            .replace(
+                R.id.fragment_container,
                 PreferencesFragment()
             )
             .commit()
