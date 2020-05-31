@@ -12,4 +12,15 @@
         android:layout_height="match_parent"
         tools:listitem="@layout/course_item" />
 
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        style="@android:style/Widget.ProgressBar.Horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:indeterminate="true"
+        app:layout_anchor="@+id/progress_bar"
+        app:layout_anchorGravity="center"
+        tools:visibility="visible"
+        android:visibility="visible"/>
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

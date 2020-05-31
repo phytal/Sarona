@@ -6,6 +6,7 @@ import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
@@ -16,19 +17,14 @@ import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.snackbar.Snackbar
-import com.phytal.sarona.fragments.*
+import com.phytal.sarona.fragments.SettingsFragment
+import com.phytal.sarona.fragments.WelcomeFragment
 
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
-
-    private lateinit var homeFragment: HomeFragment
-    private lateinit var classesFragment: ClassesFragment
-    private lateinit var gradesFragment: GradesFragment
-    private lateinit var scheduleFragment: ScheduleFragment
-    private lateinit var transcriptFragment: TranscriptFragment
-    private lateinit var calculatorFragment: CalculatorFragment
+    private lateinit var drawerLayout: DrawerLayout
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -36,12 +32,7 @@ class MainActivity : AppCompatActivity() {
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
 
-        val fab: FloatingActionButton = findViewById(R.id.fab)
-        fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show()
-        }
-        val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
+        drawerLayout= findViewById(R.id.drawer_layout)
         val navView: NavigationView = findViewById(R.id.nav_view)
         val navController = findNavController(R.id.nav_host_fragment)
         // Passing each menu ID as a set of Ids because each
@@ -63,7 +54,7 @@ class MainActivity : AppCompatActivity() {
 
         if (id == R.id.action_settings) {
             // launch settings activity
-            startActivity(Intent(this@MainActivity, SettingsActivity::class.java))
+            startActivity(Intent(this, SettingsActivity::class.java))
             return true
         }
 
@@ -73,6 +64,14 @@ class MainActivity : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host_fragment)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
+    }
+
+    override fun onBackPressed() {
+        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            drawerLayout.closeDrawer(GravityCompat.START)
+        } else {
+            super.onBackPressed()
+        }
     }
 
 
@@ -94,7 +93,7 @@ class MainActivity : AppCompatActivity() {
         }
         supportFragmentManager
             .beginTransaction()
-            .replace(R.id.nav_host_fragment, fragment, tag)
+            .replace(R.id.fragment_container, fragment, tag)
             .commit();
     }
 }
