@@ -3,7 +3,8 @@ package com.phytal.sarona
 import android.app.Application
 import android.content.SharedPreferences
 import androidx.preference.PreferenceManager
-import com.phytal.sarona.ThemeHelper.applyTheme
+import com.phytal.sarona.internal.helpers.ThemeHelper
+import com.phytal.sarona.internal.helpers.ThemeHelper.applyTheme
 
 
 class SaronaApplication : Application() {
