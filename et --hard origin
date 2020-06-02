@@ -1,0 +1,98 @@
+[33mcommit c6820090b1774bf0cedf635fb738630e24b131d3[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m)[m
+Author: Phytal <willzhang058@gmail.com>
+Date:   Mon Jun 1 20:11:58 2020 -0500
+
+    Revert "Revert "Revert "Revert "MVVM refactoring, now returns the entire output of API""""
+    
+    This reverts commit 7b811379fdd0cec87a6ba0aca46ccdad47d1be1a.
+
+[33mcommit 7b811379fdd0cec87a6ba0aca46ccdad47d1be1a[m
+Author: Phytal <willzhang058@gmail.com>
+Date:   Mon Jun 1 20:11:45 2020 -0500
+
+    Revert "Revert "Revert "MVVM refactoring, now returns the entire output of API"""
+    
+    This reverts commit 86d4c2fe79479166d2460de023f29d0d889e3387.
+
+[33mcommit 86d4c2fe79479166d2460de023f29d0d889e3387[m
+Author: Phytal <willzhang058@gmail.com>
+Date:   Mon Jun 1 20:11:42 2020 -0500
+
+    Revert "Revert "MVVM refactoring, now returns the entire output of API""
+    
+    This reverts commit 8c6d2c3d4b23a1fa780c63bece0fb4d1f6213f00.
+
+[33mcommit 8c6d2c3d4b23a1fa780c63bece0fb4d1f6213f00[m
+Author: Phytal <willzhang058@gmail.com>
+Date:   Mon Jun 1 20:11:17 2020 -0500
+
+    Revert "MVVM refactoring, now returns the entire output of API"
+    
+    This reverts commit f6f90c00689a8cfd39dc0272cadb7d7c2a74fe10.
+
+[33mcommit f6f90c00689a8cfd39dc0272cadb7d7c2a74fe10[m[33m ([m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: Phytal <willzhang058@gmail.com>
+Date:   Mon Jun 1 20:06:26 2020 -0500
+
+    MVVM refactoring, now returns the entire output of API
+
+[33mcommit ba016f4ab1bf83cf957bfcdebc0ef731531f02b8[m
+Author: Phytal <willzhang058@gmail.com>
+Date:   Sun May 31 01:57:30 2020 -0500
+
+    Added web service with retrofit
+
+[33mcommit 60f25d49dd72a412aca9e6e1062841af36ff9fb6[m
+Author: Phytal <willzhang058@gmail.com>
+Date:   Sat May 30 02:09:45 2020 -0500
+
+    implementing MVVM
+
+[33mcommit a557606a933e005b309e085f02d21b1ac571fcbf[m
+Author: Phytal <willzhang058@gmail.com>
+Date:   Fri May 29 02:39:43 2020 -0500
+
+    added dark theme feature, settings fragment
+
+[33mcommit 582c9e5ccc3750caf635ee1ff4e719654a60573d[m
+Author: Phytal <willzhang058@gmail.com>
+Date:   Tue May 26 17:39:08 2020 -0500
+
+    Organized code, started settings fragment
+
+[33mcommit c637a11ba43ebe7cb6e90c39d825317ba4c2805e[m
+Author: Phytal <willzhang058@gmail.com>
+Date:   Tue May 26 02:01:56 2020 -0500
+
+    app icon is now white!
+
+[33mcommit da54ad3e8d4f88b190b3ccfbe712743cfaf34c5b[m
+Author: Phytal <willzhang058@gmail.com>
+Date:   Mon May 25 21:05:29 2020 -0500
+
+    new icon, fixed hamburger in nav
+
+[33mcommit d3549af1bc4052b9a8ec658bbf1094f809288145[m
+Author: Phytal <willzhang058@gmail.com>
+Date:   Sat Apr 4 13:57:46 2020 -0500
+
+    Added navigation bar
+
+[33mcommit 9ae032ec9f641c458044495e06faff6eccadf424[m
+Merge: ea5b96d 74505c3
+Author: William Zhang <phytal@phytal-MS-7A59>
+Date:   Sat Mar 21 22:05:40 2020 -0500
+
+    Merge https://github.com/Phytal/Sarona
+
+[33mcommit ea5b96d5d1dd3a7ee96bc1702d72e6e356aa387f[m
+Author: William Zhang <phytal@phytal-MS-7A59>
+Date:   Sat Mar 21 22:00:32 2020 -0500
+
+    initial commit
+
+[33mcommit 74505c372aea73b5b0f39a66ab0865e8de89c238[m
+Author: William Zhang (Phytal) <38742977+Phytal@users.noreply.github.com>
+Date:   Sat Mar 21 21:59:27 2020 -0500
+
+    Initial commit

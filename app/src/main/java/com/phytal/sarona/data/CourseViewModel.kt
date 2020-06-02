@@ -1,26 +1,23 @@
 package com.phytal.sarona.data
 
 import android.app.Application
-import androidx.annotation.NonNull
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
-import com.phytal.sarona.data.entities.Course
+import com.phytal.sarona.data.db.entities.CurrentCourse
+import com.phytal.sarona.data.repository.CourseRepository
 
 
 class CourseViewModel(application: Application) :
     AndroidViewModel(application) {
-    private val repository: CourseRepository = CourseRepository(application)
-    private val allCourses: LiveData<List<Course>>
+    private val repository: CourseRepository =
+        CourseRepository(application)
+    private val allCourses: LiveData<List<CurrentCourse>>
 
-    fun insert(course: Course) {
-        repository.insert(course)
+    fun upsert(course: CurrentCourse) {
+        repository.upsert(course)
     }
 
-    fun update(course: Course) {
-        repository.update(course)
-    }
-
-    fun delete(course: Course) {
+    fun delete(course: CurrentCourse) {
         repository.delete(course)
     }
 
@@ -28,7 +25,7 @@ class CourseViewModel(application: Application) :
         repository.deleteAllCourses()
     }
 
-    fun getAllCourses(): LiveData<List<Course>> {
+    fun getAllCourses(): LiveData<List<CurrentCourse>> {
         return allCourses
     }
     init {
