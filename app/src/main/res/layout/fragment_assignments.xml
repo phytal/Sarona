@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_add_white"
+        android:layout_gravity="bottom|end"
+        android:layout_marginBottom="20dp"
+        android:layout_marginEnd="20dp"/>
+
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tabs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:tabIconTint="@color/primaryTextColor">
+
+        <com.google.android.material.tabs.TabItem
+            android:icon="@drawable/ic_menu_classes"
+            android:text="@string/menu_classes"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent" />
+        <com.google.android.material.tabs.TabItem
+            android:icon="@drawable/ic_menu_grades"
+            android:text="@string/menu_grades"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"/>
+        <com.google.android.material.tabs.TabItem
+            android:icon="@drawable/ic_menu_transcript"
+            android:text="@string/menu_transcript"
+            android:layout_height="match_parent"
+            android:layout_width="match_parent"/>
+
+    </com.google.android.material.tabs.TabLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -8,6 +8,7 @@ import androidx.annotation.NonNull
 import androidx.recyclerview.widget.RecyclerView
 import com.phytal.sarona.R
 import com.phytal.sarona.data.db.entities.CurrentCourse
+import com.phytal.sarona.data.db.entities.CurrentCourseList
 
 class CourseListAdapter : RecyclerView.Adapter<CourseListAdapter.CourseHolder>() {
 
@@ -31,8 +32,8 @@ class CourseListAdapter : RecyclerView.Adapter<CourseListAdapter.CourseHolder>()
         return courses.size
     }
 
-    fun setCourses(courses: List<CurrentCourse>) {
-        this.courses = courses
+    fun setCourses(courses: CurrentCourseList) {
+        this.courses = courses.courses
         notifyDataSetChanged()
     }
 

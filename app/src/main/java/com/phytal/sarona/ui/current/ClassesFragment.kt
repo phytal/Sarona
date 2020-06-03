@@ -6,12 +6,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
 import android.widget.TextView
-import androidx.fragment.app.Fragment
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+
 import com.phytal.sarona.R
+import com.phytal.sarona.data.db.entities.Course
+import com.phytal.sarona.data.db.entities.CurrentCourseList
 import com.phytal.sarona.ui.adapters.CourseListAdapter
 import com.phytal.sarona.data.network.ConnectivityInterceptorImpl
 import com.phytal.sarona.data.network.CourseNetworkDataSourceImpl
@@ -22,10 +25,11 @@ import kotlinx.android.synthetic.main.fragment_classes.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
-import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.closestKodein
 import org.kodein.di.generic.instance
+import java.time.ZonedDateTime
+import java.time.format.DateTimeFormatter
 
 
 class ClassesFragment : ScopedFragment(), KodeinAware {
@@ -37,7 +41,7 @@ class ClassesFragment : ScopedFragment(), KodeinAware {
     private lateinit var viewModel: CourseViewModel
     private var disposable: Disposable? = null
     private lateinit var courseNetworkDataSource: CourseNetworkDataSourceImpl
-    private lateinit var text: TextView
+    private lateinit var adapter: CourseListAdapter
 
     private val hacApiServe by lazy {
         HacApiService(
@@ -54,22 +58,13 @@ class ClassesFragment : ScopedFragment(), KodeinAware {
     ): View? {
         val root = inflater.inflate(R.layout.fragment_classes, container, false)
 
-        val progressBar : ProgressBar = root.findViewById(R.id.progress_bar)
-        progressBar.visibility = View.VISIBLE
-        progressBar.visibility = View.GONE
-
         val recyclerView: RecyclerView = root.findViewById(R.id.recycler_view)
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.setHasFixedSize(true)
 
-        val adapter = CourseListAdapter()
+        adapter = CourseListAdapter()
         recyclerView.adapter = adapter
 
-//        classesViewModel =
-//            ViewModelProvider(this).get(CourseViewModel::class.java)
-//        classesViewModel.getAllCourses()
-//            .observe(viewLifecycleOwner,
-//                Observer { courses -> adapter.setCourses(courses) })
         return root
     }
 
@@ -98,14 +93,22 @@ class ClassesFragment : ScopedFragment(), KodeinAware {
         val currentCourses = viewModel.courses.await()
         currentCourses.observe(viewLifecycleOwner, Observer {
             if (it == null) return@Observer
-            val f = it
-            textView2.text = it.toString()
+
+            group_loading.visibility = View.GONE
+            updateLastUpdated(ZonedDateTime.now())
+
+            adapter.setCourses(it)
         })
+    }
+
+    private fun updateLastUpdated(time: ZonedDateTime) {
+        val formatter = DateTimeFormatter.ofPattern("MM/dd HH:mm")
+        (activity as? AppCompatActivity)?.supportActionBar?.subtitle = "Last updated ${time.format(formatter)}"
     }
 
     private suspend fun setNewTextOnMainThread(input: String) {
         withContext(Main) {
-            text.text = input
+            textView_loading.text = input
         }
     }
 

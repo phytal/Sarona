@@ -21,7 +21,7 @@
         android:id="@+id/nav_grades"
         android:name="com.phytal.sarona.ui.fragments.GradesFragment"
         android:label="@string/menu_grades"
-        tools:layout="@layout/fragment_grades" />
+        tools:layout="@layout/fragment_assignments" />
 
     <fragment
         android:id="@+id/nav_schedule"
