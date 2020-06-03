@@ -9,7 +9,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.sarona"
-        minSdkVersion 21
+        minSdkVersion 26
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
@@ -98,4 +98,9 @@ dependencies {
     implementation "com.squareup.retrofit2:converter-gson:2.3.0"
 
     implementation "io.reactivex.rxjava2:rxandroid:2.0.1"
+
+    implementation 'org.kodein.di:kodein-di-generic-jvm:6.5.5'
+    implementation 'org.kodein.di:kodein-di-framework-android-x:6.5.5'
+    implementation 'com.jakewharton.threetenabp:threetenabp:1.2.4'
+
 }

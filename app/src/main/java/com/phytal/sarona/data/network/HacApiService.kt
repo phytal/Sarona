@@ -33,7 +33,7 @@ interface HacApiService {
                 RxJava2CallAdapterFactory.createWithScheduler(Schedulers.io())
             return Retrofit.Builder()
                 .client(okHttpClient)
-                //.addCallAdapterFactory(NetworkResponseAdapterFactory())
+                .addCallAdapterFactory(NetworkResponseAdapterFactory())
                 .addCallAdapterFactory(rxAdapter)
                 .addConverterFactory(
                     GsonConverterFactory.create())

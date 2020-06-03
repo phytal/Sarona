@@ -13,7 +13,7 @@
 
     <fragment
         android:id="@+id/nav_classes"
-        android:name="com.phytal.sarona.ui.fragments.ClassesFragment"
+        android:name="com.phytal.sarona.ui.current.ClassesFragment"
         android:label="@string/menu_classes"
         tools:layout="@layout/fragment_classes" />
 
