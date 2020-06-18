@@ -12,6 +12,6 @@ class SettingsActivity : AppCompatActivity() {
         supportFragmentManager.beginTransaction()
             .replace(R.id.fragment_container, SettingsFragment())
             .commit()
-        //replaceFragment(SettingsFragment(), R.id.fragment_container)
+/*        replaceFragment(SettingsFragment(), R.id.fragment_container)*/
     }
 }

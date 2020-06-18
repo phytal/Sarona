@@ -42,4 +42,16 @@
     <string name="settings_summary_default_pap_value">Change the weighed value of a Pre-AP class</string>
     <string name="settings_summary_default_ol_value">Change the weighed value of an on-level class</string>
 
+    <string name="course_item_grade">Grade</string>
+    <string name="course_item_title">Course Title</string>
+    <string name="course_item_description">Course Id</string>
+
+    <string name="welcome_agreement">This application uses credentials you supplied above to retrieve and display grade and class information from your Home Access Center (HAC). By using this application you agree to our terms of service and privacy policy.</string>
+    <string name="welcome_login">Login</string>
+    <string name="welcome_password">Password</string>
+    <string name="welcome_username">Username</string>
+    <string name="welcome_text">Sarona</string>
+    <string name="welcome_subtitle">Check your grades on the go</string>
+    <string name="welcome_copyright">©2020 Phytal</string>
+
 </resources>

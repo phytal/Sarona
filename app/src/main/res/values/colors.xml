@@ -9,4 +9,5 @@
     <color name="colorElevatedOne">#f5f5f5</color>
     <color name="colorElevatedTwo">#dedede</color>
     <color name="unselectedColor"></color>
+    <color name="borderColor">#e3e3e3</color>
 </resources>
