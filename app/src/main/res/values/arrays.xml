@@ -14,9 +14,9 @@
         <item>Default</item>
     </string-array>
     <string-array name="pref_theme_values">
-        <item>dark</item>
-        <item>light</item>
-        <item>default</item>
+        <item>DARK</item>
+        <item>LIGHT</item>
+        <item>DEFAULT</item>
     </string-array>
     <string-array name="pref_language_entries">
         <item>English</item>
@@ -26,11 +26,11 @@
         <item>中文</item>
     </string-array>
     <string-array name="pref_language_values">
-        <item>en</item>
-        <item>es</item>
-        <item>fr</item>
-        <item>kr</item>
-        <item>ch</item>
+        <item>EN</item>
+        <item>ES</item>
+        <item>FR</item>
+        <item>KR</item>
+        <item>CH</item>
     </string-array>
     <string-array name="welcome_district">
         <item>Frisco ISD</item>

@@ -1,22 +1,23 @@
 package com.phytal.sarona.ui.fragments
 
+import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
-import android.text.TextUtils
+import android.widget.Toast
 import androidx.preference.*
 import com.phytal.sarona.R
-import com.phytal.sarona.ui.SettingsActivity
 import com.phytal.sarona.internal.helpers.ThemeHelper.applyTheme
+import com.phytal.sarona.ui.base.BasePreferenceFragment
 
 
-class SettingsFragment : SharedPreferences.OnSharedPreferenceChangeListener, PreferenceFragmentCompat() {
+class SettingsFragment : SharedPreferences.OnSharedPreferenceChangeListener, BasePreferenceFragment() {
 
-    //private lateinit var settingsViewModel: SettingsViewModel
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.preference_main, rootKey)
 
+        SettingsFragment.context = this.requireContext()
         preferenceManager.sharedPreferences.registerOnSharedPreferenceChangeListener(this)
         onSharedPreferenceChanged(preferenceManager.sharedPreferences, "pref_theme")
 
@@ -28,25 +29,10 @@ class SettingsFragment : SharedPreferences.OnSharedPreferenceChangeListener, Pre
             true
         }
 
-        //TODO: make it work
-        val editPref : EditTextPreference = preferenceScreen.findPreference<Preference>("pref_gpaCalc_ol")!! as EditTextPreference
-        editPref.onPreferenceChangeListener =
-            Preference.OnPreferenceChangeListener { _, _ ->
-                val parsed = editPref.text.toDoubleOrNull() ?: -1.0
-                if (parsed >= 0.0) {
-                    false
-                }
-                true
-            }
-
         // listeners for preferences
         bindPreferenceSummaryToValue(findPreference("pref_gpaCalc_ap"))
         bindPreferenceSummaryToValue(findPreference("pref_gpaCalc_pap"))
         bindPreferenceSummaryToValue(findPreference("pref_gpaCalc_ol"))
-        bindPreferenceSummaryToValue(findPreference("pref_theme"))
-        bindPreferenceSummaryToValue(findPreference("pref_hacLink"))
-        bindPreferenceSummaryToValue(findPreference("pref_language"))
-        bindPreferenceSummaryToValue(findPreference("pref_gpaCalc_si"))
     }
 
     override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences, key : String) {
@@ -58,7 +44,8 @@ class SettingsFragment : SharedPreferences.OnSharedPreferenceChangeListener, Pre
     }
 
     companion object {
-        val TAG = SettingsActivity::class.java!!.simpleName
+        const val TAG: String = "FRAGMENT_SETTINGS"
+        private lateinit var context: Context
 
         private fun bindPreferenceSummaryToValue(preference: Preference?) {
             preference?.onPreferenceChangeListener = sBindPreferenceSummaryToValueListener
@@ -72,59 +59,15 @@ class SettingsFragment : SharedPreferences.OnSharedPreferenceChangeListener, Pre
         }
 
         private val sBindPreferenceSummaryToValueListener =
-            Preference.OnPreferenceChangeListener { preference, newValue ->
-                val stringValue = newValue.toString()
-
-                if (preference is ListPreference) {
-                    // For list preferences, look up the correct display value in
-                    // the preference's 'entries' list.
-                    val index = preference.findIndexOfValue(stringValue)
-
-                    // Set the summary to reflect the new value.
-                    preference.setSummary(
-                        if (index >= 0)
-                            preference.entries[index]
-                        else
-                            null
-                    )
-
-                } else if (preference is EditTextPreference) {
-                    if (preference.getKey() == "pref_gpaCalc_si") {
-                        if (TextUtils.isEmpty(stringValue)) {
-                            // Empty values correspond to 'default'.
-                            preference.setSummary(R.string.settings_summary_default_gpa_calculation)
-                        }
-                    }
-                    else if (preference.getKey() == "pref_gpaCalc_ap") {
-                        if (TextUtils.isEmpty(stringValue)) {
-                            // Empty values correspond to 'default'.
-                            preference.setSummary(R.string.settings_summary_default_ap_value)
-                        }
-                    }
-                    else if (preference.getKey() == "pref_gpaCalc_pap") {
-                        if (TextUtils.isEmpty(stringValue)) {
-                            // Empty values correspond to 'default'.
-                            preference.setSummary(R.string.settings_summary_default_pap_value)
-                        }
-                    }
-                    else if (preference.getKey() == "pref_gpaCalc_ol") {
-                        if (TextUtils.isEmpty(stringValue)) {
-                            // Empty values correspond to 'default'.
-                            preference.setSummary(R.string.settings_summary_default_ol_value)
-                        }
-                    }
-                    else if (TextUtils.isEmpty(stringValue)) {
-                        // Empty values correspond to 'default'.
-                        preference.setSummary(R.string.settings_default)
-                    }
-
-                    // update the changed theme name to summary field
-                    preference.setSummary(stringValue)
+            Preference.OnPreferenceChangeListener { _, newValue ->
+                var valid = true
+                val new = newValue.toString()
+                val parsed = new.toDoubleOrNull() ?: -1.0
+                if (parsed <= 0.0) {
+                    Toast.makeText(context, "Error: Invalid input.", Toast.LENGTH_SHORT).show()
+                    valid = false
                 }
-                else {
-                    preference.summary = stringValue
-                }
-                true
+                return@OnPreferenceChangeListener valid
             }
     }
 }

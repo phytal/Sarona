@@ -6,6 +6,8 @@ import androidx.preference.PreferenceManager
 import com.jakewharton.threetenabp.AndroidThreeTen
 import com.phytal.sarona.data.db.CourseDatabase
 import com.phytal.sarona.data.network.*
+import com.phytal.sarona.data.provider.LoginProvider
+import com.phytal.sarona.data.provider.LoginProviderImpl
 import com.phytal.sarona.data.repository.CourseRepository
 import com.phytal.sarona.data.repository.CourseRepositoryImpl
 import com.phytal.sarona.internal.helpers.ThemeHelper
@@ -30,11 +32,13 @@ class SaronaApplication : Application(), KodeinAware {
         bind() from singleton { HacApiService(instance()) }
         bind<CourseNetworkDataSource>() with singleton { CourseNetworkDataSourceImpl(instance()) }
         bind<CourseRepository>() with singleton { CourseRepositoryImpl(instance(), instance()) }
-        bind() from provider { CurrentCourseViewModelFactory(instance()) }
+        bind<LoginProvider>() with singleton { LoginProviderImpl(instance()) }
+        bind() from provider { CurrentCourseViewModelFactory(instance(), instance()) }
     }
     override fun onCreate() {
         super.onCreate()
         AndroidThreeTen.init(this)
+        PreferenceManager.setDefaultValues(this, R.xml.preference_main, false)
         val sharedPreferences: SharedPreferences =
             PreferenceManager.getDefaultSharedPreferences(this)
         val themePref =

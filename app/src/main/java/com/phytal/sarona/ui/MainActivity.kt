@@ -32,10 +32,10 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         val sharedPreferences: SharedPreferences =
             PreferenceManager.getDefaultSharedPreferences(this)
-        if (!sharedPreferences.contains("username") || !sharedPreferences.contains("password") || !sharedPreferences.contains("district")) {
-            showFragment("FRAGMENT_WELCOME")
-        }
-        else {
+//        if (!sharedPreferences.contains("LOGIN_USERNAME") || !sharedPreferences.contains("LOGIN_PASSWORD") || !sharedPreferences.contains("LOGIN_LINK")) {
+//            showFragment("FRAGMENT_WELCOME")
+//        }
+//        else {
             val toolbar: Toolbar = findViewById(R.id.toolbar)
             setSupportActionBar(toolbar)
 
@@ -55,7 +55,7 @@ class MainActivity : AppCompatActivity() {
             ), drawerLayout)
             setupActionBarWithNavController(navController, appBarConfiguration)
             navView.setupWithNavController(navController)
-        }
+        //}
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -68,7 +68,7 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.action_settings) {
             // launch settings activity
-            startActivity(Intent(this, SettingsActivity::class.java))
+            //startActivity(Intent(this, SettingsActivity::class.java))
         }
 
         return super.onOptionsItemSelected(item)

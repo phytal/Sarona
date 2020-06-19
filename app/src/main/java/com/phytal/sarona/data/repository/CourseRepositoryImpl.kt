@@ -5,6 +5,7 @@ import com.phytal.sarona.data.db.CurrentCourseDao
 import com.phytal.sarona.data.db.entities.CurrentCourseList
 import com.phytal.sarona.data.network.CourseNetworkDataSource
 import com.phytal.sarona.data.network.response.CourseResponse
+import com.phytal.sarona.data.provider.LoginInformation
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -21,9 +22,9 @@ class CourseRepositoryImpl (
             persistFetchedCurrentCourse(newCurrentCourses)
         }
     }
-    override suspend fun getCurrentCourses(): LiveData<out CurrentCourseList> {
+    override suspend fun getCurrentCourses(loginInfo: LoginInformation): LiveData<out CurrentCourseList> {
         return withContext(Dispatchers.IO) {
-            initCourseData()
+            initCourseData(loginInfo)
             return@withContext currentCourseDao.getAllCourses()
         }
     }
@@ -35,17 +36,16 @@ class CourseRepositoryImpl (
     }
 
     //TODO
-    private suspend fun initCourseData() {
+    private suspend fun initCourseData(loginInfo: LoginInformation) {
         if (isFetchCurrentNeeded(ZonedDateTime.now().minusHours(1)))
-            fetchCurrentCourses()
+            fetchCurrentCourses(loginInfo)
     }
 
-    //TODO: not hardcoded
-    private suspend fun fetchCurrentCourses() {
+    private suspend fun fetchCurrentCourses(loginInfo: LoginInformation) {
         courseNetworkDataSource.fetchCurrent(
-            "https://hac.friscoisd.org",
-            "Zhang.W",
-            "William826"
+            loginInfo.link,
+            loginInfo.username,
+            loginInfo.password
         )
     }
 

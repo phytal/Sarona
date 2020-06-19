@@ -56,16 +56,16 @@ class WelcomeFragment : Fragment(), AdapterView.OnItemSelectedListener {
     override fun onNothingSelected(parent: AdapterView<*>?) {
 
     }
-    override fun onResume() {
-        super.onResume()
-        (activity as AppCompatActivity?)!!.findViewById<NavigationView>(R.id.nav_view).visibility = View.GONE
-        (activity as AppCompatActivity?)!!.findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar).visibility = View.GONE
-    }
-
-    override fun onStop() {
-        super.onStop()
-        (activity as AppCompatActivity?)!!.findViewById<NavigationView>(R.id.nav_view).visibility = View.VISIBLE
-        (activity as AppCompatActivity?)!!.findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar).visibility = View.VISIBLE
-    }
+//    override fun onResume() {
+//        super.onResume()
+//        (activity as AppCompatActivity?)!!.findViewById<NavigationView>(R.id.nav_view).visibility = View.GONE
+//        (activity as AppCompatActivity?)!!.findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar).visibility = View.GONE
+//    }
+//
+//    override fun onStop() {
+//        super.onStop()
+//        (activity as AppCompatActivity?)!!.findViewById<NavigationView>(R.id.nav_view).visibility = View.VISIBLE
+//        (activity as AppCompatActivity?)!!.findViewById<androidx.appcompat.widget.Toolbar>(R.id.toolbar).visibility = View.VISIBLE
+//    }
 
 }
