@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <com.google.android.material.button.MaterialButton
+        style="@style/Widget.Sarona.Button.TextButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/menu_home" />
+
+    <com.google.android.material.button.MaterialButton
+        style="@style/Widget.Sarona.Button.TextButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/menu_grades" />
+
+    <com.google.android.material.button.MaterialButton
+        style="@style/Widget.Sarona.Button.TextButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/menu_schedule" />
+
+    <com.google.android.material.button.MaterialButton
+        style="@style/Widget.Sarona.Button.TextButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/menu_calculator" />
+
+    <com.google.android.material.button.MaterialButton
+        style="@style/Widget.Sarona.Button.TextButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/menu_settings" />
+
+    <View
+        android:layout_width="56dp"
+        android:layout_height="1dp"
+        android:layout_margin="16dp"
+        android:background="?android:attr/textColorPrimary" />
+
+    <com.google.android.material.button.MaterialButton
+        style="@style/Widget.Sarona.Button.TextButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/menu_premium" />
+
+</merge>

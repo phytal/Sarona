@@ -12,6 +12,7 @@ import com.google.android.material.internal.NavigationMenu
 import com.google.android.material.navigation.NavigationView
 import com.google.android.material.textfield.TextInputEditText
 import com.phytal.sarona.R
+import com.phytal.sarona.ui.NavigationHost
 
 
 class WelcomeFragment : Fragment(), AdapterView.OnItemSelectedListener {
@@ -25,16 +26,20 @@ class WelcomeFragment : Fragment(), AdapterView.OnItemSelectedListener {
         val usernameField = root.findViewById<TextInputEditText>(R.id.editTextUsername)
         val passwordField = root.findViewById<TextInputEditText>(R.id.editTextPassword)
 
-        loginButton.setOnClickListener {
-            if (usernameField.text == null || passwordField == null) {
-                Toast.makeText(context, "Please enter a username and password", Toast.LENGTH_SHORT).show()
-            }
-        }
         val adapter = ArrayAdapter.createFromResource(requireContext(), R.array.welcome_district, android.R.layout.simple_spinner_item)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
 
         spinner.adapter = adapter
         spinner.onItemSelectedListener = this
+
+        loginButton.setOnClickListener {
+            if (usernameField.text.isNullOrEmpty()|| passwordField.text.isNullOrEmpty()) {
+                Toast.makeText(context, "Please enter a username and password", Toast.LENGTH_SHORT).show()
+            }
+            else {
+                (activity as NavigationHost).navigateTo(HomeFragment(), false) // Navigate to the next Fragment
+            }
+        }
 
         return root
     }

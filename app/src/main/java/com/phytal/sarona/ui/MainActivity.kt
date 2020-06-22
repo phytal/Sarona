@@ -18,11 +18,12 @@ import androidx.navigation.ui.setupWithNavController
 import androidx.preference.PreferenceManager
 import com.google.android.material.navigation.NavigationView
 import com.phytal.sarona.R
+import com.phytal.sarona.ui.fragments.HomeFragment
 import com.phytal.sarona.ui.fragments.SettingsFragment
 import com.phytal.sarona.ui.fragments.WelcomeFragment
 
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), NavigationHost {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var drawerLayout: DrawerLayout
@@ -30,31 +31,38 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        if (savedInstanceState == null) {
+            supportFragmentManager
+                .beginTransaction()
+                .add(R.id.fragment_container, WelcomeFragment())
+                .commit()
+        }
         val sharedPreferences: SharedPreferences =
             PreferenceManager.getDefaultSharedPreferences(this)
 //        if (!sharedPreferences.contains("LOGIN_USERNAME") || !sharedPreferences.contains("LOGIN_PASSWORD") || !sharedPreferences.contains("LOGIN_LINK")) {
 //            showFragment("FRAGMENT_WELCOME")
 //        }
 //        else {
-            val toolbar: Toolbar = findViewById(R.id.toolbar)
-            setSupportActionBar(toolbar)
-
-            drawerLayout= findViewById(R.id.drawer_layout)
-            val navView: NavigationView = findViewById(R.id.nav_view)
-            val navController = findNavController(R.id.nav_host_fragment)
-            // Passing each menu ID as a set of Ids because each
-            // menu should be considered as top level destinations.
-            appBarConfiguration = AppBarConfiguration(setOf(
-                R.id.nav_home,
-                R.id.nav_classes,
-                R.id.nav_grades,
-                R.id.nav_schedule,
-                R.id.nav_transcript,
-                R.id.nav_calculator,
-                R.id.nav_settings
-            ), drawerLayout)
-            setupActionBarWithNavController(navController, appBarConfiguration)
-            navView.setupWithNavController(navController)
+//            val toolbar: Toolbar = findViewById(R.id.toolbar)
+//            setSupportActionBar(toolbar)
+//
+//            drawerLayout= findViewById(R.id.drawer_layout)
+//            val navView: NavigationView = findViewById(R.id.nav_view)
+//            val navController = findNavController(R.id.nav_host_fragment)
+//            // Passing each menu ID as a set of Ids because each
+//            // menu should be considered as top level destinations.
+//            appBarConfiguration = AppBarConfiguration(setOf(
+//                R.id.nav_home,
+//                R.id.nav_classes,
+//                R.id.nav_grades,
+//                R.id.nav_schedule,
+//                R.id.nav_transcript,
+//                R.id.nav_calculator,
+//                R.id.nav_settings
+//            ), drawerLayout)
+//            setupActionBarWithNavController(navController, appBarConfiguration)
+//            navView.setupWithNavController(navController)
         //}
     }
 
@@ -109,5 +117,23 @@ class MainActivity : AppCompatActivity() {
             .beginTransaction()
             .replace(R.id.fragment_container, fragment, tag)
             .commit();
+    }
+
+    /**
+     * Navigate to the given fragment.
+     *
+     * @param fragment       Fragment to navigate to.
+     * @param addToBackstack Whether or not the current fragment should be added to the backstack.
+     */
+    override fun navigateTo(fragment: Fragment, addToBackstack: Boolean) {
+        val transaction = supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.fragment_container, fragment)
+
+        if (addToBackstack) {
+            transaction.addToBackStack(null)
+        }
+
+        transaction.commit()
     }
 }

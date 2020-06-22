@@ -15,10 +15,9 @@
             android:id="@+id/district_spinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
             android:layout_marginTop="20dp"
             android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"/>
+            android:layout_marginRight="10dp" />
 
         <com.google.android.material.textview.MaterialTextView
             android:layout_width="wrap_content"
@@ -38,37 +37,52 @@
             android:textSize="15sp"
             android:textAlignment="center"/>
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/editTextUsername"
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.Sarona.TextInputLayout"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="50dp"
-            android:paddingVertical="13dp"
-            android:ems="10"
             android:hint="@string/welcome_username"
-            android:ellipsize="start"
-            android:gravity="center_horizontal"
-            android:inputType="textPersonName"
-            android:background="@drawable/edit_text_background"
-            android:drawableStart="@drawable/ic_outline_person"
-            android:drawablePadding="-24dp"/>
+            android:layout_marginTop="50dp"
+            android:layout_gravity="center_horizontal"
+            app:boxCornerRadiusBottomEnd="30dp"
+            app:boxCornerRadiusTopEnd="30dp"
+            app:boxCornerRadiusBottomStart="30dp"
+            app:boxCornerRadiusTopStart="30dp"
+            app:startIconDrawable="@drawable/ic_outline_person">
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/editTextPassword"
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextUsername"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:ellipsize="start"
+                    android:inputType="textAutoComplete"
+                    android:singleLine="true" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.Sarona.TextInputLayout"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="15dp"
-            android:paddingVertical="13dp"
-            android:ems="10"
             android:hint="@string/welcome_password"
-            android:ellipsize="start"
-            android:gravity="center_horizontal"
-            android:inputType="textPassword"
-            android:background="@drawable/edit_text_background"
-            android:drawableStart="@drawable/ic_outline_lock"
-            android:drawablePadding="-24dp"/>
+            android:layout_marginTop="15dp"
+            android:layout_gravity="center_horizontal"
+            app:boxCornerRadiusBottomEnd="30dp"
+            app:boxCornerRadiusTopEnd="30dp"
+            app:boxCornerRadiusBottomStart="30dp"
+            app:boxCornerRadiusTopStart="30dp"
+            app:startIconDrawable="@drawable/ic_outline_lock"
+            app:endIconMode="password_toggle">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextPassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:ellipsize="start"
+                    android:inputType="textPassword"
+                    android:singleLine="true" />
+        </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/login_button"
@@ -89,10 +103,5 @@
             android:layout_marginTop="220dp"
 
             android:text="@string/welcome_copyright"/>
-
-    <FrameLayout
-        android:id="@+id/welcome_container"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
 
 </androidx.appcompat.widget.LinearLayoutCompat>

@@ -4,7 +4,7 @@
     <color name="colorPrimaryDark">#474747</color>
     <color name="colorSecondary">#b999ff</color>
     <color name="colorAccent">#99d5ff</color>
-    <color name="primaryTextColor">#ffffff</color>
+    <color name="textColorPrimary">#ffffff</color>
     <color name="bgColor">#121212</color>
     <color name="colorElevatedOne">#212121</color>
     <color name="colorElevatedTwo">#2e2e2e</color>
