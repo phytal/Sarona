@@ -1,21 +1,20 @@
 <resources>
     <string name="app_name">Sarona</string>
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Android Studio</string>
-    <string name="nav_header_subtitle">android.studio@android.com</string>
-    <string name="nav_header_desc">Navigation header</string>
+    <!--BottomAppBar-->
+    <string name="bottom_app_bar_chevron_content_desc">Open or close bottom navigation drawer</string>
+    <string name="bottom_app_bar_logo_content_desc">Sarona logo</string>
+
     <string name="action_settings">Settings</string>
 
-    <string name="menu_home">Home</string>
-    <string name="menu_classes">Classes</string>
-    <string name="menu_grades">Grades</string>
-    <string name="menu_schedule">Schedule</string>
-    <string name="menu_transcript">Transcript</string>
-    <string name="menu_calculator">GPA Calculator</string>
-    <string name="menu_settings">Settings</string>
-    <string name="menu_premium">Premium</string>
-    <string name="menu_welcome">Welcome</string>
+    <string name="nav_home">Home</string>
+    <string name="nav_classes">Classes</string>
+    <string name="nav_grades">Grades</string>
+    <string name="nav_calendar">Calendar</string>
+    <string name="nav_transcript">Transcript</string>
+    <string name="nav_gpa">GPA</string>
+    <string name="nav_settings">Settings</string>
+    <string name="nav_premium">Premium</string>
+    <string name="nav_welcome">Welcome</string>
 
     <string name="home_second">Home Second</string>
 
@@ -53,5 +52,8 @@
     <string name="welcome_text">Sarona</string>
     <string name="welcome_subtitle">Check your grades on the go</string>
     <string name="welcome_copyright">©2020 Phytal</string>
+    <string name="menu_settings">Settings</string>
+    <string name="menu_refresh">Refresh</string>
+    <string name="bottom_nav_drawer_profile_image_content_desc">Profile avatar image</string>
 
 </resources>

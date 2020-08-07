@@ -16,22 +16,21 @@
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabs"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:tabIconTint="@color/textColorPrimary">
+        android:layout_height="wrap_content">
 
         <com.google.android.material.tabs.TabItem
             android:icon="@drawable/ic_menu_classes"
-            android:text="@string/menu_classes"
+            android:text="@string/nav_classes"
             android:layout_height="match_parent"
             android:layout_width="match_parent" />
         <com.google.android.material.tabs.TabItem
             android:icon="@drawable/ic_menu_grades"
-            android:text="@string/menu_grades"
+            android:text="@string/nav_grades"
             android:layout_height="match_parent"
             android:layout_width="match_parent"/>
         <com.google.android.material.tabs.TabItem
             android:icon="@drawable/ic_menu_transcript"
-            android:text="@string/menu_transcript"
+            android:text="@string/nav_transcript"
             android:layout_height="match_parent"
             android:layout_width="match_parent"/>
 

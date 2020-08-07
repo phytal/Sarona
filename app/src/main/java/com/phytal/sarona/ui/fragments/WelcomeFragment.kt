@@ -5,14 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.google.android.material.button.MaterialButton
-import com.google.android.material.internal.NavigationMenu
-import com.google.android.material.navigation.NavigationView
 import com.google.android.material.textfield.TextInputEditText
 import com.phytal.sarona.R
 import com.phytal.sarona.ui.NavigationHost
+import com.phytal.sarona.ui.home.HomeFragment
 
 
 class WelcomeFragment : Fragment(), AdapterView.OnItemSelectedListener {

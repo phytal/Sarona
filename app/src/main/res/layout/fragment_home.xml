@@ -6,47 +6,13 @@
     android:layout_height="match_parent"
     android:clipChildren="false"
     android:clipToPadding="false"
-    tools:context=".ui.fragments.HomeFragment">
-
-    <LinearLayout
-        style="@style/Widget.Sarona.Backdrop"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center_horizontal"
-        android:orientation="vertical"
-        android:paddingTop="88dp">
-
-        <include layout="@layout/sar_backdrop" />
-    </LinearLayout>
-
-    <com.google.android.material.appbar.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay"
-        app:elevation="0dp">
-
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            style="@style/Widget.Sarona.Toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:paddingStart="12dp"
-            android:paddingLeft="12dp"
-            android:paddingEnd="12dp"
-            android:paddingRight="12dp"
-            android:background="@color/colorElevatedTwo"
-            app:contentInsetStart="0dp"
-            app:navigationIcon="@drawable/ic_menu_icon"
-            app:title="Sarona"/>
-
-    </com.google.android.material.appbar.AppBarLayout>
+    tools:context=".ui.home.HomeFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/home_fragment"
         android:layout_marginTop="56dp"
-        android:background="@color/bgColor"
         android:elevation="8dp">
 
         <TextView

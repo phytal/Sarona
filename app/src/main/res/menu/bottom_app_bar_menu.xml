@@ -2,18 +2,9 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/action_classwork"
-        android:title="Classes"
-        android:icon="@drawable/ic_menu_classes"
+        android:id="@+id/menu_refresh"
+        android:title="@string/menu_refresh"
+        android:icon="@drawable/ic_refresh"
         app:showAsAction="ifRoom"/>
-    <item
-        android:id="@+id/action_report_card"
-        android:title="Report Card"
-        android:icon="@drawable/ic_menu_grades"
-        app:showAsAction="ifRoom"/>
-    <item
-        android:id="@+id/action_transcript"
-        android:title="Transcript"
-        android:icon="@drawable/ic_menu_transcript"
-        app:showAsAction="ifRoom"/>
+
 </menu>

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mobile_navigation"
+    app:startDestination="@+id/nav_home">
+
+    <fragment
+        android:id="@+id/nav_home"
+        android:name="com.phytal.sarona.ui.home.HomeFragment"
+        android:label="@string/nav_home"
+        tools:layout="@layout/fragment_home">
+        <action
+            android:id="@+id/action_homeFragment_to_homeFragment"
+            app:destination="@+id/nav_home"
+            app:launchSingleTop="true"/>
+    </fragment>
+
+    <fragment
+        android:id="@+id/nav_classes"
+        android:name="com.phytal.sarona.ui.current.ClassesFragment"
+        android:label="@string/nav_classes"
+        tools:layout="@layout/fragment_classes" />
+    <action
+        android:id="@+id/action_global_classesFragment"
+        app:destination="@+id/nav_classes" />
+
+    <fragment
+        android:id="@+id/nav_grades"
+        android:name="com.phytal.sarona.ui.fragments.GradesFragment"
+        android:label="@string/nav_grades"
+        tools:layout="@layout/fragment_assignments" />
+    <action
+        android:id="@+id/action_global_gradesFragment"
+        app:destination="@+id/nav_grades" />
+
+    <fragment
+        android:id="@+id/nav_schedule"
+        android:name="com.phytal.sarona.ui.fragments.ScheduleFragment"
+        android:label="@string/nav_calendar"
+        tools:layout="@layout/fragment_schedule" />
+    <action
+        android:id="@+id/action_global_scheduleFragment"
+        app:destination="@+id/nav_schedule" />
+
+    <fragment
+        android:id="@+id/nav_transcript"
+        android:name="com.phytal.sarona.ui.fragments.TranscriptFragment"
+        android:label="@string/nav_transcript"
+        tools:layout="@layout/fragment_transcript" />
+    <action
+        android:id="@+id/action_global_transcriptFragment"
+        app:destination="@+id/nav_transcript" />
+
+    <fragment
+        android:id="@+id/nav_gpa"
+        android:name="com.phytal.sarona.ui.fragments.CalculatorFragment"
+        android:label="@string/nav_gpa"
+        tools:layout="@layout/fragment_calculator" />
+    <action
+        android:id="@+id/action_global_gpaFragment"
+        app:destination="@+id/nav_gpa" />
+
+    <fragment
+        android:id="@+id/nav_settings"
+        android:name="com.phytal.sarona.ui.fragments.SettingsFragment"
+        android:label="@string/nav_settings"
+        tools:layout="@xml/preference_main" />
+    <action
+        android:id="@+id/action_global_settingsFragment"
+        app:destination="@+id/nav_settings" />
+
+    <fragment
+        android:id="@+id/nav_welcome"
+        android:name="com.phytal.sarona.ui.fragments.WelcomeFragment"
+        tools:layout="@layout/fragment_welcome" >
+    </fragment>
+</navigation>

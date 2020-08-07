@@ -1,85 +1,169 @@
 package com.phytal.sarona.ui
 
-import android.content.Intent
+import android.animation.Animator
+import android.animation.AnimatorListenerAdapter
+import com.google.android.material.transition.MaterialFadeThrough
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.view.Menu
 import android.view.MenuItem
+import android.view.View
+import androidx.annotation.MenuRes
+import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
+import androidx.core.view.isVisible
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
+import androidx.navigation.NavController
+import androidx.navigation.NavDestination
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
-import androidx.navigation.ui.setupActionBarWithNavController
-import androidx.navigation.ui.setupWithNavController
 import androidx.preference.PreferenceManager
-import com.google.android.material.navigation.NavigationView
+import com.google.android.material.transition.MaterialSharedAxis
 import com.phytal.sarona.R
-import com.phytal.sarona.ui.fragments.HomeFragment
-import com.phytal.sarona.ui.fragments.SettingsFragment
 import com.phytal.sarona.ui.fragments.WelcomeFragment
+import com.phytal.sarona.ui.nav.*
+import com.phytal.sarona.databinding.ActivityMainBinding
+import com.phytal.sarona.util.contentView
 
 
-class MainActivity : AppCompatActivity(), NavigationHost {
+class MainActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListener,
+    NavController.OnDestinationChangedListener, NavigationAdapter.NavigationAdapterListener {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     private lateinit var drawerLayout: DrawerLayout
+    private val binding: ActivityMainBinding by contentView(R.layout.activity_main)
+    private val bottomNavDrawer: BottomNavDrawerFragment by lazy(LazyThreadSafetyMode.NONE) {
+        supportFragmentManager.findFragmentById(R.id.bottom_nav_drawer) as BottomNavDrawerFragment
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        //setContentView(R.layout.activity_main)
 
-        if (savedInstanceState == null) {
-            supportFragmentManager
-                .beginTransaction()
-                .add(R.id.fragment_container, WelcomeFragment())
-                .commit()
-        }
-        val sharedPreferences: SharedPreferences =
-            PreferenceManager.getDefaultSharedPreferences(this)
+//        if (savedInstanceState == null) {
+//            supportFragmentManager
+//                .beginTransaction()
+//                .add(R.id.fragment_container, WelcomeFragment())
+//                .commit()
+//        }
+//        val sharedPreferences: SharedPreferences =
+//            PreferenceManager.getDefaultSharedPreferences(this)
 //        if (!sharedPreferences.contains("LOGIN_USERNAME") || !sharedPreferences.contains("LOGIN_PASSWORD") || !sharedPreferences.contains("LOGIN_LINK")) {
 //            showFragment("FRAGMENT_WELCOME")
 //        }
 //        else {
-//            val toolbar: Toolbar = findViewById(R.id.toolbar)
-//            setSupportActionBar(toolbar)
-//
-//            drawerLayout= findViewById(R.id.drawer_layout)
-//            val navView: NavigationView = findViewById(R.id.nav_view)
-//            val navController = findNavController(R.id.nav_host_fragment)
-//            // Passing each menu ID as a set of Ids because each
-//            // menu should be considered as top level destinations.
-//            appBarConfiguration = AppBarConfiguration(setOf(
-//                R.id.nav_home,
-//                R.id.nav_classes,
-//                R.id.nav_grades,
-//                R.id.nav_schedule,
-//                R.id.nav_transcript,
-//                R.id.nav_calculator,
-//                R.id.nav_settings
-//            ), drawerLayout)
-//            setupActionBarWithNavController(navController, appBarConfiguration)
-//            navView.setupWithNavController(navController)
-        //}
+            setUpBottomNavigation()
+//        }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        menuInflater.inflate(R.menu.main, menu)
-//        menuInflater.inflate(R.menu.bottom_app_bar_menu, menu)
-        return true
-    }
+    private val currentNavigationFragment: Fragment?
+        get() = supportFragmentManager.findFragmentById(R.id.nav_host_fragment)
+            ?.childFragmentManager
+            ?.fragments
+            ?.first()
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.action_settings) {
-            // launch settings activity
-            //startActivity(Intent(this, SettingsActivity::class.java))
+    private fun setUpBottomNavigation() {
+        // Wrap binding.run to ensure ContentViewBindingDelegate is calling this Activity's
+        // setContentView before accessing views
+        binding.run {
+            findNavController(R.id.nav_host_fragment).addOnDestinationChangedListener(
+                this@MainActivity
+            )
         }
 
-        return super.onOptionsItemSelected(item)
+        bottomNavDrawer.apply {
+            addOnSlideAction(HalfClockwiseRotateSlideAction(binding.bottomAppBarChevron))
+            addOnSlideAction(AlphaSlideAction(binding.bottomAppBarTitle, true))
+            addOnStateChangedAction(ChangeSettingsMenuStateAction {showSettings ->
+                // Toggle between the current destination's BAB menu and the menu which should
+                // be displayed when the BottomNavigationDrawer is open.
+                binding.bottomAppBar.replaceMenu(if (showSettings) {
+                    R.menu.bottom_app_bar_settings_menu
+                } else {
+                    R.menu.bottom_app_bar_menu
+                })
+            })
+
+            addOnSandwichSlideAction(HalfCounterClockwiseRotateSlideAction(binding.bottomAppBarChevron))
+            addNavigationListener(this@MainActivity)
+        }
+
+        // Set up the BottomAppBar menu
+        binding.bottomAppBar.apply {
+            setNavigationOnClickListener {
+                bottomNavDrawer.toggle()
+            }
+            setOnMenuItemClickListener(this@MainActivity)
+        }
+
+        // Set up the BottomNavigationDrawer's open/close affordance
+        binding.bottomAppBarContentContainer.setOnClickListener {
+            bottomNavDrawer.toggle()
+        }
+    }
+
+    private fun setBottomAppBarForHome(@MenuRes menuRes: Int) {
+        binding.run {
+            bottomAppBar.visibility = View.VISIBLE
+            bottomAppBar.replaceMenu(menuRes)
+            bottomAppBarTitle.visibility = View.VISIBLE
+            bottomAppBar.performShow()
+        }
+    }
+
+    private fun setBottomAppBarForSettings(@MenuRes menuRes: Int) {
+        binding.run {
+            bottomAppBar.visibility = View.VISIBLE
+            bottomAppBar.replaceMenu(menuRes)
+            bottomAppBarTitle.visibility = View.INVISIBLE
+            bottomAppBar.performShow()
+        }
+    }
+
+    private fun hideBottomAppBar() {
+        binding.run {
+            bottomAppBar.performHide()
+            // Get a handle on the animator that hides the bottom app bar so we can wait to hide
+            // the fab and bottom app bar until after it's exit animation finishes.
+            bottomAppBar.animate().setListener(object : AnimatorListenerAdapter() {
+                var isCanceled = false
+                override fun onAnimationEnd(animation: Animator?) {
+                    if (isCanceled) return
+
+                    // Hide the BottomAppBar to avoid it showing above the keyboard
+                    // when composing a new email.
+                    bottomAppBar.visibility = View.GONE
+                }
+                override fun onAnimationCancel(animation: Animator?) {
+                    isCanceled = true
+                }
+            })
+        }
+    }
+
+    override fun onNavMenuItemClicked(item: NavigationModelItem.NavMenuItem) {
+        // Swap the list of emails for the given mailbox
+        navigateToHome(item.titleRes, item.destination)
+    }
+
+    private fun navigateToHome(@StringRes titleRes: Int, destination: Destinations) {
+        binding.bottomAppBarTitle.text = getString(titleRes)
+        currentNavigationFragment?.apply {
+            exitTransition = MaterialFadeThrough().apply {
+                duration = resources.getInteger(R.integer.motion_duration_large).toLong()
+            }
+        }
+        val directions = when(destination) {
+            Destinations.HOME -> R.id.nav_home
+            Destinations.CALENDAR -> R.id.nav_schedule
+            Destinations.GPA -> R.id.nav_gpa
+            Destinations.GRADES -> R.id.nav_grades
+            Destinations.PREMIUM -> R.id.nav_home
+        }
+        findNavController(R.id.nav_host_fragment).navigate(directions)
     }
 
     override fun onSupportNavigateUp(): Boolean {
@@ -95,45 +179,51 @@ class MainActivity : AppCompatActivity(), NavigationHost {
         }
     }
 
-
-    //TODO: implement
-    private fun showFragment(tag: String) {
-        var fragment: Fragment? = supportFragmentManager.findFragmentByTag(tag)
-        if (fragment == null) {
-            fragment = when (tag) {
-                WelcomeFragment.TAG -> {
-                    WelcomeFragment()
-                }
-                SettingsFragment.TAG -> {
-                    SettingsFragment()
-                }
-                else -> {
-                    WelcomeFragment()
-                }
+    override fun onMenuItemClick(item: MenuItem?): Boolean {
+        when (item?.itemId) {
+            R.id.menu_settings -> {
+                bottomNavDrawer.close()
+                navigateToSettings()
             }
+            R.id.menu_refresh -> true //TODO: refresh data here
         }
-        //replaceFragment(fragment, R.id.fragment_container)
-        supportFragmentManager
-            .beginTransaction()
-            .replace(R.id.fragment_container, fragment, tag)
-            .commit();
+        return true
     }
 
-    /**
-     * Navigate to the given fragment.
-     *
-     * @param fragment       Fragment to navigate to.
-     * @param addToBackstack Whether or not the current fragment should be added to the backstack.
-     */
-    override fun navigateTo(fragment: Fragment, addToBackstack: Boolean) {
-        val transaction = supportFragmentManager
-            .beginTransaction()
-            .replace(R.id.fragment_container, fragment)
-
-        if (addToBackstack) {
-            transaction.addToBackStack(null)
+    private fun navigateToSettings() {
+        currentNavigationFragment?.apply {
+            exitTransition = MaterialSharedAxis(MaterialSharedAxis.Z, true).apply {
+                duration = resources.getInteger(R.integer.motion_duration_large).toLong()
+            }
+            reenterTransition = MaterialSharedAxis(MaterialSharedAxis.Z, false).apply {
+                duration = resources.getInteger(R.integer.motion_duration_large).toLong()
+            }
         }
+        findNavController(R.id.nav_host_fragment).navigate(R.id.nav_settings)
+    }
 
-        transaction.commit()
+    override fun onDestinationChanged(
+        controller: NavController,
+        destination: NavDestination,
+        arguments: Bundle?
+    ) {
+        when (destination.id) {
+            R.id.nav_home -> {
+                setBottomAppBarForHome(R.menu.bottom_app_bar_menu)
+            }
+            R.id.nav_grades -> {
+                setBottomAppBarForHome(R.menu.bottom_app_bar_menu)
+            }
+            R.id.nav_schedule -> {
+                setBottomAppBarForHome(R.menu.bottom_app_bar_menu)
+            }
+            R.id.nav_gpa -> {
+                setBottomAppBarForHome(R.menu.bottom_app_bar_menu)
+            }
+            R.id.nav_settings -> {
+                //hideBottomAppBar()
+                setBottomAppBarForSettings(R.menu.bottom_app_bar_empty)
+            }
+        }
     }
 }

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<font-family xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <font
+        app:fontWeight="400"
+        app:font="@font/mplus_regular"/>
+    <font
+        app:fontWeight="500"
+        app:font="@font/mplus_medium"/>
+    <font
+        app:fontWeight="700"
+        app:font="@font/mplus_bold"/>
+    <font
+        app:fontWeight="800"
+        app:font="@font/mplus_extrabold"/>
+</font-family>

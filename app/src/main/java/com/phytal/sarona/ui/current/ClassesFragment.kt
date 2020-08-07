@@ -102,7 +102,7 @@ class ClassesFragment : ScopedFragment(), KodeinAware {
     }
 
     private fun updateLastUpdated(time: ZonedDateTime) {
-        val formatter = DateTimeFormatter.ofPattern("MM/dd HH:mm")
+        val formatter = DateTimeFormatter.ofPattern("MM/sarona_logo HH:mm")
         (activity as? AppCompatActivity)?.supportActionBar?.subtitle = "Last updated ${time.format(formatter)}"
     }
 
