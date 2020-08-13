@@ -8,6 +8,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:layout_gravity="center_horizontal"
+    android:background="@drawable/custom_bg_gradient"
     tools:layout_editor_absoluteY="50dp"
     tools:context=".ui.fragments.WelcomeFragment">
 

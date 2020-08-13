@@ -75,4 +75,31 @@
         android:name="com.phytal.sarona.ui.fragments.WelcomeFragment"
         tools:layout="@layout/fragment_welcome" >
     </fragment>
+
+    <fragment
+        android:id="@+id/nav_login"
+        android:name="com.phytal.sarona.ui.fragments.LoginFragment"
+        tools:layout="@layout/fragment_login" >
+    </fragment>
+    <action
+        android:id="@+id/action_global_loginFragment"
+        app:destination="@+id/nav_login" />
+
+    <fragment
+        android:id="@+id/nav_reg_email"
+        android:name="com.phytal.sarona.ui.auth.EmailRegisterFragment"
+        tools:layout="@layout/fragment_email_register" >
+    </fragment>
+    <action
+        android:id="@+id/action_global_regEmailFragment"
+        app:destination="@+id/nav_reg_email" />
+
+    <fragment
+        android:id="@+id/nav_login_email"
+        android:name="com.phytal.sarona.ui.auth.EmailLoginFragment"
+        tools:layout="@layout/fragment_email_login" >
+    </fragment>
+    <action
+        android:id="@+id/action_global_loginEmailFragment"
+        app:destination="@+id/nav_login_email" />
 </navigation>

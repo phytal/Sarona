@@ -28,12 +28,11 @@ object AccountStore {
 
     private val allUserAccounts = mutableListOf(
         Account(
-            0,
+            "0",
             "Jeff",
             "Hansen",
             "jeffh123",
             "123",
-            "d",
             R.drawable.sarona_logo,
             true
         )
@@ -60,9 +59,9 @@ object AccountStore {
     /**
      * Whether or not the given [Account.id] uid is an account owned by the current user.
      */
-    fun isUserAccount(id: Long): Boolean = allUserAccounts.any { it.id == id }
+    fun isUserAccount(id: String): Boolean = allUserAccounts.any { it.id == id }
 
-    fun setCurrentUserAccount(accountId: Long): Boolean {
+    fun setCurrentUserAccount(accountId: String): Boolean {
         var updated = false
         allUserAccounts.forEachIndexed { index, account ->
             val shouldCheck = account.id == accountId

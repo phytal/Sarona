@@ -2,8 +2,6 @@ package com.phytal.sarona.ui
 
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
-import com.google.android.material.transition.MaterialFadeThrough
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
@@ -12,7 +10,6 @@ import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
-import androidx.core.view.isVisible
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
@@ -20,13 +17,14 @@ import androidx.navigation.NavDestination
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
-import androidx.preference.PreferenceManager
+import com.google.android.material.transition.MaterialFadeThrough
 import com.google.android.material.transition.MaterialSharedAxis
+import com.google.firebase.auth.FirebaseAuth
 import com.phytal.sarona.R
-import com.phytal.sarona.ui.fragments.WelcomeFragment
-import com.phytal.sarona.ui.nav.*
 import com.phytal.sarona.databinding.ActivityMainBinding
+import com.phytal.sarona.ui.nav.*
 import com.phytal.sarona.util.contentView
+import java.lang.Exception
 
 
 class MainActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListener,
@@ -41,22 +39,15 @@ class MainActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListener,
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //setContentView(R.layout.activity_main)
+        val user = FirebaseAuth.getInstance().currentUser
 
-//        if (savedInstanceState == null) {
-//            supportFragmentManager
-//                .beginTransaction()
-//                .add(R.id.fragment_container, WelcomeFragment())
-//                .commit()
-//        }
-//        val sharedPreferences: SharedPreferences =
-//            PreferenceManager.getDefaultSharedPreferences(this)
-//        if (!sharedPreferences.contains("LOGIN_USERNAME") || !sharedPreferences.contains("LOGIN_PASSWORD") || !sharedPreferences.contains("LOGIN_LINK")) {
-//            showFragment("FRAGMENT_WELCOME")
-//        }
-//        else {
+        if (user != null) {
+            // User is signed in
             setUpBottomNavigation()
-//        }
+        } else {
+            setContentView(R.layout.activity_main)
+            findNavController(R.id.nav_host_fragment).navigate(R.id.nav_login)
+        }
     }
 
     private val currentNavigationFragment: Fragment?

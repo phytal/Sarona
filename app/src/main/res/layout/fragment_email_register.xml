@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/welcome_linear_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_gravity="center_horizontal"
+    android:background="@drawable/custom_bg_gradient"
+    tools:layout_editor_absoluteY="50dp"
+    tools:context=".ui.auth.EmailRegisterFragment">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="60dp"
+        android:text="Register With Email"
+        android:textSize="40sp"/>
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.Sarona.TextInputLayout"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:hint="Email"
+        android:layout_marginTop="50dp"
+        android:layout_gravity="center_horizontal"
+        app:boxCornerRadiusBottomEnd="30dp"
+        app:boxCornerRadiusTopEnd="30dp"
+        app:boxCornerRadiusBottomStart="30dp"
+        app:boxCornerRadiusTopStart="30dp"
+        app:startIconDrawable="@drawable/ic_outline_person">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/reg_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:ellipsize="start"
+            android:inputType="textEmailAddress"
+            android:singleLine="true" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.Sarona.TextInputLayout"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/welcome_password"
+        android:layout_marginTop="15dp"
+        android:layout_gravity="center_horizontal"
+        app:boxCornerRadiusBottomEnd="30dp"
+        app:boxCornerRadiusTopEnd="30dp"
+        app:boxCornerRadiusBottomStart="30dp"
+        app:boxCornerRadiusTopStart="30dp"
+        app:startIconDrawable="@drawable/ic_outline_lock"
+        app:endIconMode="password_toggle">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/reg_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:ellipsize="start"
+            android:inputType="textPassword"
+            android:singleLine="true" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/Widget.Sarona.TextInputLayout"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:hint="Confirm Password"
+        android:layout_marginTop="15dp"
+        android:layout_gravity="center_horizontal"
+        app:boxCornerRadiusBottomEnd="30dp"
+        app:boxCornerRadiusTopEnd="30dp"
+        app:boxCornerRadiusBottomStart="30dp"
+        app:boxCornerRadiusTopStart="30dp"
+        app:startIconDrawable="@drawable/ic_outline_lock"
+        app:endIconMode="password_toggle">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/reg_confirm_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:ellipsize="start"
+            android:inputType="textPassword"
+            android:singleLine="true" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/register_button"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:paddingVertical="13dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="30dp"
+        android:text="Register"
+        app:cornerRadius="20dp" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/login_clickable"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="true"
+        android:text="Already have an account?"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"/>
+
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="120dp"
+
+        android:text="@string/welcome_copyright"/>
+</androidx.appcompat.widget.LinearLayoutCompat>
