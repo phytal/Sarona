@@ -42,7 +42,11 @@ class SettingsFragment : SharedPreferences.OnSharedPreferenceChangeListener, Bas
             delete()
             true
         }
-
+        val addAccount = findPreference<Preference>("add_hac_account")
+        addAccount?.setOnPreferenceClickListener {
+            addAccount()
+            true
+        }
         // listeners for preferences
         bindPreferenceSummaryToValue(findPreference("pref_gpaCalc_ap"))
         bindPreferenceSummaryToValue(findPreference("pref_gpaCalc_pap"))
@@ -73,6 +77,9 @@ class SettingsFragment : SharedPreferences.OnSharedPreferenceChangeListener, Bas
                 Toast.makeText(requireContext(), "Successfully deleted account", Toast.LENGTH_SHORT)
                     .show()
             }
+    }
+    private fun addAccount() {
+        findNavController().navigate(R.id.nav_add_account)
     }
 
     companion object {

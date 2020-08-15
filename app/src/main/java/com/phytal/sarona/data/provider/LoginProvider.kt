@@ -6,7 +6,7 @@ interface LoginProvider {
 }
 
 data class LoginInformation(
-    val username: String,
-    val password: String,
-    val link: String
+    val username: String = "",
+    val password: String = "",
+    val link: String = ""
 )

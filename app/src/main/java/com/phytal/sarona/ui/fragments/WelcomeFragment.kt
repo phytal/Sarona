@@ -21,8 +21,8 @@ class WelcomeFragment : Fragment(), AdapterView.OnItemSelectedListener {
         val root = inflater.inflate(R.layout.fragment_welcome, container, false)
         val loginButton = root.findViewById<MaterialButton>(R.id.login_button)
         val spinner: Spinner = root.findViewById(R.id.district_spinner)
-        val usernameField = root.findViewById<TextInputEditText>(R.id.editTextUsername)
-        val passwordField = root.findViewById<TextInputEditText>(R.id.editTextPassword)
+        val usernameField = root.findViewById<TextInputEditText>(R.id.welcome_username)
+        val passwordField = root.findViewById<TextInputEditText>(R.id.welcome_password)
 
         val adapter = ArrayAdapter.createFromResource(requireContext(), R.array.welcome_district, android.R.layout.simple_spinner_item)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)

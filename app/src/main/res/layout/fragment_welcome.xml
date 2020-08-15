@@ -52,7 +52,7 @@
             app:startIconDrawable="@drawable/ic_outline_person">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/editTextUsername"
+                    android:id="@+id/welcome_username"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
@@ -76,7 +76,7 @@
             app:endIconMode="password_toggle">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/editTextPassword"
+                    android:id="@+id/welcome_password"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"

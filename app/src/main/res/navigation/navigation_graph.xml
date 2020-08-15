@@ -78,7 +78,7 @@
 
     <fragment
         android:id="@+id/nav_login"
-        android:name="com.phytal.sarona.ui.fragments.LoginFragment"
+        android:name="com.phytal.sarona.ui.auth.LoginFragment"
         tools:layout="@layout/fragment_login" >
     </fragment>
     <action
@@ -102,4 +102,13 @@
     <action
         android:id="@+id/action_global_loginEmailFragment"
         app:destination="@+id/nav_login_email" />
+
+    <fragment
+        android:id="@+id/nav_add_account"
+        android:name="com.phytal.sarona.ui.fragments.AddAccountFragment"
+        tools:layout="@layout/fragment_add_account" >
+    </fragment>
+    <action
+        android:id="@+id/action_global_addAccountFragment"
+        app:destination="@+id/nav_add_account" />
 </navigation>

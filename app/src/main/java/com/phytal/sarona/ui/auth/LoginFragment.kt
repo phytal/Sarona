@@ -1,4 +1,4 @@
-package com.phytal.sarona.ui.fragments
+package com.phytal.sarona.ui.auth
 
 import android.app.Activity
 import android.content.Intent
@@ -18,13 +18,10 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
-import com.google.android.gms.common.api.ApiException
-import com.google.android.gms.tasks.Task
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.GoogleAuthProvider
 import com.phytal.sarona.R
 import com.phytal.sarona.ui.MainActivity
-import kotlinx.android.synthetic.main.fragment_login.*
 import kotlinx.android.synthetic.main.fragment_login.view.*
 
 class LoginFragment : Fragment() {
