@@ -3,18 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/nav_home">
-
-    <fragment
-        android:id="@+id/nav_home"
-        android:name="com.phytal.sarona.ui.home.HomeFragment"
-        android:label="@string/nav_home"
-        tools:layout="@layout/fragment_home">
-        <action
-            android:id="@+id/action_homeFragment_to_homeFragment"
-            app:destination="@+id/nav_home"
-            app:launchSingleTop="true"/>
-    </fragment>
+    app:startDestination="@+id/nav_classes">
 
     <fragment
         android:id="@+id/nav_classes"
@@ -33,15 +22,6 @@
     <action
         android:id="@+id/action_global_gradesFragment"
         app:destination="@+id/nav_grades" />
-
-    <fragment
-        android:id="@+id/nav_schedule"
-        android:name="com.phytal.sarona.ui.fragments.ScheduleFragment"
-        android:label="@string/nav_calendar"
-        tools:layout="@layout/fragment_schedule" />
-    <action
-        android:id="@+id/action_global_scheduleFragment"
-        app:destination="@+id/nav_schedule" />
 
     <fragment
         android:id="@+id/nav_transcript"
@@ -75,40 +55,4 @@
         android:name="com.phytal.sarona.ui.fragments.WelcomeFragment"
         tools:layout="@layout/fragment_welcome" >
     </fragment>
-
-    <fragment
-        android:id="@+id/nav_login"
-        android:name="com.phytal.sarona.ui.auth.LoginFragment"
-        tools:layout="@layout/fragment_login" >
-    </fragment>
-    <action
-        android:id="@+id/action_global_loginFragment"
-        app:destination="@+id/nav_login" />
-
-    <fragment
-        android:id="@+id/nav_reg_email"
-        android:name="com.phytal.sarona.ui.auth.EmailRegisterFragment"
-        tools:layout="@layout/fragment_email_register" >
-    </fragment>
-    <action
-        android:id="@+id/action_global_regEmailFragment"
-        app:destination="@+id/nav_reg_email" />
-
-    <fragment
-        android:id="@+id/nav_login_email"
-        android:name="com.phytal.sarona.ui.auth.EmailLoginFragment"
-        tools:layout="@layout/fragment_email_login" >
-    </fragment>
-    <action
-        android:id="@+id/action_global_loginEmailFragment"
-        app:destination="@+id/nav_login_email" />
-
-    <fragment
-        android:id="@+id/nav_add_account"
-        android:name="com.phytal.sarona.ui.fragments.AddAccountFragment"
-        tools:layout="@layout/fragment_add_account" >
-    </fragment>
-    <action
-        android:id="@+id/action_global_addAccountFragment"
-        app:destination="@+id/nav_add_account" />
 </navigation>

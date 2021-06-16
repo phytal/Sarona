@@ -16,12 +16,6 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <data>
-        <variable
-            name="currentUserAccount"
-            type="com.phytal.sarona.data.Account" />
-    </data>
-
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -64,7 +58,6 @@
                 android:layout_gravity="center|top"
                 android:foreground="?attr/actionBarItemBackground"
                 android:contentDescription="@string/bottom_nav_drawer_profile_image_content_desc"
-                app:glideSrc="@{currentUserAccount.avatar}"
                 app:glideCenterCrop="@{true}"
                 app:glideCircularCrop="@{true}"/>
 

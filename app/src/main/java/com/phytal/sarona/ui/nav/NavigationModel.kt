@@ -28,9 +28,9 @@ object NavigationModel {
     private var navigationMenuItems = mutableListOf(
         NavigationModelItem.NavMenuItem(
             id = 0,
-            icon = R.drawable.ic_twotone_home,
-            titleRes = R.string.nav_home,
-            destination = Destinations.HOME,
+            icon = R.drawable.ic_twotone_classes,
+            titleRes = R.string.nav_classes,
+            destination = Destinations.CLASSES,
             checked = false
         ),
         NavigationModelItem.NavMenuItem(
@@ -45,20 +45,6 @@ object NavigationModel {
             icon = R.drawable.ic_twotone_gpa,
             titleRes = R.string.nav_gpa,
             destination = Destinations.GPA,
-            checked = false
-        ),
-        NavigationModelItem.NavMenuItem(
-            id = 3,
-            icon = R.drawable.ic_twotone_calendar,
-            titleRes = R.string.nav_calendar,
-            destination = Destinations.CALENDAR,
-            checked = false
-        ),
-        NavigationModelItem.NavMenuItem(
-            id = 4,
-            icon = R.drawable.ic_twotone_premium,
-            titleRes = R.string.nav_premium,
-            destination = Destinations.PREMIUM,
             checked = false
         )
     )

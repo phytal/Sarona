@@ -14,10 +14,10 @@ import retrofit2.http.Query
 
 interface HacApiService {
 
-    @GET("api/hac")
-    fun getAllCourses(@Query("hacLink") hacLink: String,
-                      @Query("username") username: String,
-                      @Query("password") password: String):
+    @GET("grades")
+    fun getAllCourses(@Query("l") hacLink: String,
+                      @Query("u") username: String,
+                      @Query("p") password: String):
             Observable<CourseResponse>
 
     companion object {
@@ -37,7 +37,7 @@ interface HacApiService {
                 .addCallAdapterFactory(rxAdapter)
                 .addConverterFactory(
                     GsonConverterFactory.create())
-                .baseUrl("https://hac-web-api-production.herokuapp.com/")
+                .baseUrl("https://flask-hac-api.herokuapp.com/")
                 .build()
                 .create(HacApiService::class.java)
         }

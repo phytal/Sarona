@@ -10,7 +10,7 @@ import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
 import com.phytal.sarona.R
 import com.phytal.sarona.ui.NavigationHost
-import com.phytal.sarona.ui.home.HomeFragment
+import com.phytal.sarona.ui.current.ClassesFragment
 
 
 class WelcomeFragment : Fragment(), AdapterView.OnItemSelectedListener {
@@ -21,8 +21,8 @@ class WelcomeFragment : Fragment(), AdapterView.OnItemSelectedListener {
         val root = inflater.inflate(R.layout.fragment_welcome, container, false)
         val loginButton = root.findViewById<MaterialButton>(R.id.login_button)
         val spinner: Spinner = root.findViewById(R.id.district_spinner)
-        val usernameField = root.findViewById<TextInputEditText>(R.id.welcome_username)
-        val passwordField = root.findViewById<TextInputEditText>(R.id.welcome_password)
+        val usernameField = root.findViewById<TextInputEditText>(R.id.editTextUsername)
+        val passwordField = root.findViewById<TextInputEditText>(R.id.editTextPassword)
 
         val adapter = ArrayAdapter.createFromResource(requireContext(), R.array.welcome_district, android.R.layout.simple_spinner_item)
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
@@ -35,7 +35,7 @@ class WelcomeFragment : Fragment(), AdapterView.OnItemSelectedListener {
                 Toast.makeText(context, "Please enter a username and password", Toast.LENGTH_SHORT).show()
             }
             else {
-                (activity as NavigationHost).navigateTo(HomeFragment(), false) // Navigate to the next Fragment
+                (activity as NavigationHost).navigateTo(ClassesFragment(), false) // Navigate to the next Fragment
             }
         }
 

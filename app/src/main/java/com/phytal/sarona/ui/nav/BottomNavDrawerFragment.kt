@@ -34,8 +34,6 @@ import com.google.android.material.bottomsheet.BottomSheetBehavior.STATE_HIDDEN
 import com.google.android.material.bottomsheet.BottomSheetBehavior.from
 import com.google.android.material.shape.MaterialShapeDrawable
 import com.phytal.sarona.R
-import com.phytal.sarona.data.Account
-import com.phytal.sarona.data.AccountStore
 import com.phytal.sarona.databinding.FragmentBottomNavDrawerBinding
 import com.phytal.sarona.util.lerp
 import com.phytal.sarona.util.themeColor
@@ -48,8 +46,7 @@ import kotlin.math.abs
  */
 class BottomNavDrawerFragment :
     Fragment(),
-    NavigationAdapter.NavigationAdapterListener,
-    AccountAdapter.AccountAdapterListener {
+    NavigationAdapter.NavigationAdapterListener {
 
     /**
      * Enumeration of states in which the account picker can be in.
@@ -227,13 +224,6 @@ class BottomNavDrawerFragment :
                 adapter.submitList(it)
             }
             NavigationModel.setNavigationMenuItemChecked(0)
-
-            val accountAdapter = AccountAdapter(this@BottomNavDrawerFragment)
-            accountRecyclerView.adapter = accountAdapter
-            AccountStore.userAccounts.observe(viewLifecycleOwner) {
-                accountAdapter.submitList(it)
-                currentUserAccount = it.first { acc -> acc.isCurrentAccount }
-            }
         }
     }
 
@@ -280,11 +270,6 @@ class BottomNavDrawerFragment :
         NavigationModel.setNavigationMenuItemChecked(item.id)
         close()
         navigationListeners.forEach { it.onNavMenuItemClicked(item) }
-    }
-
-    override fun onAccountClicked(account: Account) {
-        AccountStore.setCurrentUserAccount(account.id)
-        toggleSandwich()
     }
 
     /**

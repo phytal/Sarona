@@ -7,12 +7,12 @@ import android.widget.TextView
 import androidx.annotation.NonNull
 import androidx.recyclerview.widget.RecyclerView
 import com.phytal.sarona.R
-import com.phytal.sarona.data.db.entities.CurrentCourse
+import com.phytal.sarona.data.db.entities.Course
 import com.phytal.sarona.data.db.entities.CurrentCourseList
 
 class CourseListAdapter : RecyclerView.Adapter<CourseListAdapter.CourseHolder>() {
 
-    private var courses: List<CurrentCourse> = ArrayList()
+    private var courses: List<Course> = ArrayList()
 
     @NonNull
     override fun onCreateViewHolder(@NonNull parent: ViewGroup, viewType: Int): CourseHolder {
@@ -23,9 +23,9 @@ class CourseListAdapter : RecyclerView.Adapter<CourseListAdapter.CourseHolder>()
 
     override fun onBindViewHolder(@NonNull holder: CourseHolder, position: Int) {
         val currentCourse = courses[position]
-        holder.textViewTitle.text = currentCourse.courseName
-        holder.textViewDescription.setText(currentCourse.courseId)
-        holder.textViewPriority.text = currentCourse.courseAverage.toString()
+        holder.textViewTitle.text = currentCourse.name
+        holder.textViewDescription.setText(currentCourse.course)
+        holder.textViewPriority.text = currentCourse.average.toString()
     }
 
     override fun getItemCount(): Int {

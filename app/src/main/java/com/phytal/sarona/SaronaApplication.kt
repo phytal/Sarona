@@ -5,8 +5,6 @@ import android.content.SharedPreferences
 import androidx.preference.PreferenceManager
 import com.jakewharton.threetenabp.AndroidThreeTen
 import com.phytal.sarona.data.db.CourseDatabase
-import com.phytal.sarona.data.firebase.FirestoreProvider
-import com.phytal.sarona.data.firebase.FirestoreProviderImpl
 import com.phytal.sarona.data.network.*
 import com.phytal.sarona.data.provider.LoginProvider
 import com.phytal.sarona.data.provider.LoginProviderImpl
@@ -36,7 +34,6 @@ class SaronaApplication : Application(), KodeinAware {
         bind<CourseRepository>() with singleton { CourseRepositoryImpl(instance(), instance()) }
         bind<LoginProvider>() with singleton { LoginProviderImpl(instance()) }
         bind() from provider { CurrentCourseViewModelFactory(instance(), instance()) }
-        bind<FirestoreProvider>() with singleton { FirestoreProviderImpl() }
     }
     override fun onCreate() {
         super.onCreate()

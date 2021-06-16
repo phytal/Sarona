@@ -68,14 +68,5 @@
         app:key="feedback"
         app:title="Send feedback"
         app:summary="Report technical issues or suggest new features"/>
-    <Preference
-        app:key="add_hac_account"
-        app:title="Add Account" />
-    <Preference
-        app:key="logout"
-        app:title="Logout" />
-    <Preference
-        app:key="delete_account"
-        app:title="Delete Account" />
 
 </PreferenceScreen>

@@ -4,7 +4,6 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
-import com.phytal.sarona.data.db.entities.CurrentCourse
 import com.phytal.sarona.data.provider.LoginProvider
 import com.phytal.sarona.data.repository.CourseRepository
 import com.phytal.sarona.internal.lazyDeferred

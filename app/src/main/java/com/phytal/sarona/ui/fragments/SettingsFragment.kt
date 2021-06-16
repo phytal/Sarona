@@ -6,12 +6,9 @@ import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Bundle
 import android.widget.Toast
-import androidx.navigation.fragment.findNavController
 import androidx.preference.*
-import com.firebase.ui.auth.AuthUI
 import com.phytal.sarona.R
 import com.phytal.sarona.internal.helpers.ThemeHelper.applyTheme
-import com.phytal.sarona.ui.MainActivity
 import com.phytal.sarona.ui.base.BasePreferenceFragment
 
 
@@ -32,21 +29,6 @@ class SettingsFragment : SharedPreferences.OnSharedPreferenceChangeListener, Bas
             true
         }
 
-        val logout = findPreference<Preference>("logout")
-        logout?.setOnPreferenceClickListener {
-            signOut()
-            true
-        }
-        val deleteAccount = findPreference<Preference>("delete_account")
-        deleteAccount?.setOnPreferenceClickListener {
-            delete()
-            true
-        }
-        val addAccount = findPreference<Preference>("add_hac_account")
-        addAccount?.setOnPreferenceClickListener {
-            addAccount()
-            true
-        }
         // listeners for preferences
         bindPreferenceSummaryToValue(findPreference("pref_gpaCalc_ap"))
         bindPreferenceSummaryToValue(findPreference("pref_gpaCalc_pap"))
@@ -59,27 +41,6 @@ class SettingsFragment : SharedPreferences.OnSharedPreferenceChangeListener, Bas
             val themeOption = newValue as String
             applyTheme(themeOption)
         }
-    }
-
-    private fun signOut() {
-        AuthUI.getInstance()
-            .signOut(requireContext())
-            .addOnCompleteListener {
-                findNavController().navigate(R.id.nav_login)
-                Toast.makeText(requireContext(), "Successfully signed out", Toast.LENGTH_SHORT).show()
-            }
-    }
-
-    private fun delete() {
-        AuthUI.getInstance()
-            .delete(requireContext())
-            .addOnCompleteListener {
-                Toast.makeText(requireContext(), "Successfully deleted account", Toast.LENGTH_SHORT)
-                    .show()
-            }
-    }
-    private fun addAccount() {
-        findNavController().navigate(R.id.nav_add_account)
     }
 
     companion object {

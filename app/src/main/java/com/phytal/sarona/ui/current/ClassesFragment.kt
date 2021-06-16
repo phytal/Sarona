@@ -95,16 +95,16 @@ class ClassesFragment : ScopedFragment(), KodeinAware {
             if (it == null) return@Observer
 
             group_loading.visibility = View.GONE
-            updateLastUpdated(ZonedDateTime.now())
+//            updateLastUpdated(ZonedDateTime.now())
 
             adapter.setCourses(it)
         })
     }
 
-    private fun updateLastUpdated(time: ZonedDateTime) {
-        val formatter = DateTimeFormatter.ofPattern("MM/sarona_logo HH:mm")
-        (activity as? AppCompatActivity)?.supportActionBar?.subtitle = "Last updated ${time.format(formatter)}"
-    }
+//    private fun updateLastUpdated(time: ZonedDateTime) {
+//        val formatter = DateTimeFormatter.ofPattern("MM/sarona_logo HH:mm")
+//        (activity as? AppCompatActivity)?.supportActionBar?.subtitle = "Last updated ${time.format(formatter)}"
+//    }
 
     private suspend fun setNewTextOnMainThread(input: String) {
         withContext(Main) {

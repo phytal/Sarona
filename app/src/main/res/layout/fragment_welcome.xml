@@ -8,7 +8,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:layout_gravity="center_horizontal"
-    android:background="@drawable/custom_bg_gradient"
     tools:layout_editor_absoluteY="50dp"
     tools:context=".ui.fragments.WelcomeFragment">
 
@@ -52,7 +51,7 @@
             app:startIconDrawable="@drawable/ic_outline_person">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/welcome_username"
+                    android:id="@+id/editTextUsername"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
@@ -76,7 +75,7 @@
             app:endIconMode="password_toggle">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/welcome_password"
+                    android:id="@+id/editTextPassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"

@@ -7,10 +7,10 @@ import androidx.room.TypeConverters
 
 const val CURRENT_COURSE_LIST_ID = 0
 
-@Entity(tableName = "current_course_table")
+@Entity(tableName = "course_table")
 data class CurrentCourseList(
     @TypeConverters(DataConverter::class)
-    val courses: List<CurrentCourse>
+    val courses: List<Course>
 ) {
     @PrimaryKey(autoGenerate = false)
     var id: Int = CURRENT_COURSE_LIST_ID

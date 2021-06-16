@@ -12,8 +12,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import java.time.ZonedDateTime
 
-class CourseRepositoryImpl
-    (
+class CourseRepositoryImpl (
     private val currentCourseDao: CurrentCourseDao,
     private val courseNetworkDataSource: CourseNetworkDataSource
 ): CourseRepository {
@@ -32,7 +31,7 @@ class CourseRepositoryImpl
 
     private fun persistFetchedCurrentCourse(fetchedCourses: CourseResponse) {
         GlobalScope.launch(Dispatchers.IO) {
-            currentCourseDao.upsert(CurrentCourseList(fetchedCourses.currentAssignmentList))
+            currentCourseDao.upsert(CurrentCourseList(fetchedCourses.courses))
         }
     }
 

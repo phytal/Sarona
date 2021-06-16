@@ -18,23 +18,23 @@ class DataConverter {
     }
 
     @TypeConverter
-    fun toCurrentCourse(currentCourseListString: String): List<CurrentCourse>? {
+    fun toCurrentCourse(currentCourseListString: String): List<Course>? {
         if (currentCourseListString == null) {
             return null
         }
         val gson = Gson()
         val type: Type = object :
-            TypeToken<List<CurrentCourse>>() {}.type
-        return gson.fromJson<List<CurrentCourse>>(currentCourseListString, type)
+            TypeToken<List<Course>>() {}.type
+        return gson.fromJson<List<Course>>(currentCourseListString, type)
     }
     @TypeConverter
-    fun fromCurrentCourse(currentCourseList: List<CurrentCourse>): String? {
+    fun fromCurrentCourse(currentCourseList: List<Course>): String? {
         if (currentCourseList == null) {
             return null
         }
         val gson = Gson()
         val type: Type = object :
-            TypeToken<List<CurrentCourse>>() {}.type
+            TypeToken<List<Course>>() {}.type
         return gson.toJson(currentCourseList, type)
     }
 

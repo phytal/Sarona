@@ -13,16 +13,6 @@
         <item name="itemIconTint">@color/color_on_surface_emphasis_medium</item>
     </style>
 
-    <style name="Widget.Sarona.Chip.Entry" parent="Widget.MaterialComponents.Chip.Entry">
-        <item name="closeIconSize">0dp</item>
-        <item name="closeIconEnabled">false</item>
-        <item name="chipIcon">@drawable/avatar_none</item>
-        <item name="chipIconSize">@dimen/chip_icon_diameter</item>
-        <item name="chipStartPadding">0dp</item>
-        <item name="android:checkable">false</item>
-    </style>
-
-
     <style name="Widget.Sarona.TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <item name="hintTextAppearance">@style/TextAppearance.Sarona.TextInputLayout.HintText</item>
         <item name="hintTextColor">@color/design_default_color_primary</item>
@@ -44,26 +34,5 @@
 
     <style name="Widget.Sarona.Button.TextButton" parent="Widget.MaterialComponents.Button.TextButton">
         <item name="android:textColor">?android:attr/textColorPrimary</item>
-    </style>
-
-    <style name="Sarona.TopProgressBar" parent="Widget.MaterialComponents.ProgressIndicator.Linear.Indeterminate">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">4dp</item>
-        <item name="android:indeterminate">true</item>
-        <item name="android:visibility">invisible</item>
-    </style>
-
-    <style name="CustomWingInner">
-        <item name="android:layout_width">match_parent</item>
-        <item name="android:layout_height">1dp</item>
-        <item name="android:layout_gravity">center_vertical</item>
-        <item name="android:background">#FFFFFF</item>
-    </style>
-
-    <style name="CustomWingOuter">
-        <item name="android:layout_width">0dp</item>
-        <item name="android:layout_height">0dp</item>
-        <item name="android:layout_marginLeft">16dp</item>
-        <item name="android:layout_marginRight">16dp</item>
     </style>
 </resources>

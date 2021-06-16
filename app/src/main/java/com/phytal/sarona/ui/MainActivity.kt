@@ -2,6 +2,8 @@ package com.phytal.sarona.ui
 
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
+import com.google.android.material.transition.MaterialFadeThrough
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
@@ -10,6 +12,7 @@ import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
+import androidx.core.view.isVisible
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
@@ -17,14 +20,13 @@ import androidx.navigation.NavDestination
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
-import com.google.android.material.transition.MaterialFadeThrough
+import androidx.preference.PreferenceManager
 import com.google.android.material.transition.MaterialSharedAxis
-import com.google.firebase.auth.FirebaseAuth
 import com.phytal.sarona.R
-import com.phytal.sarona.databinding.ActivityMainBinding
+import com.phytal.sarona.ui.fragments.WelcomeFragment
 import com.phytal.sarona.ui.nav.*
+import com.phytal.sarona.databinding.ActivityMainBinding
 import com.phytal.sarona.util.contentView
-import java.lang.Exception
 
 
 class MainActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListener,
@@ -39,15 +41,22 @@ class MainActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListener,
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val user = FirebaseAuth.getInstance().currentUser
+        //setContentView(R.layout.activity_main)
 
-        if (user != null) {
-            // User is signed in
+//        if (savedInstanceState == null) {
+//            supportFragmentManager
+//                .beginTransaction()
+//                .add(R.id.fragment_container, WelcomeFragment())
+//                .commit()
+//        }
+//        val sharedPreferences: SharedPreferences =
+//            PreferenceManager.getDefaultSharedPreferences(this)
+//        if (!sharedPreferences.contains("LOGIN_USERNAME") || !sharedPreferences.contains("LOGIN_PASSWORD") || !sharedPreferences.contains("LOGIN_LINK")) {
+//            showFragment("FRAGMENT_WELCOME")
+//        }
+//        else {
             setUpBottomNavigation()
-        } else {
-            setContentView(R.layout.activity_main)
-            findNavController(R.id.nav_host_fragment).navigate(R.id.nav_login)
-        }
+//        }
     }
 
     private val currentNavigationFragment: Fragment?
@@ -148,11 +157,9 @@ class MainActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListener,
             }
         }
         val directions = when(destination) {
-            Destinations.HOME -> R.id.nav_home
-            Destinations.CALENDAR -> R.id.nav_schedule
+            Destinations.CLASSES -> R.id.nav_classes
             Destinations.GPA -> R.id.nav_gpa
             Destinations.GRADES -> R.id.nav_grades
-            Destinations.PREMIUM -> R.id.nav_home
         }
         findNavController(R.id.nav_host_fragment).navigate(directions)
     }
@@ -199,13 +206,10 @@ class MainActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListener,
         arguments: Bundle?
     ) {
         when (destination.id) {
-            R.id.nav_home -> {
+            R.id.nav_classes -> {
                 setBottomAppBarForHome(R.menu.bottom_app_bar_menu)
             }
             R.id.nav_grades -> {
-                setBottomAppBarForHome(R.menu.bottom_app_bar_menu)
-            }
-            R.id.nav_schedule -> {
                 setBottomAppBarForHome(R.menu.bottom_app_bar_menu)
             }
             R.id.nav_gpa -> {
