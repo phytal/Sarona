@@ -1,4 +1,4 @@
-package com.phytal.sarona.ui.current
+package com.phytal.sarona.ui.courses
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider

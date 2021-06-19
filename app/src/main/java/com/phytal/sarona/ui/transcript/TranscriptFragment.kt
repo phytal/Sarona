@@ -1,4 +1,4 @@
-package com.phytal.sarona.ui.fragments
+package com.phytal.sarona.ui.transcript
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.phytal.sarona.R
-import com.phytal.sarona.ui.viewmodels.TranscriptViewModel
 
 class TranscriptFragment : Fragment() {
 

@@ -1,4 +1,4 @@
-package com.phytal.sarona.ui.fragments
+package com.phytal.sarona.ui.welcome
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,7 +10,7 @@ import com.google.android.material.button.MaterialButton
 import com.google.android.material.textfield.TextInputEditText
 import com.phytal.sarona.R
 import com.phytal.sarona.ui.NavigationHost
-import com.phytal.sarona.ui.current.ClassesFragment
+import com.phytal.sarona.ui.courses.CoursesFragment
 
 
 class WelcomeFragment : Fragment(), AdapterView.OnItemSelectedListener {
@@ -35,7 +35,7 @@ class WelcomeFragment : Fragment(), AdapterView.OnItemSelectedListener {
                 Toast.makeText(context, "Please enter a username and password", Toast.LENGTH_SHORT).show()
             }
             else {
-                (activity as NavigationHost).navigateTo(ClassesFragment(), false) // Navigate to the next Fragment
+                (activity as NavigationHost).navigateTo(CoursesFragment(), false) // Navigate to the next Fragment
             }
         }
 

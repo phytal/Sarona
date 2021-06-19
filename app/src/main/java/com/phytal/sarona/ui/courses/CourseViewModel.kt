@@ -1,8 +1,5 @@
-package com.phytal.sarona.ui.current
+package com.phytal.sarona.ui.courses
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
 import com.phytal.sarona.data.provider.LoginProvider
 import com.phytal.sarona.data.repository.CourseRepository

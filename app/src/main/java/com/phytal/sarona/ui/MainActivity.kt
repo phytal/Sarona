@@ -3,7 +3,6 @@ package com.phytal.sarona.ui
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import com.google.android.material.transition.MaterialFadeThrough
-import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
@@ -12,7 +11,6 @@ import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.core.view.GravityCompat
-import androidx.core.view.isVisible
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import androidx.navigation.NavController
@@ -20,10 +18,8 @@ import androidx.navigation.NavDestination
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
-import androidx.preference.PreferenceManager
 import com.google.android.material.transition.MaterialSharedAxis
 import com.phytal.sarona.R
-import com.phytal.sarona.ui.fragments.WelcomeFragment
 import com.phytal.sarona.ui.nav.*
 import com.phytal.sarona.databinding.ActivityMainBinding
 import com.phytal.sarona.util.contentView

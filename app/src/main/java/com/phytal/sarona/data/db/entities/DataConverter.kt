@@ -18,24 +18,24 @@ class DataConverter {
     }
 
     @TypeConverter
-    fun toCurrentCourse(currentCourseListString: String): List<Course>? {
-        if (currentCourseListString == null) {
+    fun toCourses(coursesString: String): List<Course>? {
+        if (coursesString == null) {
             return null
         }
         val gson = Gson()
         val type: Type = object :
             TypeToken<List<Course>>() {}.type
-        return gson.fromJson<List<Course>>(currentCourseListString, type)
+        return gson.fromJson<List<Course>>(coursesString, type)
     }
     @TypeConverter
-    fun fromCurrentCourse(currentCourseList: List<Course>): String? {
-        if (currentCourseList == null) {
+    fun fromCourses(courses: List<Course>): String? {
+        if (courses == null) {
             return null
         }
         val gson = Gson()
         val type: Type = object :
             TypeToken<List<Course>>() {}.type
-        return gson.toJson(currentCourseList, type)
+        return gson.toJson(courses, type)
     }
 
     @TypeConverter
@@ -47,5 +47,26 @@ class DataConverter {
         val type: Type = object :
             TypeToken<List<Assignment>>() {}.type
         return gson.fromJson<List<Assignment>>(assignmentListString, type)
+    }
+
+    @TypeConverter
+    fun toCourseList(courseListString: String): List<List<Course>>? {
+        if (courseListString == null) {
+            return null
+        }
+        val gson = Gson()
+        val type: Type = object :
+            TypeToken<List<List<Course>>>() {}.type
+        return gson.fromJson<List<List<Course>>>(courseListString, type)
+    }
+    @TypeConverter
+    fun fromCourseList(courseList: List<List<Course>>): String? {
+        if (courseList == null) {
+            return null
+        }
+        val gson = Gson()
+        val type: Type = object :
+            TypeToken<List<List<Course>>>() {}.type
+        return gson.toJson(courseList, type)
     }
 }

@@ -17,7 +17,7 @@ abstract class CourseDatabase: RoomDatabase() {
     abstract fun courseDao(): CurrentCourseDao
 
     companion object : SingletonHolder<CourseDatabase, Context>({
-        Room.databaseBuilder(it.applicationContext, CourseDatabase::class.java, "current_course_table.db")
+        Room.databaseBuilder(it.applicationContext, CourseDatabase::class.java, "course_table.db")
             .fallbackToDestructiveMigration()
             .build()
     })

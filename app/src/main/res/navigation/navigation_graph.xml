@@ -7,16 +7,16 @@
 
     <fragment
         android:id="@+id/nav_classes"
-        android:name="com.phytal.sarona.ui.current.ClassesFragment"
+        android:name="com.phytal.sarona.ui.courses.CoursesFragment"
         android:label="@string/nav_classes"
-        tools:layout="@layout/fragment_classes" />
+        tools:layout="@layout/fragment_courses" />
     <action
         android:id="@+id/action_global_classesFragment"
         app:destination="@+id/nav_classes" />
 
     <fragment
         android:id="@+id/nav_grades"
-        android:name="com.phytal.sarona.ui.fragments.GradesFragment"
+        android:name="com.phytal.sarona.ui.grades.GradesFragment"
         android:label="@string/nav_grades"
         tools:layout="@layout/fragment_assignments" />
     <action
@@ -25,7 +25,7 @@
 
     <fragment
         android:id="@+id/nav_transcript"
-        android:name="com.phytal.sarona.ui.fragments.TranscriptFragment"
+        android:name="com.phytal.sarona.ui.transcript.TranscriptFragment"
         android:label="@string/nav_transcript"
         tools:layout="@layout/fragment_transcript" />
     <action
@@ -34,7 +34,7 @@
 
     <fragment
         android:id="@+id/nav_gpa"
-        android:name="com.phytal.sarona.ui.fragments.CalculatorFragment"
+        android:name="com.phytal.sarona.ui.calculator.CalculatorFragment"
         android:label="@string/nav_gpa"
         tools:layout="@layout/fragment_calculator" />
     <action
@@ -43,7 +43,7 @@
 
     <fragment
         android:id="@+id/nav_settings"
-        android:name="com.phytal.sarona.ui.fragments.SettingsFragment"
+        android:name="com.phytal.sarona.ui.settings.SettingsFragment"
         android:label="@string/nav_settings"
         tools:layout="@xml/preference_main" />
     <action
@@ -52,7 +52,7 @@
 
     <fragment
         android:id="@+id/nav_welcome"
-        android:name="com.phytal.sarona.ui.fragments.WelcomeFragment"
+        android:name="com.phytal.sarona.ui.welcome.WelcomeFragment"
         tools:layout="@layout/fragment_welcome" >
     </fragment>
 </navigation>

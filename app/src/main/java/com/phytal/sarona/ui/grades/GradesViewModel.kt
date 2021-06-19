@@ -1,13 +1,13 @@
-package com.phytal.sarona.ui.viewmodels
+package com.phytal.sarona.ui.grades
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class ScheduleViewModel : ViewModel() {
+class GradesViewModel : ViewModel() {
 
     private val _text = MutableLiveData<String>().apply {
-        value = "This is schedule Fragment"
+        value = "This is grades Fragment"
     }
     val text: LiveData<String> = _text
 }

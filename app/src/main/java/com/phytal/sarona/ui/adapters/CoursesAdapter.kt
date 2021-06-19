@@ -10,7 +10,7 @@ import com.phytal.sarona.R
 import com.phytal.sarona.data.db.entities.Course
 import com.phytal.sarona.data.db.entities.CurrentCourseList
 
-class CourseListAdapter : RecyclerView.Adapter<CourseListAdapter.CourseHolder>() {
+class CoursesAdapter : RecyclerView.Adapter<CoursesAdapter.CourseHolder>() {
 
     private var courses: List<Course> = ArrayList()
 
@@ -33,7 +33,7 @@ class CourseListAdapter : RecyclerView.Adapter<CourseListAdapter.CourseHolder>()
     }
 
     fun setCourses(courses: CurrentCourseList) {
-        this.courses = courses.courses
+        this.courses = courses.yearCourses[0]
         notifyDataSetChanged()
     }
 

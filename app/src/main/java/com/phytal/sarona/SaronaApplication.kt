@@ -12,7 +12,7 @@ import com.phytal.sarona.data.repository.CourseRepository
 import com.phytal.sarona.data.repository.CourseRepositoryImpl
 import com.phytal.sarona.internal.helpers.ThemeHelper
 import com.phytal.sarona.internal.helpers.ThemeHelper.applyTheme
-import com.phytal.sarona.ui.current.CurrentCourseViewModelFactory
+import com.phytal.sarona.ui.courses.CurrentCourseViewModelFactory
 import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.androidXModule

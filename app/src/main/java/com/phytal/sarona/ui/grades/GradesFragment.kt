@@ -1,16 +1,12 @@
-package com.phytal.sarona.ui.fragments
+package com.phytal.sarona.ui.grades
 
 import android.os.Bundle
 import android.view.*
-import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Toast
 import com.phytal.sarona.R
-import com.phytal.sarona.ui.viewmodels.GradesViewModel
 
 class GradesFragment : Fragment() {
 

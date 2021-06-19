@@ -1,13 +1,13 @@
-package com.phytal.sarona.ui.viewmodels
+package com.phytal.sarona.ui.transcript
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 
-class SettingsViewModel : ViewModel() {
+class TranscriptViewModel : ViewModel() {
 
     private val _text = MutableLiveData<String>().apply {
-        value = "This is settings Fragment"
+        value = "This is transcript Fragment"
     }
     val text: LiveData<String> = _text
 }

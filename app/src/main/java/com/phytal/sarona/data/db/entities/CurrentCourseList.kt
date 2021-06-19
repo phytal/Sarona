@@ -10,7 +10,7 @@ const val CURRENT_COURSE_LIST_ID = 0
 @Entity(tableName = "course_table")
 data class CurrentCourseList(
     @TypeConverters(DataConverter::class)
-    val courses: List<Course>
+    val yearCourses: List<List<Course>>
 ) {
     @PrimaryKey(autoGenerate = false)
     var id: Int = CURRENT_COURSE_LIST_ID

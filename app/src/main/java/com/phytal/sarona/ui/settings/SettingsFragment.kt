@@ -1,4 +1,4 @@
-package com.phytal.sarona.ui.fragments
+package com.phytal.sarona.ui.settings
 
 import android.content.Context
 import android.content.Intent
@@ -17,7 +17,7 @@ class SettingsFragment : SharedPreferences.OnSharedPreferenceChangeListener, Bas
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.preference_main, rootKey)
 
-        SettingsFragment.context = this.requireContext()
+        Companion.context = this.requireContext()
         preferenceManager.sharedPreferences.registerOnSharedPreferenceChangeListener(this)
         onSharedPreferenceChanged(preferenceManager.sharedPreferences, "pref_theme")
 
