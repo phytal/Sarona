@@ -8,11 +8,17 @@ import androidx.annotation.NonNull
 import androidx.recyclerview.widget.RecyclerView
 import com.phytal.sarona.R
 import com.phytal.sarona.data.db.entities.Course
-import com.phytal.sarona.data.db.entities.CurrentCourseList
+import com.phytal.sarona.data.db.entities.CourseList
 
-class CoursesAdapter : RecyclerView.Adapter<CoursesAdapter.CourseHolder>() {
+class CoursesAdapter(
+    private val listener: OnItemClickListener
+) : RecyclerView.Adapter<CoursesAdapter.CourseHolder>() {
 
-    private var courses: List<Course> = ArrayList()
+    interface OnItemClickListener {
+        fun onItemClick(course : Course)
+    }
+
+    private var courses : List<Course> = ArrayList()
 
     @NonNull
     override fun onCreateViewHolder(@NonNull parent: ViewGroup, viewType: Int): CourseHolder {
@@ -22,17 +28,18 @@ class CoursesAdapter : RecyclerView.Adapter<CoursesAdapter.CourseHolder>() {
     }
 
     override fun onBindViewHolder(@NonNull holder: CourseHolder, position: Int) {
-        val currentCourse = courses[position]
-        holder.textViewTitle.text = currentCourse.name
-        holder.textViewDescription.setText(currentCourse.course)
-        holder.textViewPriority.text = currentCourse.average.toString()
+        val course = courses[position]
+        holder.textViewTitle.text = course.name
+        holder.textViewDescription.text = course.course
+        holder.textViewPriority.text = course.average.toString()
+        holder.itemView.setOnClickListener { listener }
     }
 
     override fun getItemCount(): Int {
         return courses.size
     }
 
-    fun setCourses(courses: CurrentCourseList) {
+    fun setCourses(courses: CourseList) {
         this.courses = courses.yearCourses[0]
         notifyDataSetChanged()
     }

@@ -1,19 +1,17 @@
 package com.phytal.sarona.data.repository
 
 import androidx.lifecycle.LiveData
-import com.phytal.sarona.data.db.CurrentCourseDao
-import com.phytal.sarona.data.db.entities.CurrentCourseList
+import com.phytal.sarona.data.db.CourseDao
+import com.phytal.sarona.data.db.entities.Course
+import com.phytal.sarona.data.db.entities.CourseList
 import com.phytal.sarona.data.network.CourseNetworkDataSource
-import com.phytal.sarona.data.network.response.CourseResponse
 import com.phytal.sarona.data.provider.LoginInformation
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
 import java.time.ZonedDateTime
 
+@DelicateCoroutinesApi
 class CourseRepositoryImpl (
-    private val currentCourseDao: CurrentCourseDao,
+    private val courseDao: CourseDao,
     private val courseNetworkDataSource: CourseNetworkDataSource
 ): CourseRepository {
 
@@ -22,16 +20,17 @@ class CourseRepositoryImpl (
             persistFetchedCurrentCourse(newCurrentCourses)
         }
     }
-    override suspend fun getCurrentCourses(loginInfo: LoginInformation): LiveData<out CurrentCourseList> {
+    override suspend fun getCurrentCourses(loginInfo: LoginInformation): LiveData<out CourseList> {
         return withContext(Dispatchers.IO) {
             initCourseData(loginInfo)
-            return@withContext currentCourseDao.getAllCourses()
+            return@withContext courseDao.getAllCourses()
         }
     }
 
-    private fun persistFetchedCurrentCourse(fetchedCourses: CourseResponse) {
+    @DelicateCoroutinesApi
+    private fun persistFetchedCurrentCourse(fetchedCourses: ArrayList<ArrayList<Course>>) {
         GlobalScope.launch(Dispatchers.IO) {
-            currentCourseDao.upsert(CurrentCourseList(fetchedCourses.courses))
+            courseDao.upsert(CourseList(fetchedCourses))
         }
     }
 

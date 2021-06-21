@@ -1,5 +1,5 @@
 # Project Sarona
-## View Grades More Simple.
+## Viewing Grades Made Simple.
 --- 
 ### Summary 
 An Android grade-fetching app made with Kotlin. The app fetches student grades from the HomeAccessCenter (HAC) and displays them in a simple format.

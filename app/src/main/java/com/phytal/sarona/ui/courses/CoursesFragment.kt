@@ -4,17 +4,20 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.phytal.sarona.R
+import com.phytal.sarona.data.db.entities.Course
 import com.phytal.sarona.data.network.ConnectivityInterceptorImpl
 import com.phytal.sarona.data.network.HacApiService
+import com.phytal.sarona.databinding.FragmentCoursesBinding
 import com.phytal.sarona.ui.adapters.CoursesAdapter
 import com.phytal.sarona.ui.base.ScopedFragment
 import io.reactivex.disposables.Disposable
-import kotlinx.android.synthetic.main.fragment_courses.*
 import kotlinx.coroutines.*
 import kotlinx.coroutines.Dispatchers.Main
 import org.kodein.di.KodeinAware
@@ -31,6 +34,8 @@ class CoursesFragment : ScopedFragment(), KodeinAware {
     private var disposable: Disposable? = null
 //    private lateinit var courseNetworkDataSource: CourseNetworkDataSourceImpl
     private lateinit var adapter: CoursesAdapter
+    private lateinit var binding: FragmentCoursesBinding
+
 
     private val hacApiServe by lazy {
         HacApiService(
@@ -41,18 +46,35 @@ class CoursesFragment : ScopedFragment(), KodeinAware {
     }
 
     override fun onCreateView(
-            inflater: LayoutInflater,
-            container: ViewGroup?,
-            savedInstanceState: Bundle?
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
     ): View? {
-        val root = inflater.inflate(R.layout.fragment_courses, container, false)
+        binding = FragmentCoursesBinding.inflate(inflater)
 
+        val root = binding.root
         val recyclerView: RecyclerView = root.findViewById(R.id.recycler_view)
         recyclerView.layoutManager = LinearLayoutManager(context)
         recyclerView.setHasFixedSize(true)
 
-        adapter = CoursesAdapter()
+        adapter = CoursesAdapter(object : CoursesAdapter.OnItemClickListener {
+            override fun onItemClick(course : Course) {
+                Toast.makeText(context, "Item Clicked", Toast.LENGTH_LONG).show()
+            }
+        }) //TODO: navigate to CourseFragment
+
         recyclerView.adapter = adapter
+
+        // init onClickListeners
+        val backBtn: ImageView = root.findViewById(R.id.back_btn) as ImageView
+        backBtn.setOnClickListener {
+            // your code here
+        }
+
+        val forBtn: ImageView = root.findViewById(R.id.forward_btn) as ImageView
+        forBtn.setOnClickListener {
+            // your code here
+        }
 
         return root
     }
@@ -70,7 +92,7 @@ class CoursesFragment : ScopedFragment(), KodeinAware {
         currentCourses.observe(viewLifecycleOwner, Observer {
             if (it == null) return@Observer
 
-            group_loading.visibility = View.GONE
+            binding.groupLoading.visibility = View.GONE
 //            updateLastUpdated(ZonedDateTime.now())
 
             adapter.setCourses(it)
@@ -84,7 +106,7 @@ class CoursesFragment : ScopedFragment(), KodeinAware {
 
     private suspend fun setNewTextOnMainThread(input: String) {
         withContext(Main) {
-            textView_loading.text = input
+            binding.textViewLoading.text = input
         }
     }
 

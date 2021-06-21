@@ -1,5 +1,6 @@
 package com.phytal.sarona.data.network
 
+import com.phytal.sarona.data.db.entities.Course
 import com.phytal.sarona.data.network.adapter.NetworkResponseAdapterFactory
 import com.phytal.sarona.data.network.response.CourseResponse
 //import com.phytal.sarona.models.CourseList
@@ -11,6 +12,7 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.GET
 import retrofit2.http.Query
+import java.util.concurrent.TimeUnit
 
 interface HacApiService {
 
@@ -18,7 +20,7 @@ interface HacApiService {
     fun getAllCourses(@Query("l") hacLink: String,
                       @Query("u") username: String,
                       @Query("p") password: String):
-            Observable<CourseResponse>
+            Observable<ArrayList<ArrayList<Course>>>
 
     companion object {
         operator fun invoke(
@@ -27,6 +29,8 @@ interface HacApiService {
 
             val okHttpClient = OkHttpClient.Builder()
                 .addInterceptor(connectivityInterceptor)
+                .connectTimeout(30, TimeUnit.SECONDS)
+                .readTimeout(30, TimeUnit.SECONDS)
                 .build()
 
             val rxAdapter: RxJava2CallAdapterFactory =
