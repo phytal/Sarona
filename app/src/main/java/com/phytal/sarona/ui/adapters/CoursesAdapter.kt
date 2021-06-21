@@ -32,7 +32,9 @@ class CoursesAdapter(
         holder.textViewTitle.text = course.name
         holder.textViewDescription.text = course.course
         holder.textViewPriority.text = course.average.toString()
+        holder.bind(course, listener)
         holder.itemView.setOnClickListener { listener }
+
     }
 
     override fun getItemCount(): Int {
@@ -49,5 +51,9 @@ class CoursesAdapter(
         val textViewTitle: TextView = itemView.findViewById(R.id.text_view_title)
         val textViewDescription: TextView = itemView.findViewById(R.id.text_view_description)
         val textViewPriority: TextView = itemView.findViewById(R.id.text_view_grade)
+
+        fun bind(course: Course, listener: OnItemClickListener) {
+            itemView.setOnClickListener { listener.onItemClick(course) }
+        }
     }
 }

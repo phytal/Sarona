@@ -57,7 +57,7 @@
                 android:padding="@dimen/grid_1"
                 android:layout_gravity="center|top"
                 android:foreground="?attr/actionBarItemBackground"
-                android:contentDescription="@string/bottom_nav_drawer_profile_image_content_desc"
+                android:contentDescription="@string/bottom_nav_drawer_image_content_desc"
                 app:glideCenterCrop="@{true}"
                 app:glideCircularCrop="@{true}"/>
 

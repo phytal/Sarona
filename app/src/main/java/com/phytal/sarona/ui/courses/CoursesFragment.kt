@@ -49,7 +49,7 @@ class CoursesFragment : ScopedFragment(), KodeinAware {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentCoursesBinding.inflate(inflater)
 
         val root = binding.root
@@ -68,12 +68,11 @@ class CoursesFragment : ScopedFragment(), KodeinAware {
         // init onClickListeners
         val backBtn: ImageView = root.findViewById(R.id.back_btn) as ImageView
         backBtn.setOnClickListener {
-            // your code here
+            Toast.makeText(context, "Back Button Clicked", Toast.LENGTH_LONG).show()
         }
 
         val forBtn: ImageView = root.findViewById(R.id.forward_btn) as ImageView
         forBtn.setOnClickListener {
-            // your code here
         }
 
         return root
