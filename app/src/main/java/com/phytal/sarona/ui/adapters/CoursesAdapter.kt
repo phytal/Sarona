@@ -31,7 +31,7 @@ class CoursesAdapter(
         val course = courses[position]
         holder.textViewTitle.text = course.name
         holder.textViewDescription.text = course.course
-        holder.textViewPriority.text = course.average.toString()
+        holder.textViewPriority.text = String.format("%.2f", course.average)
         holder.bind(course, listener)
         holder.itemView.setOnClickListener { listener }
 

@@ -19,6 +19,8 @@
             android:layout_centerInParent="true"
             android:layout_alignParentEnd="true"
             android:text="@string/course_item_grade"
+            android:fontFamily="@font/mplus"
+            android:textStyle="bold"
             android:textAppearance="@style/TextAppearance.AppCompat.Large" />
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/text_view_title"
@@ -26,16 +28,20 @@
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
             android:layout_toStartOf="@id/text_view_grade"
-            android:layout_marginEnd="20dp"
+            android:layout_marginEnd="40dp"
             android:ellipsize="end"
             android:maxLines="1"
             android:text="@string/course_item_title"
+            android:fontFamily="@font/mplus"
+            android:textStyle="bold"
             android:textAppearance="@style/TextAppearance.AppCompat.Large" />
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/text_view_description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/text_view_title"
-            android:text="@string/course_item_description" />
+            android:text="@string/course_item_description"
+            android:textStyle="bold"
+            android:fontFamily="@font/mplus"/>
     </RelativeLayout>
 </com.google.android.material.card.MaterialCardView>

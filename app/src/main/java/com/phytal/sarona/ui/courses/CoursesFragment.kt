@@ -64,6 +64,7 @@ class CoursesFragment : ScopedFragment(), KodeinAware {
         }) //TODO: navigate to CourseFragment
 
         recyclerView.adapter = adapter
+        recyclerView.layoutManager = LinearLayoutManager(context)
 
         // init onClickListeners
         val backBtn: ImageView = root.findViewById(R.id.back_btn) as ImageView

@@ -59,5 +59,7 @@
     <string name="forward_button">Forward Button</string>
     <string name="back_button">Back Button</string>
     <string name="loading">Loading</string>
+    <string name="course_name">Course Name</string>
+    <string name="grade">Grade</string>
 
 </resources>
