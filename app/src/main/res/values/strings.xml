@@ -6,7 +6,7 @@
 
     <string name="action_settings">Settings</string>
 
-    <string name="nav_classes">Classes</string>
+    <string name="nav_courses">Classes</string>
     <string name="nav_grades">Grades</string>
     <string name="nav_transcript">Transcript</string>
     <string name="nav_gpa">GPA</string>
@@ -59,7 +59,12 @@
     <string name="forward_button">Forward Button</string>
     <string name="back_button">Back Button</string>
     <string name="loading">Loading</string>
+
+    <!--CourseFragment-->
+    <string name="course_card_detail_transition_name">course_card_detail</string>
+    <string name="course_card_transition_name">course_card_%1$s</string>
     <string name="course_name">Course Name</string>
     <string name="grade">Grade</string>
+    <string name="nav_courseView">Course View</string>
 
 </resources>

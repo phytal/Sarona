@@ -29,7 +29,7 @@ object NavigationModel {
         NavigationModelItem.NavMenuItem(
             id = 0,
             icon = R.drawable.ic_twotone_classes,
-            titleRes = R.string.nav_classes,
+            titleRes = R.string.nav_courses,
             destination = Destinations.CLASSES,
             checked = false
         ),

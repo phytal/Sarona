@@ -1,24 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@+id/nav_classes">
+    app:startDestination="@+id/nav_courses">
 
     <fragment
-        android:id="@+id/nav_classes"
+        android:id="@+id/nav_courses"
         android:name="com.phytal.sarona.ui.courses.CoursesFragment"
-        android:label="@string/nav_classes"
-        tools:layout="@layout/fragment_courses" />
+        android:label="CoursesFragment">
+        <action
+            android:id="@+id/action_nav_courses_to_nav_courseView"
+            app:destination="@id/nav_courseView" />
+    </fragment>
     <action
-        android:id="@+id/action_global_classesFragment"
-        app:destination="@+id/nav_classes" />
+        android:id="@+id/action_global_coursesFragment"
+        app:destination="@+id/nav_courses" />
+
+    <fragment
+        android:id="@+id/nav_courseView"
+        android:name="com.phytal.sarona.ui.assignments.CourseViewFragment"
+        android:label="CourseViewFragment">
+        <argument
+            android:name="courseId"
+            app:argType="string" />
+    </fragment>
 
     <fragment
         android:id="@+id/nav_grades"
         android:name="com.phytal.sarona.ui.grades.GradesFragment"
-        android:label="@string/nav_grades"
-        tools:layout="@layout/fragment_assignments" />
+        android:label="GradesFragment"/>
     <action
         android:id="@+id/action_global_gradesFragment"
         app:destination="@+id/nav_grades" />
@@ -26,8 +36,7 @@
     <fragment
         android:id="@+id/nav_transcript"
         android:name="com.phytal.sarona.ui.transcript.TranscriptFragment"
-        android:label="@string/nav_transcript"
-        tools:layout="@layout/fragment_transcript" />
+        android:label="TranscriptFragment"/>
     <action
         android:id="@+id/action_global_transcriptFragment"
         app:destination="@+id/nav_transcript" />
@@ -35,8 +44,7 @@
     <fragment
         android:id="@+id/nav_gpa"
         android:name="com.phytal.sarona.ui.calculator.CalculatorFragment"
-        android:label="@string/nav_gpa"
-        tools:layout="@layout/fragment_calculator" />
+        android:label="GpaFragment"/>
     <action
         android:id="@+id/action_global_gpaFragment"
         app:destination="@+id/nav_gpa" />
@@ -44,8 +52,7 @@
     <fragment
         android:id="@+id/nav_settings"
         android:name="com.phytal.sarona.ui.settings.SettingsFragment"
-        android:label="@string/nav_settings"
-        tools:layout="@xml/preference_main" />
+        android:label="SettingsFragment"/>
     <action
         android:id="@+id/action_global_settingsFragment"
         app:destination="@+id/nav_settings" />
@@ -53,6 +60,6 @@
     <fragment
         android:id="@+id/nav_welcome"
         android:name="com.phytal.sarona.ui.welcome.WelcomeFragment"
-        tools:layout="@layout/fragment_welcome" >
+        android:label="WelcomeFragment">
     </fragment>
 </navigation>

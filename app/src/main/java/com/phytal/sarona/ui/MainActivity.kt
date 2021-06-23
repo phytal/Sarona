@@ -29,7 +29,6 @@ class MainActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListener,
     NavController.OnDestinationChangedListener, NavigationAdapter.NavigationAdapterListener {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
-    private lateinit var drawerLayout: DrawerLayout
     private val binding: ActivityMainBinding by contentView(R.layout.activity_main)
     private val bottomNavDrawer: BottomNavDrawerFragment by lazy(LazyThreadSafetyMode.NONE) {
         supportFragmentManager.findFragmentById(R.id.bottom_nav_drawer) as BottomNavDrawerFragment
@@ -141,7 +140,6 @@ class MainActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListener,
     }
 
     override fun onNavMenuItemClicked(item: NavigationModelItem.NavMenuItem) {
-        // Swap the list of emails for the given mailbox
         navigateToHome(item.titleRes, item.destination)
     }
 
@@ -153,7 +151,7 @@ class MainActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListener,
             }
         }
         val directions = when(destination) {
-            Destinations.CLASSES -> R.id.nav_classes
+            Destinations.CLASSES -> R.id.nav_courses
             Destinations.GPA -> R.id.nav_gpa
             Destinations.GRADES -> R.id.nav_grades
         }
@@ -163,14 +161,6 @@ class MainActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListener,
     override fun onSupportNavigateUp(): Boolean {
         val navController = findNavController(R.id.nav_host_fragment)
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
-    }
-
-    override fun onBackPressed() {
-        if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
-            drawerLayout.closeDrawer(GravityCompat.START)
-        } else {
-            super.onBackPressed()
-        }
     }
 
     override fun onMenuItemClick(item: MenuItem?): Boolean {
@@ -202,7 +192,7 @@ class MainActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListener,
         arguments: Bundle?
     ) {
         when (destination.id) {
-            R.id.nav_classes -> {
+            R.id.nav_courses -> {
                 setBottomAppBarForHome(R.menu.bottom_app_bar_menu)
             }
             R.id.nav_grades -> {

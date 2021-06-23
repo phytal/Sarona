@@ -20,7 +20,7 @@
 
         <com.google.android.material.tabs.TabItem
             android:icon="@drawable/ic_menu_classes"
-            android:text="@string/nav_classes"
+            android:text="@string/nav_courses"
             android:layout_height="match_parent"
             android:layout_width="match_parent" />
         <com.google.android.material.tabs.TabItem

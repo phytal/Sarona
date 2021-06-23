@@ -8,14 +8,15 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.FragmentNavigatorExtras
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.transition.MaterialElevationScale
 import com.phytal.sarona.R
 import com.phytal.sarona.data.db.entities.Course
 import com.phytal.sarona.data.network.ConnectivityInterceptorImpl
 import com.phytal.sarona.data.network.HacApiService
 import com.phytal.sarona.databinding.FragmentCoursesBinding
-import com.phytal.sarona.ui.adapters.CoursesAdapter
 import com.phytal.sarona.ui.base.ScopedFragment
 import io.reactivex.disposables.Disposable
 import kotlinx.coroutines.*
@@ -25,7 +26,7 @@ import org.kodein.di.android.x.closestKodein
 import org.kodein.di.generic.instance
 
 
-class CoursesFragment : ScopedFragment(), KodeinAware {
+class CoursesFragment : ScopedFragment(), KodeinAware, CoursesAdapter.CourseAdapterListener {
 
     override val kodein by closestKodein()
     private val viewModelFactory by instance<CurrentCourseViewModelFactory>()
@@ -33,7 +34,7 @@ class CoursesFragment : ScopedFragment(), KodeinAware {
     private lateinit var viewModel: CourseViewModel
     private var disposable: Disposable? = null
 //    private lateinit var courseNetworkDataSource: CourseNetworkDataSourceImpl
-    private lateinit var adapter: CoursesAdapter
+    private val adapter = CoursesAdapter(this)
     private lateinit var binding: FragmentCoursesBinding
 
 
@@ -53,18 +54,10 @@ class CoursesFragment : ScopedFragment(), KodeinAware {
         binding = FragmentCoursesBinding.inflate(inflater)
 
         val root = binding.root
-        val recyclerView: RecyclerView = root.findViewById(R.id.recycler_view)
-        recyclerView.layoutManager = LinearLayoutManager(context)
-        recyclerView.setHasFixedSize(true)
+        binding.recyclerView.setHasFixedSize(true)
 
-        adapter = CoursesAdapter(object : CoursesAdapter.OnItemClickListener {
-            override fun onItemClick(course : Course) {
-                Toast.makeText(context, "Item Clicked", Toast.LENGTH_LONG).show()
-            }
-        }) //TODO: navigate to CourseFragment
-
-        recyclerView.adapter = adapter
-        recyclerView.layoutManager = LinearLayoutManager(context)
+        binding.recyclerView.adapter = adapter
+        binding.recyclerView.layoutManager = LinearLayoutManager(context)
 
         // init onClickListeners
         val backBtn: ImageView = root.findViewById(R.id.back_btn) as ImageView
@@ -113,5 +106,18 @@ class CoursesFragment : ScopedFragment(), KodeinAware {
     override fun onPause() {
         super.onPause()
         disposable?.dispose()
+    }
+
+    override fun onCourseClick(cardView: View, course: Course) {
+        exitTransition = MaterialElevationScale(false).apply {
+            duration = resources.getInteger(R.integer.motion_duration_large).toLong()
+        }
+        reenterTransition = MaterialElevationScale(true).apply {
+            duration = resources.getInteger(R.integer.motion_duration_large).toLong()
+        }
+        val courseCardDetailTransitionName = getString(R.string.course_card_detail_transition_name)
+        val extras = FragmentNavigatorExtras(cardView to courseCardDetailTransitionName)
+        val directions = CoursesFragmentDirections.actionNavCoursesToNavCourseView(course.course)
+        findNavController().navigate(directions, extras)
     }
 }
