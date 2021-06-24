@@ -56,8 +56,8 @@
         android:layout_marginTop="10dp"
         android:indeterminateOnly="false"
         android:progressDrawable="@drawable/circle"
-        android:max="10000000"
-        tools:progress="600000"
+        android:max="10000"
+        tools:progress="1000"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/course_name" />

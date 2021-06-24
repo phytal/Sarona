@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AccelerateDecelerateInterpolator
+import android.view.animation.Interpolator
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.transition.MaterialContainerTransform
 import com.phytal.sarona.R
@@ -41,14 +42,24 @@ class CourseViewFragment : ScopedFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        // grade is multiplied by 10^5 to account for decimals
-        val gradeDummy = 10000000
+        // grade is multiplied by 10^2 to account for decimals
+        val gradeDummy = 10000
         ObjectAnimator.ofInt(binding.progressBar, "progress", gradeDummy).apply {
             duration = 1500
-            interpolator = AccelerateDecelerateInterpolator()
+            interpolator = MVAccelerateDecelerateInterpolator()
             start()
         }
         binding.courseGrade.text = "100.00"
     }
 
+}
+
+class MVAccelerateDecelerateInterpolator : Interpolator {
+    // easeInOutQuint
+    override fun getInterpolation(t: Float): Float {
+        var x = t * 2.0f
+        if (t < 0.5f) return 0.5f * x * x * x * x * x
+        x = (t - 0.5f) * 2 - 1
+        return 0.5f * x * x * x * x * x + 1
+    }
 }
