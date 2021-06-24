@@ -22,7 +22,7 @@ class CourseRepositoryImpl (
     }
     override suspend fun getCurrentCourses(loginInfo: LoginInformation): LiveData<out CourseList> {
         return withContext(Dispatchers.IO) {
-            initCourseData(loginInfo)
+            fetchCurrentCourses(loginInfo)
             return@withContext courseDao.getAllCourses()
         }
     }
@@ -34,22 +34,11 @@ class CourseRepositoryImpl (
         }
     }
 
-    //TODO
-    private suspend fun initCourseData(loginInfo: LoginInformation) {
-        if (isFetchCurrentNeeded(ZonedDateTime.now().minusHours(1)))
-            fetchCurrentCourses(loginInfo)
-    }
-
     private suspend fun fetchCurrentCourses(loginInfo: LoginInformation) {
         courseNetworkDataSource.fetchCurrent(
             loginInfo.link,
             loginInfo.username,
             loginInfo.password
         )
-    }
-
-    private fun isFetchCurrentNeeded(lastFetchTime: ZonedDateTime): Boolean {
-        val fiveMinutesAgo = ZonedDateTime.now().minusMinutes(5)
-        return lastFetchTime.isBefore(fiveMinutesAgo)
     }
 }

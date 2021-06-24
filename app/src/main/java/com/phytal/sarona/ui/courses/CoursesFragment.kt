@@ -27,16 +27,13 @@ import org.kodein.di.generic.instance
 
 
 class CoursesFragment : ScopedFragment(), KodeinAware, CoursesAdapter.CourseAdapterListener {
-
     override val kodein by closestKodein()
     private val viewModelFactory by instance<CurrentCourseViewModelFactory>()
-
     private lateinit var viewModel: CourseViewModel
     private var disposable: Disposable? = null
 //    private lateinit var courseNetworkDataSource: CourseNetworkDataSourceImpl
     private val adapter = CoursesAdapter(this)
     private lateinit var binding: FragmentCoursesBinding
-
 
     private val hacApiServe by lazy {
         HacApiService(
@@ -52,31 +49,25 @@ class CoursesFragment : ScopedFragment(), KodeinAware, CoursesAdapter.CourseAdap
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentCoursesBinding.inflate(inflater)
-
-        val root = binding.root
         binding.recyclerView.setHasFixedSize(true)
-
         binding.recyclerView.adapter = adapter
         binding.recyclerView.layoutManager = LinearLayoutManager(context)
 
         // init onClickListeners
-        val backBtn: ImageView = root.findViewById(R.id.back_btn) as ImageView
-        backBtn.setOnClickListener {
+        binding.backBtn.setOnClickListener {
             Toast.makeText(context, "Back Button Clicked", Toast.LENGTH_LONG).show()
         }
 
-        val forBtn: ImageView = root.findViewById(R.id.forward_btn) as ImageView
-        forBtn.setOnClickListener {
+        binding.forwardBtn.setOnClickListener {
         }
 
-        return root
+        return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         viewModel = ViewModelProvider(this, viewModelFactory).get(CourseViewModel::class.java)
-
         bindUI()
     }
 
@@ -86,7 +77,6 @@ class CoursesFragment : ScopedFragment(), KodeinAware, CoursesAdapter.CourseAdap
             if (it == null) return@Observer
 
             binding.groupLoading.visibility = View.GONE
-//            updateLastUpdated(ZonedDateTime.now())
 
             adapter.setCourses(it)
         })

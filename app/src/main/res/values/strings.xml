@@ -67,4 +67,8 @@
     <string name="grade">Grade</string>
     <string name="nav_courseView">Course View</string>
 
+    <!--CourseViewFragment-->
+    <string name="assignment_card_detail_transition_name">assignment_card_detail</string>
+    <string name="assignment_card_transition_name">assignment_card_%1$s</string>
+
 </resources>
