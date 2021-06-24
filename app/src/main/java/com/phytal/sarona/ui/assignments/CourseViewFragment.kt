@@ -1,10 +1,12 @@
 package com.phytal.sarona.ui.assignments
 
+import android.animation.ObjectAnimator
 import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.AccelerateDecelerateInterpolator
 import androidx.navigation.fragment.navArgs
 import com.google.android.material.transition.MaterialContainerTransform
 import com.phytal.sarona.R
@@ -39,6 +41,13 @@ class CourseViewFragment : ScopedFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // grade is multiplied by 10^5 to account for decimals
+        val gradeDummy = 10000000
+        ObjectAnimator.ofInt(binding.progressBar, "progress", gradeDummy).apply {
+            duration = 1500
+            interpolator = AccelerateDecelerateInterpolator()
+            start()
+        }
         binding.courseGrade.text = "100.00"
     }
 
