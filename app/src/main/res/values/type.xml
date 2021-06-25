@@ -23,7 +23,7 @@
     </style>
 
     <style name="TextAppearance.Sarona.Headline6" parent="TextAppearance.MaterialComponents.Headline6">
-        <item name="fontFamily">"Sa"</item>
+        <item name="fontFamily">@font/mplus_bold</item>
         <item name="android:textColor">@color/color_on_surface_emphasis_high</item>
     </style>
 

@@ -17,6 +17,7 @@ data class Assignment(
     val title_of_assignment: String,
     val total_points: Double,
     val type_of_grade: String,
-    val weight: Double
-
+    val weight: Double,
+    val weighted_total_points  : Double,
+    val weighted_score : Double
 )

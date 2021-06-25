@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.transition.MaterialContainerTransform
 import com.phytal.sarona.R
 import com.phytal.sarona.data.db.entities.Assignment
+import com.phytal.sarona.databinding.AssignmentDialogBinding
 import com.phytal.sarona.databinding.FragmentCourseViewBinding
 import com.phytal.sarona.ui.base.ScopedFragment
 import com.phytal.sarona.ui.courses.CourseViewModel
@@ -27,7 +29,8 @@ import org.kodein.di.generic.instance
 import kotlin.math.roundToInt
 
 
-class CourseViewFragment : ScopedFragment(), KodeinAware, AssignmentsAdapter.AssignmentAdapterListener {
+class CourseViewFragment : ScopedFragment(), KodeinAware,
+    AssignmentsAdapter.AssignmentAdapterListener {
     private val args: CourseViewFragmentArgs by navArgs()
     private val courseId: String by lazy(LazyThreadSafetyMode.NONE) { args.courseId }
     private lateinit var binding: FragmentCourseViewBinding
@@ -84,7 +87,8 @@ class CourseViewFragment : ScopedFragment(), KodeinAware, AssignmentsAdapter.Ass
 
                     // grade is multiplied by 10^2 to handle decimals
                     val courseGrade = course.average
-                    ObjectAnimator.ofInt(binding.progressBar, "progress",
+                    ObjectAnimator.ofInt(
+                        binding.progressBar, "progress",
                         (courseGrade * 100).roundToInt()
                     ).apply {
                         duration = 1000
@@ -100,9 +104,24 @@ class CourseViewFragment : ScopedFragment(), KodeinAware, AssignmentsAdapter.Ass
     }
 
     override fun onAssignmentClick(cardView: View, assignment: Assignment) {
+        val binding = AssignmentDialogBinding.inflate(layoutInflater)
+
+        binding.assignmentName.text = assignment.title_of_assignment
+        val categoryString = "Category: " + assignment.type_of_grade
+        binding.assignmentCategory.text = categoryString
+        binding.dateAssigned.text = assignment.date_assigned
+        binding.dateDue.text = assignment.date_due
+        val scoreString = assignment.score.toString() + " / " + assignment.total_points.toString()
+        binding.score.text = scoreString
+        val weightedScoreString =
+            assignment.weighted_score.toString() + " / " + assignment.weighted_total_points.toString()
+        binding.weightedPoints.text = weightedScoreString
+        binding.weight.text = assignment.weight.toString()
+        val percentageString = assignment.percentage.toString() + "%"
+        binding.percentage.text = percentageString
+
         val builder = AlertDialog.Builder(requireContext(), R.style.CustomAlertDialog).create()
-        val view = layoutInflater.inflate(R.layout.assignment_dialog, null)
-        builder.setView(view)
+        builder.setView(binding.root)
         builder.setCanceledOnTouchOutside(true)
         builder.show()
     }
