@@ -12,13 +12,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
+        android:autoSizeTextType="uniform"
+        android:maxLines="1"
         android:paddingHorizontal="10dp"
-        tools:text="@string/course_name"
         android:textAlignment="center"
         android:textAppearance="@style/TextAppearance.Sarona.Headline5"
+        app:autoSizeMaxTextSize="24sp"
+        app:autoSizeMinTextSize="12sp"
+        app:autoSizeStepGranularity="2sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="@string/course_name" />
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/coordinatorLayout2"
@@ -27,6 +32,8 @@
         android:paddingTop="130dp"
         android:paddingBottom="150dp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/progress_bar">
 
         <androidx.recyclerview.widget.RecyclerView
@@ -56,7 +63,7 @@
         android:layout_height="190dp"
         android:layout_marginTop="5dp"
         android:indeterminateOnly="false"
-        android:progressDrawable="@drawable/circle"
+        android:progressDrawable="@drawable/progress_circle"
         android:max="10000"
         tools:progress="1000"
         app:layout_constraintEnd_toEndOf="parent"

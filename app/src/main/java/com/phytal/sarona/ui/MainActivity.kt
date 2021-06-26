@@ -22,6 +22,7 @@ import com.google.android.material.transition.MaterialSharedAxis
 import com.phytal.sarona.R
 import com.phytal.sarona.ui.nav.*
 import com.phytal.sarona.databinding.ActivityMainBinding
+import com.phytal.sarona.ui.courses.CoursesFragment
 import com.phytal.sarona.util.contentView
 
 

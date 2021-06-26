@@ -15,6 +15,7 @@
     </data>
 
     <com.google.android.material.card.MaterialCardView
+        android:id="@+id/assignment_card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -24,6 +25,7 @@
         android:focusable="true"
         android:onClick="@{(view) -> listener.onAssignmentClick(view, assignment)}"
         android:transitionName="@{@string/assignment_card_transition_name(assignment.title_of_assignment)}"
+        app:strokeWidth="1dp"
         app:cardCornerRadius="15dp"
         app:cardElevation="3dp">
 

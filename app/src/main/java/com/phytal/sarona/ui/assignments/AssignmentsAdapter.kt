@@ -1,9 +1,12 @@
 package com.phytal.sarona.ui.assignments
 
+import android.content.res.ColorStateList
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.NonNull
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.phytal.sarona.data.db.entities.Assignment
 import com.phytal.sarona.databinding.AssignmentItemBinding
@@ -18,8 +21,7 @@ class AssignmentsAdapter(
 
     private var assignments : List<Assignment> = ArrayList()
 
-    @NonNull
-    override fun onCreateViewHolder(@NonNull parent: ViewGroup, viewType: Int): AssignmentHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AssignmentHolder {
         return AssignmentHolder (
             AssignmentItemBinding.inflate(LayoutInflater.from(parent.context),
                 parent,
@@ -29,7 +31,7 @@ class AssignmentsAdapter(
         )
     }
 
-    override fun onBindViewHolder(@NonNull holder: AssignmentHolder, position: Int) {
+    override fun onBindViewHolder(holder: AssignmentHolder, position: Int) {
         holder.bind(assignments[position])
     }
 
@@ -60,6 +62,12 @@ class AssignmentsAdapter(
             val maxPointsString = "/" + String.format("%.2f", assignment.max_points)
             binding.textViewMaxGrade.text = maxPointsString
             binding.assignment = assignment
+            binding.assignmentCard.strokeColor = when (assignment.type_of_grade) {
+                "Major Grades" -> Color.parseColor("#b37bfc")
+                "Minor Grades" -> Color.parseColor("#7bc4fc")
+                "Non-graded" -> Color.parseColor("#fcb37b")
+                else -> Color.parseColor("#c4fc7b")
+            }
         }
     }
 }

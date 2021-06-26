@@ -16,23 +16,23 @@ class CoursesAdapter(
 ) : RecyclerView.Adapter<CoursesAdapter.CourseHolder>() {
 
     interface CourseAdapterListener {
-        fun onCourseClick(cardView: View, course : Course)
+        fun onCourseClick(cardView: View, course: Course)
     }
 
-    private var courses : List<Course> = ArrayList()
+    private var courses: List<Course> = ArrayList()
 
-    @NonNull
-    override fun onCreateViewHolder(@NonNull parent: ViewGroup, viewType: Int): CourseHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CourseHolder {
         return CourseHolder(
-            CourseItemBinding.inflate(LayoutInflater.from(parent.context),
-            parent,
-            false
+            CourseItemBinding.inflate(
+                LayoutInflater.from(parent.context),
+                parent,
+                false
             ),
             listener
         )
     }
 
-    override fun onBindViewHolder(@NonNull holder: CourseHolder, position: Int) {
+    override fun onBindViewHolder(holder: CourseHolder, position: Int) {
         holder.bind(courses[position])
     }
 
@@ -40,8 +40,8 @@ class CoursesAdapter(
         return courses.size
     }
 
-    fun setCourses(courses: CourseList) {
-        this.courses = courses.yearCourses[0]
+    fun setCourses(courses: ArrayList<Course>) {
+        this.courses = courses
         notifyDataSetChanged()
     }
 

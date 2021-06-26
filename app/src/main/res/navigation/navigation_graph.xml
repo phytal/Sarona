@@ -8,9 +8,16 @@
         android:id="@+id/nav_courses"
         android:name="com.phytal.sarona.ui.courses.CoursesFragment"
         android:label="CoursesFragment">
+        <argument
+            android:name="markingPeriod"
+            android:defaultValue="0"
+            app:argType="integer" />
         <action
             android:id="@+id/action_nav_courses_to_nav_courseView"
             app:destination="@id/nav_courseView" />
+        <action
+            android:id="@+id/action_nav_courses_self"
+            app:destination="@id/nav_courses" />
     </fragment>
     <action
         android:id="@+id/action_global_coursesFragment"
@@ -21,21 +28,10 @@
         android:name="com.phytal.sarona.ui.assignments.CourseViewFragment"
         android:label="CourseViewFragment">
         <argument
-            android:name="courseId"
-            app:argType="string" />
-        <action
-            android:id="@+id/action_nav_courseView_to_nav_assignment_details"
-            app:destination="@id/nav_assignment_details" />
+            android:name="course"
+            app:argType="com.phytal.sarona.data.db.entities.Course" />
     </fragment>
 
-    <fragment
-        android:id="@+id/nav_assignment_details"
-        android:name="com.phytal.sarona.ui.assignments.AssignmentDialog"
-        android:label="AssignmentDialog">
-        <argument
-            android:name="assignmentName"
-            app:argType="string" />
-    </fragment>
 
     <fragment
         android:id="@+id/nav_grades"

@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.transition.MaterialContainerTransform
 import com.phytal.sarona.R
 import com.phytal.sarona.data.db.entities.Assignment
+import com.phytal.sarona.data.db.entities.Course
 import com.phytal.sarona.databinding.AssignmentDialogBinding
 import com.phytal.sarona.databinding.FragmentCourseViewBinding
 import com.phytal.sarona.ui.base.ScopedFragment
@@ -32,7 +33,7 @@ import kotlin.math.roundToInt
 class CourseViewFragment : ScopedFragment(), KodeinAware,
     AssignmentsAdapter.AssignmentAdapterListener {
     private val args: CourseViewFragmentArgs by navArgs()
-    private val courseId: String by lazy(LazyThreadSafetyMode.NONE) { args.courseId }
+    private val course: Course by lazy(LazyThreadSafetyMode.NONE) { args.course }
     private lateinit var binding: FragmentCourseViewBinding
     override val kodein by closestKodein()
     private val viewModelFactory by instance<CurrentCourseViewModelFactory>()
@@ -75,32 +76,21 @@ class CourseViewFragment : ScopedFragment(), KodeinAware,
     }
 
     private fun bindUI() = launch {
-        val currentCourses = viewModel.courses.await()
-        currentCourses.observe(viewLifecycleOwner, Observer {
-            if (it == null) return@Observer
+        adapter.setAssignments(course.assignments)
 
-            for (course in it.yearCourses[0]) {
-                if (course.course == courseId) {
-                    adapter.setAssignments(course.assignments)
+        binding.courseName.text = course.name
 
-                    binding.courseName.text = course.name
-
-                    // grade is multiplied by 10^2 to handle decimals
-                    val courseGrade = course.average
-                    ObjectAnimator.ofInt(
-                        binding.progressBar, "progress",
-                        (courseGrade * 100).roundToInt()
-                    ).apply {
-                        duration = 1000
-                        interpolator = MVAccelerateDecelerateInterpolator()
-                        start()
-                    }
-                    binding.courseGrade.text = String.format("%.2f", courseGrade)
-
-                    break
-                }
-            }
-        })
+        // grade is multiplied by 10^2 to handle decimals
+        val courseGrade = course.average
+        ObjectAnimator.ofInt(
+            binding.progressBar, "progress",
+            (courseGrade * 100).roundToInt()
+        ).apply {
+            duration = 1000
+            interpolator = MVAccelerateDecelerateInterpolator()
+            start()
+        }
+        binding.courseGrade.text = String.format("%.2f", courseGrade)
     }
 
     override fun onAssignmentClick(cardView: View, assignment: Assignment) {

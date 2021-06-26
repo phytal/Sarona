@@ -1,12 +1,15 @@
 package com.phytal.sarona.data.db.entities
 
+import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import androidx.room.TypeConverters
+import kotlinx.android.parcel.Parcelize
+import kotlinx.android.parcel.RawValue
 
 const val CURRENT_COURSE_ID = 0
-
+@Parcelize
 @Entity(tableName = "course_table")
 data class Course(
     @TypeConverters(DataConverter::class)
@@ -23,7 +26,7 @@ data class Course(
     val course: String,
     @ColumnInfo(name = "name")
     val name: String
-) {
+) : Parcelable {
     @PrimaryKey(autoGenerate = false)
     var id: Int = CURRENT_COURSE_ID
 }

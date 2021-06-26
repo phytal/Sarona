@@ -1,5 +1,9 @@
 package com.phytal.sarona.data.db.entities
 
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
+
+@Parcelize
 data class Assignment(
 //    val name: String,
 //    val category: String,
@@ -20,4 +24,4 @@ data class Assignment(
     val weight: Double,
     val weighted_total_points  : Double,
     val weighted_score : Double
-)
+) : Parcelable
