@@ -70,5 +70,6 @@
     <!--CourseViewFragment-->
     <string name="assignment_card_detail_transition_name">assignment_card_detail</string>
     <string name="assignment_card_transition_name">assignment_card_%1$s</string>
+    <string name="fab_description">Add Grade</string>
 
 </resources>

@@ -4,25 +4,11 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_add_white"
-        android:layout_gravity="bottom|end"
-        android:layout_marginBottom="20dp"
-        android:layout_marginEnd="20dp"/>
-
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tabs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <com.google.android.material.tabs.TabItem
-            android:icon="@drawable/ic_menu_classes"
-            android:text="@string/nav_courses"
-            android:layout_height="match_parent"
-            android:layout_width="match_parent" />
         <com.google.android.material.tabs.TabItem
             android:icon="@drawable/ic_menu_grades"
             android:text="@string/nav_grades"

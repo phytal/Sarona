@@ -22,6 +22,7 @@ import com.google.android.material.transition.MaterialSharedAxis
 import com.phytal.sarona.R
 import com.phytal.sarona.ui.nav.*
 import com.phytal.sarona.databinding.ActivityMainBinding
+import com.phytal.sarona.databinding.AddAssignmentDialogBinding
 import com.phytal.sarona.ui.courses.CoursesFragment
 import com.phytal.sarona.util.contentView
 
@@ -30,7 +31,7 @@ class MainActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListener,
     NavController.OnDestinationChangedListener, NavigationAdapter.NavigationAdapterListener {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
-    private val binding: ActivityMainBinding by contentView(R.layout.activity_main)
+    val binding: ActivityMainBinding by contentView(R.layout.activity_main)
     private val bottomNavDrawer: BottomNavDrawerFragment by lazy(LazyThreadSafetyMode.NONE) {
         supportFragmentManager.findFragmentById(R.id.bottom_nav_drawer) as BottomNavDrawerFragment
     }
@@ -47,7 +48,7 @@ class MainActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListener,
 //        }
 //        val sharedPreferences: SharedPreferences =
 //            PreferenceManager.getDefaultSharedPreferences(this)
-//        if (!sharedPreferences.contains("LOGIN_USERNAME") || !sharedPreferences.contains("LOGIN_PASSWORD") || !sharedPreferences.contains("LOGIN_LINK")) {
+//        if (!(sharedPreferences.contains("LOGIN_USERNAME") && sharedPreferences.contains("LOGIN_PASSWORD") && sharedPreferences.contains("LOGIN_LINK"))) {
 //            showFragment("FRAGMENT_WELCOME")
 //        }
 //        else {
@@ -73,6 +74,7 @@ class MainActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListener,
         bottomNavDrawer.apply {
             addOnSlideAction(HalfClockwiseRotateSlideAction(binding.bottomAppBarChevron))
             addOnSlideAction(AlphaSlideAction(binding.bottomAppBarTitle, true))
+//            addOnStateChangedAction(ShowHideFabStateAction(binding.fab))
             addOnStateChangedAction(ChangeSettingsMenuStateAction {showSettings ->
                 // Toggle between the current destination's BAB menu and the menu which should
                 // be displayed when the BottomNavigationDrawer is open.
@@ -203,7 +205,7 @@ class MainActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListener,
                 setBottomAppBarForHome(R.menu.bottom_app_bar_menu)
             }
             R.id.nav_settings -> {
-                //hideBottomAppBar()
+//                hideBottomAppBar()
                 setBottomAppBarForSettings(R.menu.bottom_app_bar_empty)
             }
         }

@@ -1,17 +1,9 @@
 package com.phytal.sarona.data.db.entities
 
 import android.os.Parcelable
-import kotlinx.android.parcel.Parcelize
 
-@Parcelize
+@kotlinx.parcelize.Parcelize
 data class Assignment(
-//    val name: String,
-//    val category: String,
-//    val score: Double,
-//    val maxPoints: Double,
-//    val canBeDropped: Boolean,
-//    val extraCredit: Boolean,
-//    val hasAttachments: Boolean
     val can_be_dropped: String,
     val date_assigned: String,
     val date_due: String,

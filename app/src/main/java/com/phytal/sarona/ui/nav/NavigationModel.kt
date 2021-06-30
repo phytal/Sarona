@@ -25,23 +25,27 @@ import com.phytal.sarona.R
  */
 object NavigationModel {
 
+    const val CLASSES_ID = 0
+    const val GRADES_ID = 1
+    const val GPA_ID = 2
+
     private var navigationMenuItems = mutableListOf(
         NavigationModelItem.NavMenuItem(
-            id = 0,
+            id = CLASSES_ID,
             icon = R.drawable.ic_twotone_classes,
             titleRes = R.string.nav_courses,
             destination = Destinations.CLASSES,
             checked = false
         ),
         NavigationModelItem.NavMenuItem(
-            id = 1,
+            id = GRADES_ID,
             icon = R.drawable.ic_twotone_grades,
             titleRes = R.string.nav_grades,
             destination = Destinations.GRADES,
             checked = false
         ),
         NavigationModelItem.NavMenuItem(
-            id = 2,
+            id = GPA_ID,
             icon = R.drawable.ic_twotone_gpa,
             titleRes = R.string.nav_gpa,
             destination = Destinations.GPA,
@@ -71,6 +75,7 @@ object NavigationModel {
                 updated = true
             }
         }
+        if (updated) postListUpdate()
         return updated
     }
     private fun postListUpdate() {

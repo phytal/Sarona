@@ -30,7 +30,6 @@
         android:textColor="@color/color_navigation_drawer_menu_item"
         app:drawableTint="@color/color_navigation_drawer_menu_item"
         app:drawableStart="@{navMenuItem.icon}"
-        android:drawablePadding="@dimen/grid_4"
-        tools:text="Inbox" />
+        android:drawablePadding="@dimen/grid_4" />
 
 </layout>

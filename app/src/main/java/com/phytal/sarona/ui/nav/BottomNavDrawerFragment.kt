@@ -309,7 +309,6 @@ class BottomNavDrawerFragment :
     private fun onSandwichProgressChanged(progress: Float) {
         binding.run {
             val navProgress = lerp(0F, 1F, 0F, 0.5F, progress)
-            val accProgress = lerp(0F, 1F, 0.5F, 1F, progress)
 
             foregroundContainer.translationY =
                 (binding.foregroundContainer.height * 0.15F) * navProgress
@@ -317,7 +316,6 @@ class BottomNavDrawerFragment :
             profileImageView.scaleY = 1F - navProgress
             profileImageView.alpha = 1F - navProgress
             foregroundContainer.alpha = 1F - navProgress
-            accountRecyclerView.alpha = accProgress
 
             foregroundShapeDrawable.interpolation = 1F - navProgress
 
