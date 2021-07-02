@@ -9,7 +9,7 @@ data class Assignment(
     val date_due: String,
     val max_points: Double,
     val percentage: Double,
-    val score: Double,
+    val score: String,
     val title_of_assignment: String,
     val total_points: Double,
     val type_of_grade: String,

@@ -58,7 +58,11 @@ class AssignmentsAdapter(
         fun bind(assignment: Assignment) {
             binding.textViewTitle.text = assignment.title_of_assignment
             binding.textViewDescription.text = assignment.date_due
-            binding.textViewGrade.text = String.format("%.2f", assignment.score)
+            var score = assignment.score
+            if (assignment.score.matches(Regex("\\d+"))) {
+                score = String.format("%.2f", score)
+            }
+            binding.textViewGrade.text = score
             val maxPointsString = "/" + String.format("%.2f", assignment.max_points)
             binding.textViewMaxGrade.text = maxPointsString
             binding.assignment = assignment
