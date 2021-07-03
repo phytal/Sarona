@@ -72,4 +72,11 @@
     <string name="assignment_card_transition_name">assignment_card_%1$s</string>
     <string name="fab_description">Add Grade</string>
 
+    <!--SharedPreferences-->
+    <string name="login_preference_file_key">com.phytal.sarona.login_preference</string>
+    <string name="saved_username_key">username</string>
+    <string name="saved_password_key">password</string>
+    <string name="saved_link_key">link</string>
+    <string name="welcome_link">HAC Link</string>
+    <string name="welcome_link_example">e.g. hac.friscoisd.org</string>
 </resources>

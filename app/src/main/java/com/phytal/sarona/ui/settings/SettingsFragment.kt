@@ -44,7 +44,6 @@ class SettingsFragment : SharedPreferences.OnSharedPreferenceChangeListener, Bas
     }
 
     companion object {
-        const val TAG: String = "FRAGMENT_SETTINGS"
         private lateinit var context: Context
 
         private fun bindPreferenceSummaryToValue(preference: Preference?) {

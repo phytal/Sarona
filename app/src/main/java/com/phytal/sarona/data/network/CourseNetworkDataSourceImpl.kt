@@ -22,8 +22,7 @@ class CourseNetworkDataSourceImpl(
     @SuppressLint("CheckResult")
     override suspend fun fetchCurrent(hacLink: String, username: String, password: String) {
         try {
-//           hacApiService.getAllCourses(hacLink, username, password)
-            hacApiService.getAllCourses("hac.friscoisd.org", "169226", "08262005")
+            hacApiService.getAllCourses(hacLink, username, password)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe ({ result -> _downloadedCurrentCourse.postValue(result)},

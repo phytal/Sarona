@@ -25,6 +25,7 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="70dp"
             android:text="@string/welcome_text"
+            android:textAppearance="@style/TextAppearance.Sarona.Headline2"
             android:textSize="55sp"/>
 
         <com.google.android.material.textview.MaterialTextView
@@ -34,10 +35,46 @@
             android:layout_marginTop="8dp"
             android:layout_marginHorizontal="25dp"
             android:text="@string/welcome_subtitle"
+            android:textAppearance="@style/TextAppearance.Sarona.Subtitle2"
             android:textSize="15sp"
             android:textAlignment="center"/>
 
+        <com.google.android.material.textview.MaterialTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="50dp"
+            android:text="@string/welcome_link_example"
+            android:textAppearance="@style/TextAppearance.Sarona.Subtitle2"/>
+
         <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/editLinkLayout"
+            style="@style/Widget.Sarona.TextInputLayout"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:hint="@string/welcome_link"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="-35dp"
+            android:layout_gravity="center_horizontal"
+            android:visibility="visible"
+            app:boxCornerRadiusBottomEnd="30dp"
+            app:boxCornerRadiusTopEnd="30dp"
+            app:boxCornerRadiusBottomStart="30dp"
+            app:boxCornerRadiusTopStart="30dp"
+            app:startIconDrawable="@drawable/ic_outline_link">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editTextLink"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:ellipsize="start"
+                    android:inputType="textAutoComplete"
+                    android:singleLine="true" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/editUsernameLayout"
             style="@style/Widget.Sarona.TextInputLayout"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
@@ -94,12 +131,11 @@
             android:text="@string/welcome_login"
             app:cornerRadius="20dp" />
 
-        <com.google.android.material.textview.MaterialTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="220dp"
-
-            android:text="@string/welcome_copyright"/>
+<!--        <com.google.android.material.textview.MaterialTextView-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_gravity="center"-->
+<!--            android:layout_marginTop="60dp"-->
+<!--            android:text="@string/welcome_copyright"/>-->
 
 </androidx.appcompat.widget.LinearLayoutCompat>

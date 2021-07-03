@@ -38,22 +38,8 @@ class MainActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListener,
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //setContentView(R.layout.activity_main)
 
-//        if (savedInstanceState == null) {
-//            supportFragmentManager
-//                .beginTransaction()
-//                .add(R.id.fragment_container, WelcomeFragment())
-//                .commit()
-//        }
-//        val sharedPreferences: SharedPreferences =
-//            PreferenceManager.getDefaultSharedPreferences(this)
-//        if (!(sharedPreferences.contains("LOGIN_USERNAME") && sharedPreferences.contains("LOGIN_PASSWORD") && sharedPreferences.contains("LOGIN_LINK"))) {
-//            showFragment("FRAGMENT_WELCOME")
-//        }
-//        else {
-            setUpBottomNavigation()
-//        }
+        setUpBottomNavigation()
     }
 
     private val currentNavigationFragment: Fragment?
@@ -195,6 +181,9 @@ class MainActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListener,
         arguments: Bundle?
     ) {
         when (destination.id) {
+            R.id.nav_welcome -> {
+                hideBottomAppBar()
+            }
             R.id.nav_courses -> {
                 setBottomAppBarForHome(R.menu.bottom_app_bar_menu)
             }
