@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
     <item>
-        <color android:color="@color/background_material_light"/>
+        <color android:color="@android:color/background_dark"/>
     </item>
     <item>
         <bitmap
-            android:src="@drawable/ic_logo"
-            android:tileMode="disabled"
+            android:src="@drawable/sarona_logo"
+            android:scaleType="fitXY"
             android:gravity="center"/>
     </item>
 </layer-list>

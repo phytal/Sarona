@@ -11,7 +11,7 @@
         <item name="colorSecondary">@color/reply_orange_300</item>
         <item name="colorSecondaryVariant">@color/reply_orange_300</item>
 
-        <item name="android:colorBackground">@color/reply_black_900</item>
+        <item name="android:colorBackground">@color/reply_black_800</item>
         <item name="colorSurface">@color/reply_black_800</item>
         <item name="colorPrimarySurfaceVariant">?attr/colorSurface</item>
         <item name="colorError">@color/reply_red_200</item>

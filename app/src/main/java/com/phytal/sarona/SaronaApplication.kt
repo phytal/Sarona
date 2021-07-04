@@ -1,6 +1,7 @@
 package com.phytal.sarona
 
 import android.app.Application
+import android.content.Context
 import android.content.SharedPreferences
 import androidx.preference.PreferenceManager
 import com.jakewharton.threetenabp.AndroidThreeTen
@@ -35,14 +36,21 @@ class SaronaApplication : Application(), KodeinAware {
         bind<LoginProvider>() with singleton { LoginProviderImpl(instance()) }
         bind() from provider { CurrentCourseViewModelFactory(instance(), instance()) }
     }
+
     override fun onCreate() {
         super.onCreate()
         AndroidThreeTen.init(this)
-        PreferenceManager.setDefaultValues(this, R.xml.preference_main, false)
-        val sharedPreferences: SharedPreferences =
-            PreferenceManager.getDefaultSharedPreferences(this)
+        val sharedPreferences = this.getSharedPreferences(
+            getString(R.string.user_preference_file_key),
+            Context.MODE_PRIVATE
+        )
         val themePref =
-            sharedPreferences.getString("themePref", ThemeHelper.DEFAULT_MODE)
+            sharedPreferences.getString(
+                sharedPreferences?.getString(
+                    getString(R.string.saved_theme_key),
+                    "Default"
+                ), ThemeHelper.DEFAULT_MODE
+            )
         applyTheme(themePref!!)
     }
 }

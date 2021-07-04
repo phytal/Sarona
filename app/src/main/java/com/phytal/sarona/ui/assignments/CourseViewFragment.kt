@@ -101,7 +101,7 @@ class CourseViewFragment : ScopedFragment(), KodeinAware,
         binding.assignmentCategory.text = categoryString
         binding.dateAssigned.text = assignment.date_assigned
         binding.dateDue.text = assignment.date_due
-        val scoreString = assignment.score.toString() + " / " + assignment.total_points.toString()
+        val scoreString = assignment.score + " / " + assignment.total_points.toString()
         binding.score.text = scoreString
         val weightedScoreString =
             assignment.weighted_score.toString() + " / " + assignment.weighted_total_points.toString()

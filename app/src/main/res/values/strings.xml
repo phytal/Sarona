@@ -47,6 +47,8 @@
     <string name="welcome_login">Login</string>
     <string name="welcome_password">Password</string>
     <string name="welcome_username">Username</string>
+    <string name="welcome_link">HAC Link</string>
+    <string name="welcome_link_example">e.g. hac.friscoisd.org</string>
     <string name="welcome_text">SimpleGrade</string>
     <string name="welcome_subtitle">Viewing Grades Made Simple</string>
     <string name="welcome_copyright">©2021 Phytal</string>
@@ -77,6 +79,17 @@
     <string name="saved_username_key">username</string>
     <string name="saved_password_key">password</string>
     <string name="saved_link_key">link</string>
-    <string name="welcome_link">HAC Link</string>
-    <string name="welcome_link_example">e.g. hac.friscoisd.org</string>
+    <string name="user_preference_file_key">com.phytal.sarona.user_preference</string>
+    <string name="saved_theme_key">theme</string>
+    <string name="saved_language_key">language</string>
+
+    <string name="menu_dark_theme_light">Light</string>
+    <string name="menu_dark_theme_dark">Dark</string>
+    <string name="menu_dark_theme_system_default">System default</string>
+    <string name="theme_text">Theme</string>
+    <string name="theme_icon">Theme Icon</string>
+    <string name="language_text">Language</string>
+    <string name="language_icon">Language Icon</string>
+    <string name="log_out">Log Out</string>
+    <string name="about">About</string>
 </resources>
