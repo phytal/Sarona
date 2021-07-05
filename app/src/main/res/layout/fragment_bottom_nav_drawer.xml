@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -11,50 +10,50 @@
             android:id="@+id/scrim_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="gone"
             android:alpha="0"
-            android:background="?attr/scrimBackground"/>
+            android:background="?attr/scrimBackground"
+            android:visibility="gone" />
 
         <FrameLayout
             android:id="@+id/background_container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            app:layout_behavior="@string/bottom_sheet_behavior"
+            app:behavior_halfExpandedRatio="0.6"
             app:behavior_hideable="true"
             app:behavior_skipCollapsed="true"
-            app:behavior_halfExpandedRatio="0.6">
+            app:layout_behavior="@string/bottom_sheet_behavior">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/account_recycler_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:paddingTop="@dimen/grid_3"
-                android:paddingBottom="@dimen/grid_3"
-                app:paddingBottomSystemWindowInsets="@{true}"
-                android:nestedScrollingEnabled="false"
                 android:alpha="0.0"
                 android:clipToPadding="false"
+                android:nestedScrollingEnabled="false"
+                android:orientation="vertical"
+                android:paddingTop="@dimen/grid_3"
+                android:paddingBottom="@dimen/grid_3"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                android:orientation="vertical"/>
+                app:paddingBottomSystemWindowInsets="@{true}" />
 
             <ImageView
                 android:id="@+id/profile_image_view"
                 android:layout_width="@dimen/navigation_drawer_profile_image_size"
                 android:layout_height="@dimen/navigation_drawer_profile_image_size"
-                android:padding="@dimen/grid_1"
                 android:layout_gravity="center|top"
-                android:foreground="?attr/actionBarItemBackground"
                 android:contentDescription="@string/bottom_nav_drawer_image_content_desc"
+                android:foreground="?attr/actionBarItemBackground"
+                android:padding="@dimen/grid_1"
                 app:glideCenterCrop="@{true}"
-                app:glideCircularCrop="@{true}"/>
+                app:glideCircularCrop="@{true}" />
 
             <!--Container to act as the drawer's foreground container and hold all navigation-->
             <LinearLayout
                 android:id="@+id/foreground_container"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
                 android:layout_marginTop="@dimen/grid_3"
+                android:orientation="vertical"
                 android:paddingTop="@dimen/grid_3"
                 android:paddingBottom="@dimen/grid_4">
 
@@ -62,16 +61,13 @@
                     android:id="@+id/nav_recycler_view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:clipToPadding="false"
+                    android:orientation="vertical"
                     android:paddingTop="@dimen/grid_3"
                     android:paddingBottom="@dimen/bottom_app_bar_height"
-                    android:clipToPadding="false"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    android:orientation="vertical" />
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
             </LinearLayout>
-
         </FrameLayout>
-
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
 </layout>

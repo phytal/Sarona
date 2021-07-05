@@ -4,9 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.Toast
-import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.FragmentNavigatorExtras
@@ -14,15 +11,12 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.navigation.navOptions
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.transition.MaterialElevationScale
 import com.phytal.sarona.R
 import com.phytal.sarona.data.db.entities.Course
 import com.phytal.sarona.data.network.ConnectivityInterceptorImpl
 import com.phytal.sarona.data.network.HacApiService
 import com.phytal.sarona.databinding.FragmentCoursesBinding
-import com.phytal.sarona.ui.MainActivity
-import com.phytal.sarona.ui.assignments.CourseViewFragmentArgs
 import com.phytal.sarona.ui.base.ScopedFragment
 import io.reactivex.disposables.Disposable
 import kotlinx.coroutines.*

@@ -2,8 +2,6 @@ package com.phytal.sarona
 
 import android.app.Application
 import android.content.Context
-import android.content.SharedPreferences
-import androidx.preference.PreferenceManager
 import com.jakewharton.threetenabp.AndroidThreeTen
 import com.phytal.sarona.data.db.CourseDatabase
 import com.phytal.sarona.data.network.*
@@ -46,10 +44,8 @@ class SaronaApplication : Application(), KodeinAware {
         )
         val themePref =
             sharedPreferences.getString(
-                sharedPreferences?.getString(
-                    getString(R.string.saved_theme_key),
-                    "Default"
-                ), ThemeHelper.DEFAULT_MODE
+                getString(R.string.saved_theme_key),
+                ThemeHelper.DEFAULT_MODE
             )
         applyTheme(themePref!!)
     }

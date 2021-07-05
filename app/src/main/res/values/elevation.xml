@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <resources>
-
     <dimen name="plane_00">0dp</dimen>
     <dimen name="plane_01">1dp</dimen>
     <dimen name="plane_02">2dp</dimen>

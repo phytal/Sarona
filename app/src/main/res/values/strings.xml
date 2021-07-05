@@ -1,48 +1,39 @@
 <resources>
     <string name="app_name">SimpleGrade</string>
-    <!--BottomAppBar-->
+    <!--BottomNavBar-->
     <string name="bottom_app_bar_chevron_content_desc">Open or close bottom navigation drawer</string>
-    <string name="bottom_app_bar_logo_content_desc">SimpleGrade logo</string>
-
+    <string name="bottom_app_bar_logo_content_desc">SimpleGrade Logo</string>
     <string name="action_settings">Settings</string>
-
     <string name="nav_courses">Classes</string>
     <string name="nav_grades">Grades</string>
     <string name="nav_transcript">Transcript</string>
     <string name="nav_gpa">GPA</string>
     <string name="nav_settings">Settings</string>
-    <string name="nav_premium">Premium</string>
     <string name="nav_welcome">Welcome</string>
+    <string name="menu_settings">Settings</string>
+    <string name="menu_refresh">Refresh</string>
+    <string name="bottom_nav_drawer_image_content_desc">Nav Image</string>
 
-    <string name="home_second">Home Second</string>
+    <!--SettingsMenu-->
+    <string name="menu_dark_theme_light">Light</string>
+    <string name="menu_dark_theme_dark">Dark</string>
+    <string name="menu_dark_theme_system_default">System default</string>
+    <string name="theme_text">Theme</string>
+    <string name="theme_icon">Theme Icon</string>
+    <string name="language_text">Language</string>
+    <string name="language_icon">Language Icon</string>
+    <string name="log_out">Log Out</string>
+    <string name="about">About</string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="tos">Terms of Service</string>
 
-    <string name="settings_text_account">Account</string>
-    <string name="settings_text_preferences">Preferences</string>
-    <string name="settings_text_notifications">Notifications</string>
-    <string name="settings_text_calculator">GPA Calculator</string>
-    <string name="settings_switch_dark">Dark Theme</string>
-    <string name="settings_switch_grade_updated">Grade Updated</string>
-    <string name="settings_switch_grade_added">Grade Added</string>
-    <string name="settings_button_incremented">Incremented</string>
-    <string name="settings_button_scaled">Scaled</string>
-    <string name="settings_text_ap">AP Value</string>
-    <string name="settings_text_pap">PAP Value</string>
-    <string name="settings_test_ol">On-Level Value</string>
-    <string name="settings_premium_">Purchase Premium</string>
-    <string name="settings_privacy_policy">Privacy Policy</string>
-    <string name="settings_tos">Terms of Service</string>
-    <string name="settings_title">Settings</string>
-
-    <string name="settings_default">Default</string>
-    <string name="settings_summary_default_gpa_calculation">Change the way how your GPA is calculated</string>
-    <string name="settings_summary_default_ap_value">Change the weighed value of an AP class</string>
-    <string name="settings_summary_default_pap_value">Change the weighed value of a Pre-AP class</string>
-    <string name="settings_summary_default_ol_value">Change the weighed value of an on-level class</string>
-
+    <!--CourseItem-->
     <string name="course_item_grade">Grade</string>
     <string name="course_item_title">Course Title</string>
     <string name="course_item_description">Course Id</string>
 
+    <!--WelcomeFragment-->
+    <string name="simple_grade_logo_desc">Simple Grade Logo</string>
     <string name="welcome_agreement">This application uses credentials you supplied above to retrieve and display grade and class information from your Home Access Center (HAC). By using this application you agree to our terms of service and privacy policy.</string>
     <string name="welcome_login">Login</string>
     <string name="welcome_password">Password</string>
@@ -52,17 +43,21 @@
     <string name="welcome_text">SimpleGrade</string>
     <string name="welcome_subtitle">Viewing Grades Made Simple</string>
     <string name="welcome_copyright">©2021 Phytal</string>
-    <string name="menu_settings">Settings</string>
-    <string name="menu_refresh">Refresh</string>
-    <string name="bottom_nav_drawer_image_content_desc">Nav Image</string>
+
+    <!--AssignmentDialog-->
+    <string name="assignment_score">Score</string>
+    <string name="assignment_weight">Weight</string>
+    <string name="assignment_date_due">Date Due</string>
+    <string name="assignment_weighted_points">Weighted Points</string>
+    <string name="assignment_percent">Percent</string>
+
+    <!--CourseFragment-->
     <string name="assignment_item_title">Assignment Title</string>
     <string name="assignment_date_assigned">Date Assigned</string>
     <string name="course_item_max_grade">/Max Grade</string>
     <string name="forward_button">Forward Button</string>
     <string name="back_button">Back Button</string>
     <string name="loading">Loading</string>
-
-    <!--CourseFragment-->
     <string name="course_card_detail_transition_name">course_card_detail</string>
     <string name="course_card_transition_name">course_card_%1$s</string>
     <string name="course_name">Course Name</string>
@@ -82,14 +77,4 @@
     <string name="user_preference_file_key">com.phytal.sarona.user_preference</string>
     <string name="saved_theme_key">theme</string>
     <string name="saved_language_key">language</string>
-
-    <string name="menu_dark_theme_light">Light</string>
-    <string name="menu_dark_theme_dark">Dark</string>
-    <string name="menu_dark_theme_system_default">System default</string>
-    <string name="theme_text">Theme</string>
-    <string name="theme_icon">Theme Icon</string>
-    <string name="language_text">Language</string>
-    <string name="language_icon">Language Icon</string>
-    <string name="log_out">Log Out</string>
-    <string name="about">About</string>
 </resources>

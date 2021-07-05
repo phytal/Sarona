@@ -61,7 +61,6 @@ class MainActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListener,
         bottomNavDrawer.apply {
             addOnSlideAction(HalfClockwiseRotateSlideAction(binding.bottomAppBarChevron))
             addOnSlideAction(AlphaSlideAction(binding.bottomAppBarTitle, true))
-//            addOnStateChangedAction(ShowHideFabStateAction(binding.fab))
             addOnStateChangedAction(ChangeSettingsMenuStateAction { showSettings ->
                 // Toggle between the current destination's BAB menu and the menu which should
                 // be displayed when the BottomNavigationDrawer is open.
@@ -101,15 +100,6 @@ class MainActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListener,
         }
     }
 
-    private fun setBottomAppBarForSettings(@MenuRes menuRes: Int) {
-        binding.run {
-            bottomAppBar.visibility = View.VISIBLE
-            bottomAppBar.replaceMenu(menuRes)
-            bottomAppBarTitle.visibility = View.INVISIBLE
-            bottomAppBar.performShow()
-        }
-    }
-
     private fun hideBottomAppBar() {
         binding.run {
             bottomAppBar.performHide()
@@ -136,10 +126,6 @@ class MainActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListener,
         navigateToHome(item.titleRes, item.destination)
     }
 
-    private fun showDarkThemeMenu() {
-        MenuBottomSheetDialogFragment(this).show(supportFragmentManager, "settings_menu")
-    }
-
     private fun navigateToHome(@StringRes titleRes: Int, destination: Destinations) {
         binding.bottomAppBarTitle.text = getString(titleRes)
         currentNavigationFragment?.apply {
@@ -160,30 +146,6 @@ class MainActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListener,
         return navController.navigateUp(appBarConfiguration) || super.onSupportNavigateUp()
     }
 
-    override fun onMenuItemClick(item: MenuItem?): Boolean {
-        when (item?.itemId) {
-            R.id.menu_settings -> {
-//                bottomNavDrawer.close()
-//                navigateToSettings()
-                bottomNavDrawer.close()
-                showDarkThemeMenu()
-            }
-            R.id.menu_refresh -> true //TODO: refresh data here
-        }
-        return true
-    }
-
-    private fun navigateToSettings() {
-        currentNavigationFragment?.apply {
-            exitTransition = MaterialSharedAxis(MaterialSharedAxis.Z, true).apply {
-                duration = resources.getInteger(R.integer.motion_duration_large).toLong()
-            }
-            reenterTransition = MaterialSharedAxis(MaterialSharedAxis.Z, false).apply {
-                duration = resources.getInteger(R.integer.motion_duration_large).toLong()
-            }
-        }
-        findNavController(R.id.nav_host_fragment).navigate(R.id.nav_settings)
-    }
 
     override fun onDestinationChanged(
         controller: NavController,
@@ -203,12 +165,22 @@ class MainActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListener,
             R.id.nav_gpa -> {
                 setBottomAppBarForHome(R.menu.bottom_app_bar_menu)
             }
-            R.id.nav_settings -> {
+        }
+    }
+
+    override fun onMenuItemClick(item: MenuItem?): Boolean {
+        when (item?.itemId) {
+            R.id.menu_settings -> {
                 bottomNavDrawer.close()
                 showDarkThemeMenu()
-//                setBottomAppBarForSettings(R.menu.bottom_app_bar_empty)
             }
+            R.id.menu_refresh -> true //TODO: refresh data here
         }
+        return true
+    }
+
+    private fun showDarkThemeMenu() {
+        MenuBottomSheetDialogFragment(this).show(supportFragmentManager, "settings_menu")
     }
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {

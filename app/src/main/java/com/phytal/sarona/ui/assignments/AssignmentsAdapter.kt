@@ -1,12 +1,9 @@
 package com.phytal.sarona.ui.assignments
 
-import android.content.res.ColorStateList
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.annotation.NonNull
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.phytal.sarona.data.db.entities.Assignment
 import com.phytal.sarona.databinding.AssignmentItemBinding

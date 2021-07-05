@@ -3,12 +3,8 @@ package com.phytal.sarona.ui.courses
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import androidx.annotation.NonNull
 import androidx.recyclerview.widget.RecyclerView
-import com.phytal.sarona.R
 import com.phytal.sarona.data.db.entities.Course
-import com.phytal.sarona.data.db.entities.CourseList
 import com.phytal.sarona.databinding.CourseItemBinding
 
 class CoursesAdapter(

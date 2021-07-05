@@ -9,7 +9,6 @@ import com.phytal.sarona.data.db.entities.CourseList
 import com.phytal.sarona.data.db.entities.DataConverter
 import com.phytal.sarona.internal.helpers.SingletonHolder
 
-
 @Database(entities = [CourseList::class], version = 1)
 @TypeConverters(DataConverter::class)
 abstract class CourseDatabase: RoomDatabase() {

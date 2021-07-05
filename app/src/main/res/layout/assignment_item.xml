@@ -5,6 +5,7 @@
     tools:ignore="UnusedAttribute">
 
     <data>
+
         <variable
             name="assignment"
             type="com.phytal.sarona.data.db.entities.Assignment" />
@@ -25,9 +26,9 @@
         android:focusable="true"
         android:onClick="@{(view) -> listener.onAssignmentClick(view, assignment)}"
         android:transitionName="@{@string/assignment_card_transition_name(assignment.title_of_assignment)}"
-        app:strokeWidth="1dp"
         app:cardCornerRadius="15dp"
-        app:cardElevation="3dp">
+        app:cardElevation="3dp"
+        app:strokeWidth="1dp">
 
         <RelativeLayout
             android:layout_width="wrap_content"
@@ -59,10 +60,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentStart="true"
+                android:layout_marginEnd="20dp"
                 android:layout_toStartOf="@id/text_view_grade"
                 android:ellipsize="end"
                 android:fontFamily="@font/mplus"
-                android:layout_marginEnd="20dp"
                 android:maxLines="1"
                 android:text="@string/assignment_item_title"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"

@@ -4,8 +4,6 @@ import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import android.view.Menu
-import android.view.MenuItem
 import com.phytal.sarona.R
 
 class GradesFragment : Fragment() {
@@ -32,12 +30,4 @@ class GradesFragment : Fragment() {
         inflater.inflate(R.menu.bottom_app_bar_menu, menu)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-//        if (item?.itemId == R.id.action_add_course) {
-//            // Add a course
-//            Toast.makeText(this.context, "toast", Toast.LENGTH_SHORT).show()
-//            return true
-//        }
-        return super.onOptionsItemSelected(item)
-    }
 }

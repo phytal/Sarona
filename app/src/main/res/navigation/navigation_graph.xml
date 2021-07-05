@@ -32,7 +32,6 @@
             app:argType="com.phytal.sarona.data.db.entities.Course" />
     </fragment>
 
-
     <fragment
         android:id="@+id/nav_grades"
         android:name="com.phytal.sarona.ui.grades.GradesFragment"
@@ -57,10 +56,6 @@
         android:id="@+id/action_global_gpaFragment"
         app:destination="@+id/nav_gpa" />
 
-    <fragment
-        android:id="@+id/nav_settings"
-        android:name="com.phytal.sarona.ui.settings.SettingsFragment"
-        android:label="SettingsFragment"/>
     <action
         android:id="@+id/action_global_settingsFragment"
         app:destination="@+id/nav_settings" />
