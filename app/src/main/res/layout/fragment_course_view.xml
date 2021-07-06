@@ -1,57 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     tools:context=".ui.assignments.CourseViewFragment">
 
-    <com.google.android.material.card.MaterialCardView
-        android:id="@+id/course_card_view"
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/course_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:autoSizeTextType="uniform"
+        android:maxLines="1"
+        android:padding="10dp"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.Sarona.Headline5"
+        app:autoSizeMaxTextSize="24sp"
+        app:autoSizeMinTextSize="12sp"
+        app:autoSizeStepGranularity="2sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="@string/course_name" />
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/coordinatorLayout2"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:transitionName="@string/course_card_detail_transition_name">
+        android:layout_height="wrap_content"
+        android:paddingTop="160dp"
+        android:paddingBottom="150dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/course_grade_info">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="vertical"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:listitem="@layout/assignment_item" />
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/course_grade_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        app:cardCornerRadius="15dp"
+        app:cardElevation="3dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/course_name">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_width="wrap_content"
+            android:layout_height="240dp">
 
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/course_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:autoSizeTextType="uniform"
-                android:maxLines="1"
-                android:paddingHorizontal="10dp"
-                android:textAlignment="center"
-                android:textAppearance="@style/TextAppearance.Sarona.Headline5"
-                app:autoSizeMaxTextSize="24sp"
-                app:autoSizeMinTextSize="12sp"
-                app:autoSizeStepGranularity="2sp"
+            <ProgressBar
+                android:id="@+id/progress_bar"
+                android:layout_width="190dp"
+                android:layout_height="190dp"
+                android:indeterminateOnly="false"
+                android:max="10000"
+                android:progressDrawable="@drawable/progress_circle"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:text="@string/course_name" />
-
-            <androidx.coordinatorlayout.widget.CoordinatorLayout
-                android:id="@+id/coordinatorLayout2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="130dp"
-                android:paddingBottom="150dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/progress_bar">
-
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/recyclerView"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:scrollbars="vertical"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    tools:listitem="@layout/assignment_item" />
-            </androidx.coordinatorlayout.widget.CoordinatorLayout>
+                tools:progress="1000" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/course_grade"
@@ -64,18 +82,33 @@
                 app:layout_constraintTop_toTopOf="@+id/progress_bar"
                 tools:text="Grade" />
 
-            <ProgressBar
-                android:id="@+id/progress_bar"
-                android:layout_width="190dp"
-                android:layout_height="190dp"
-                android:layout_marginTop="5dp"
-                android:indeterminateOnly="false"
-                android:max="10000"
-                android:progressDrawable="@drawable/progress_circle"
+            <com.google.android.material.button.MaterialButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/add_grade"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/course_name"
-                tools:progress="1000" />
+                app:layout_constraintTop_toBottomOf="@+id/progress_bar" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </com.google.android.material.card.MaterialCardView>
-</layout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="wrap_content"
+        android:layout_height="240dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/course_grade_info"
+        app:layout_constraintTop_toBottomOf="@id/course_name">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/grade_categories"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scrollbars="vertical"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            tools:itemCount="2"
+            tools:listitem="@layout/grade_item" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

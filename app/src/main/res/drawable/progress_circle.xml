@@ -3,9 +3,9 @@
     <item>
         <shape
             android:shape="ring"
-            android:thicknessRatio="12"
+            android:thicknessRatio="9"
             android:useLevel="false">
-            <solid android:color="@color/cardview_dark_background" />
+            <solid android:color="@color/reply_blue_50" />
         </shape>
     </item>
     <item>
@@ -14,7 +14,7 @@
             android:toDegrees="270">
             <shape
                 android:shape="ring"
-                android:thicknessRatio="12"
+                android:thicknessRatio="9"
                 android:useLevel="true">
                 <solid android:color="#7bc4fc" />
             </shape>

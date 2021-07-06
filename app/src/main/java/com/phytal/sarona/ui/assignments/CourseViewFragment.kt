@@ -36,7 +36,8 @@ class CourseViewFragment : ScopedFragment(), KodeinAware,
     override val kodein by closestKodein()
     private val viewModelFactory by instance<CurrentCourseViewModelFactory>()
     private lateinit var viewModel: CourseViewModel
-    private val adapter = AssignmentsAdapter(this)
+    private val assignmentsAdapter = AssignmentsAdapter(this)
+    private val gradeTypeAdapter = GradeTypeAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,8 +45,10 @@ class CourseViewFragment : ScopedFragment(), KodeinAware,
     ): View? {
         binding = FragmentCourseViewBinding.inflate(inflater, container, false)
         binding.recyclerView.setHasFixedSize(true)
-        binding.recyclerView.adapter = adapter
-        binding.recyclerView.layoutManager = LinearLayoutManager(context)
+        binding.recyclerView.adapter = assignmentsAdapter
+
+//        binding.gradeCategories.setHasFixedSize(true)
+        binding.gradeCategories.adapter = gradeTypeAdapter
 
         return binding.root
     }
@@ -58,7 +61,8 @@ class CourseViewFragment : ScopedFragment(), KodeinAware,
     }
 
     private fun bindUI() = launch {
-        adapter.setAssignments(course.assignments)
+        assignmentsAdapter.setAssignments(course.assignments)
+        gradeTypeAdapter.submitList(course.grade_types)
 
         binding.courseName.text = course.name
 
