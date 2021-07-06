@@ -65,9 +65,7 @@
     <string name="nav_courseView">Course View</string>
 
     <!--CourseViewFragment-->
-    <string name="assignment_card_detail_transition_name">assignment_card_detail</string>
-    <string name="assignment_card_transition_name">assignment_card_%1$s</string>
-    <string name="fab_description">Add Grade</string>
+    <string name="add_grade">Add Grade</string>
 
     <!--SharedPreferences-->
     <string name="login_preference_file_key">com.phytal.sarona.login_preference</string>

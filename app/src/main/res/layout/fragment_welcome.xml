@@ -14,13 +14,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:adjustViewBounds="true"
+        android:contentDescription="@string/simple_grade_logo_desc"
         android:maxWidth="140dp"
         android:scaleType="centerCrop"
         android:src="@drawable/sarona_logo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:contentDescription="@string/simple_grade_logo_desc" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/materialTextView"
@@ -50,60 +50,40 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:textAppearance="@style/TextAppearance.Sarona.Subtitle2"
-        app:layout_constraintBottom_toTopOf="@+id/link_layout"
+        app:layout_constraintBottom_toTopOf="@+id/editLinkLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/materialTextView2" />
 
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/link_layout"
-        android:layout_width="wrap_content"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/editLinkLayout"
+        style="@style/Widget.Sarona.TextInputLayout"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
+        android:hint="@string/welcome_link"
+        app:boxCornerRadiusBottomEnd="30dp"
+        app:boxCornerRadiusBottomStart="30dp"
+        app:boxCornerRadiusTopEnd="30dp"
+        app:boxCornerRadiusTopStart="30dp"
+        app:helperText="@string/welcome_link_example"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/district_spinner">
+        app:layout_constraintTop_toBottomOf="@+id/district_spinner"
+        app:startIconDrawable="@drawable/ic_outline_link">
 
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/link_example"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/welcome_link_example"
-            android:textAppearance="@style/TextAppearance.Sarona.Subtitle2"
-            app:layout_constraintBottom_toTopOf="@+id/editLinkLayout"
-            app:layout_constraintStart_toStartOf="@+id/editLinkLayout" />
-
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/editLinkLayout"
-            style="@style/Widget.Sarona.TextInputLayout"
-            android:layout_width="300dp"
-            android:layout_height="wrap_content"
-            android:hint="@string/welcome_link"
-            app:boxCornerRadiusBottomEnd="30dp"
-            app:boxCornerRadiusBottomStart="30dp"
-            app:boxCornerRadiusTopEnd="30dp"
-            app:boxCornerRadiusTopStart="30dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-
-            app:startIconDrawable="@drawable/ic_outline_link">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/editTextLink"
-                style="@style/TextAppearance.Sarona.TextInputLayout.HintText"
-                android:layout_width="match_parent"
-                android:layout_height="54dp"
-                android:ellipsize="start"
-                android:ems="10"
-                android:inputType="textAutoComplete"
-                android:singleLine="true"
-                app:boxStrokeColor="#FFFF"
-                app:helperText="@string/welcome_link_example"
-                app:helperTextEnabled="true" />
-        </com.google.android.material.textfield.TextInputLayout>
-    </androidx.constraintlayout.widget.ConstraintLayout>
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/editTextLink"
+            style="@style/TextAppearance.Sarona.TextInputLayout.HintText"
+            android:layout_width="match_parent"
+            android:layout_height="54dp"
+            android:ellipsize="start"
+            android:ems="10"
+            android:inputType="textAutoComplete"
+            android:singleLine="true"
+            app:boxStrokeColor="#FFFF" />
+    </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/editUsernameLayout"
@@ -118,7 +98,7 @@
         app:boxCornerRadiusTopStart="30dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/link_layout"
+        app:layout_constraintTop_toBottomOf="@+id/editLinkLayout"
         app:startIconDrawable="@drawable/ic_outline_person">
 
         <com.google.android.material.textfield.TextInputEditText

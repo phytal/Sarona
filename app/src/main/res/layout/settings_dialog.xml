@@ -3,42 +3,45 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/theme_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingTop="18dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            android:paddingTop="10dp"
+            android:layout_marginStart="17dp"
+            app:layout_constraintEnd_toEndOf="@+id/about_button"
+            app:layout_constraintStart_toStartOf="@+id/about_button"
             app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/theme_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="5dp"
+                android:paddingVertical="8dp"
                 android:text="@string/theme_text"
                 android:textAppearance="@style/TextAppearance.Sarona.Subtitle2"
                 android:textSize="20sp"
-                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/theme_icon"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
                 android:id="@+id/theme_icon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="3dp"
                 android:contentDescription="@string/theme_icon"
                 android:src="@drawable/ic_twotone_palette"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintBottom_toBottomOf="@+id/theme_spinner"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/theme_spinner" />
 
             <Spinner
                 android:id="@+id/theme_spinner"
-                android:layout_width="180dp"
-                android:layout_height="24dp"
+                android:layout_width="140dp"
+                android:layout_height="wrap_content"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/theme_icon"
@@ -49,17 +52,17 @@
             android:id="@+id/language_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginEnd="15dp"
             android:paddingTop="10dp"
-            android:paddingBottom="15dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/theme_layout">
+            app:layout_constraintEnd_toEndOf="@+id/logout_button"
+            app:layout_constraintStart_toStartOf="@+id/logout_button"
+            app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/language_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="10dp"
+                android:paddingVertical="8dp"
                 android:text="@string/language_text"
                 android:textAppearance="@style/TextAppearance.Sarona.Subtitle2"
                 android:textSize="20sp"
@@ -70,15 +73,18 @@
                 android:id="@+id/language_icon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="6dp"
                 android:contentDescription="@string/language_icon"
                 android:src="@drawable/ic_twotone_language"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="parent" />
+                app:layout_constraintBottom_toBottomOf="@+id/language_spinner"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/language_spinner"
+                app:layout_constraintVertical_bias="0.0" />
 
             <Spinner
                 android:id="@+id/language_spinner"
-                android:layout_width="180dp"
-                android:layout_height="24dp"
+                android:layout_width="140dp"
+                android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/language_icon"
                 app:layout_constraintTop_toBottomOf="@+id/language_text" />
@@ -87,25 +93,26 @@
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/about_button"
-            android:layout_width="204dp"
+            android:layout_width="180dp"
             android:layout_height="wrap_content"
+            android:layout_marginVertical="10dp"
+            android:layout_marginStart="10dp"
             android:paddingVertical="10dp"
             android:text="@string/about"
-            app:layout_constraintBottom_toTopOf="@id/logout_button"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/language_layout" />
+            app:layout_constraintTop_toBottomOf="@+id/theme_layout" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/logout_button"
-            android:layout_width="204dp"
+            android:layout_width="180dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
+            android:layout_marginVertical="10dp"
+            android:layout_marginEnd="10dp"
             android:paddingVertical="10dp"
             android:text="@string/log_out"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/about_button" />
+            app:layout_constraintTop_toBottomOf="@+id/language_layout" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

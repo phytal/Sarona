@@ -19,7 +19,6 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import com.google.android.material.transition.MaterialFadeThrough
-import com.google.android.material.transition.MaterialSharedAxis
 import com.phytal.sarona.R
 import com.phytal.sarona.databinding.ActivityMainBinding
 import com.phytal.sarona.ui.nav.*
@@ -126,7 +125,7 @@ class MainActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListener,
         navigateToHome(item.titleRes, item.destination)
     }
 
-    private fun navigateToHome(@StringRes titleRes: Int, destination: Destinations) {
+    fun navigateToHome(@StringRes titleRes: Int, destination: Destinations) {
         binding.bottomAppBarTitle.text = getString(titleRes)
         currentNavigationFragment?.apply {
             exitTransition = MaterialFadeThrough().apply {
@@ -213,6 +212,5 @@ class MainActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListener,
     }
 
     override fun onNothingSelected(parent: AdapterView<*>?) {
-        TODO("Not yet implemented")
     }
 }

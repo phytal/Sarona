@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
+import androidx.core.view.doOnPreDraw
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.FragmentNavigatorExtras
@@ -17,8 +19,10 @@ import com.phytal.sarona.data.db.entities.Course
 import com.phytal.sarona.data.network.ConnectivityInterceptorImpl
 import com.phytal.sarona.data.network.HacApiService
 import com.phytal.sarona.databinding.FragmentCoursesBinding
+import com.phytal.sarona.ui.MainActivity
 import com.phytal.sarona.ui.base.ScopedFragment
-import io.reactivex.disposables.Disposable
+import com.phytal.sarona.ui.nav.Destinations
+import com.phytal.sarona.ui.nav.NavigationModel
 import kotlinx.coroutines.*
 import kotlinx.coroutines.Dispatchers.Main
 import org.kodein.di.KodeinAware
@@ -33,7 +37,6 @@ class CoursesFragment : ScopedFragment(), KodeinAware, CoursesAdapter.CourseAdap
     override val kodein by closestKodein()
     private val viewModelFactory by instance<CurrentCourseViewModelFactory>()
     private lateinit var viewModel: CourseViewModel
-    private var disposable: Disposable? = null
 //    private lateinit var courseNetworkDataSource: CourseNetworkDataSourceImpl
     private val adapter = CoursesAdapter(this)
     private lateinit var binding: FragmentCoursesBinding
@@ -93,6 +96,8 @@ class CoursesFragment : ScopedFragment(), KodeinAware, CoursesAdapter.CourseAdap
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        postponeEnterTransition()
+        view.doOnPreDraw { startPostponedEnterTransition() }
 
         viewModel = ViewModelProvider(this, viewModelFactory).get(CourseViewModel::class.java)
         bindUI()
@@ -121,21 +126,18 @@ class CoursesFragment : ScopedFragment(), KodeinAware, CoursesAdapter.CourseAdap
         }
     }
 
-    override fun onPause() {
-        super.onPause()
-        disposable?.dispose()
-    }
-
     override fun onCourseClick(cardView: View, course: Course) {
-        exitTransition = MaterialElevationScale(false).apply {
-            duration = resources.getInteger(R.integer.motion_duration_large).toLong()
-        }
-        reenterTransition = MaterialElevationScale(true).apply {
-            duration = resources.getInteger(R.integer.motion_duration_large).toLong()
-        }
-        val courseCardDetailTransitionName = getString(R.string.course_card_detail_transition_name)
-        val extras = FragmentNavigatorExtras(cardView to courseCardDetailTransitionName)
+//        val courseCardDetailTransitionName = getString(R.string.course_card_detail_transition_name)
+//        val extras = FragmentNavigatorExtras(cardView to courseCardDetailTransitionName)
         val directions = CoursesFragmentDirections.actionNavCoursesToNavCourseView(course)
-        findNavController().navigate(directions, extras)
+        findNavController().navigate(directions,
+            navOptions {
+                anim {
+                    enter = R.anim.slide_in_right
+                    exit = R.anim.fade_out
+                    popEnter = R.anim.fade_in
+                    popExit = R.anim.slide_out_right
+                }
+            })
     }
 }

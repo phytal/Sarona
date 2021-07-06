@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.textfield.TextInputLayout
 import com.phytal.sarona.R
 import com.phytal.sarona.databinding.FragmentWelcomeBinding
 import com.phytal.sarona.ui.courses.CoursesFragmentDirections
@@ -17,7 +18,7 @@ import com.phytal.sarona.util.SpinnerAdapter
 
 
 class WelcomeFragment : Fragment(), AdapterView.OnItemSelectedListener {
-    lateinit var linkLayout: ConstraintLayout
+    lateinit var linkLayout: TextInputLayout
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,7 +40,7 @@ class WelcomeFragment : Fragment(), AdapterView.OnItemSelectedListener {
         }
 
         val binding = FragmentWelcomeBinding.inflate(inflater)
-        linkLayout = binding.linkLayout
+        linkLayout = binding.editLinkLayout
 
         val adapter = SpinnerAdapter(
             requireContext(),

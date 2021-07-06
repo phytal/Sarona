@@ -25,7 +25,6 @@
         android:clickable="true"
         android:focusable="true"
         android:onClick="@{(view) -> listener.onAssignmentClick(view, assignment)}"
-        android:transitionName="@{@string/assignment_card_transition_name(assignment.title_of_assignment)}"
         app:cardCornerRadius="15dp"
         app:cardElevation="3dp"
         app:strokeWidth="1dp">
