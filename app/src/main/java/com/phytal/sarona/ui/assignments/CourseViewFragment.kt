@@ -1,7 +1,6 @@
 package com.phytal.sarona.ui.assignments
 
 import android.animation.ObjectAnimator
-import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,18 +8,15 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.transition.MaterialContainerTransform
 import com.phytal.sarona.R
 import com.phytal.sarona.data.db.entities.Assignment
 import com.phytal.sarona.data.db.entities.Course
 import com.phytal.sarona.databinding.AssignmentDialogBinding
 import com.phytal.sarona.databinding.FragmentCourseViewBinding
 import com.phytal.sarona.ui.base.ScopedFragment
-import com.phytal.sarona.ui.courses.CourseViewModel
+import com.phytal.sarona.ui.courses.CurrentCourseViewModel
 import com.phytal.sarona.ui.courses.CurrentCourseViewModelFactory
 import com.phytal.sarona.util.MVAccelerateDecelerateInterpolator
-import com.phytal.sarona.util.themeColor
 import kotlinx.coroutines.launch
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.closestKodein
@@ -35,7 +31,7 @@ class CourseViewFragment : ScopedFragment(), KodeinAware,
     private lateinit var binding: FragmentCourseViewBinding
     override val kodein by closestKodein()
     private val viewModelFactory by instance<CurrentCourseViewModelFactory>()
-    private lateinit var viewModel: CourseViewModel
+    private lateinit var viewModel: CurrentCourseViewModel
     private val assignmentsAdapter = AssignmentsAdapter(this)
     private val gradeTypeAdapter = GradeTypeAdapter()
 
@@ -56,7 +52,7 @@ class CourseViewFragment : ScopedFragment(), KodeinAware,
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel = ViewModelProvider(this, viewModelFactory).get(CourseViewModel::class.java)
+        viewModel = ViewModelProvider(this, viewModelFactory).get(CurrentCourseViewModel::class.java)
         bindUI()
     }
 

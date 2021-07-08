@@ -1,0 +1,49 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 1,
+    "identityHash": "1782f97ab9d3ac4dbbcdae121565ce7f",
+    "entities": [
+      {
+        "tableName": "mp_table",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`mp` INTEGER NOT NULL, `courses` TEXT NOT NULL, PRIMARY KEY(`mp`))",
+        "fields": [
+          {
+            "fieldPath": "mp",
+            "columnName": "mp",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "courses",
+            "columnName": "courses",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "mp"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [
+          {
+            "name": "index_mp_table_mp",
+            "unique": true,
+            "columnNames": [
+              "mp"
+            ],
+            "createSql": "CREATE UNIQUE INDEX IF NOT EXISTS `index_mp_table_mp` ON `${TABLE_NAME}` (`mp`)"
+          }
+        ],
+        "foreignKeys": []
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '1782f97ab9d3ac4dbbcdae121565ce7f')"
+    ]
+  }
+}

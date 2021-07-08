@@ -1,9 +1,8 @@
 package com.phytal.sarona.data.network
 
-import com.phytal.sarona.data.db.entities.Course
 import com.phytal.sarona.data.network.adapter.NetworkResponseAdapterFactory
-import com.phytal.sarona.data.network.response.CourseResponse
-//import com.phytal.sarona.models.CourseList
+import com.phytal.sarona.data.network.response.CurrentMpResponse
+import com.phytal.sarona.data.network.response.PastMpResponse
 import io.reactivex.Observable
 import io.reactivex.schedulers.Schedulers
 import okhttp3.OkHttpClient
@@ -16,11 +15,26 @@ import java.util.concurrent.TimeUnit
 
 interface HacApiService {
 
-    @GET("grades")
-    fun getAllCourses(@Query("l") hacLink: String,
-                      @Query("u") username: String,
-                      @Query("p") password: String):
-            Observable<ArrayList<ArrayList<Course>>>
+    @GET("pastMp")
+    fun getPastMps(
+        @Query("l") hacLink: String,
+        @Query("u") username: String,
+        @Query("p") password: String
+    ): Observable<PastMpResponse>
+
+    @GET("currentMp")
+    fun getCurrentMp(
+        @Query("l") hacLink: String,
+        @Query("u") username: String,
+        @Query("p") password: String
+    ): Observable<CurrentMpResponse>
+
+    @GET("login")
+    fun getValidLogin(
+        @Query("l") hacLink: String,
+        @Query("u") username: String,
+        @Query("p") password: String
+    ): Observable<String>
 
     companion object {
         operator fun invoke(
@@ -40,7 +54,8 @@ interface HacApiService {
                 .addCallAdapterFactory(NetworkResponseAdapterFactory())
                 .addCallAdapterFactory(rxAdapter)
                 .addConverterFactory(
-                    GsonConverterFactory.create())
+                    GsonConverterFactory.create()
+                )
                 .baseUrl("https://flask-hac-api.herokuapp.com/")
                 .build()
                 .create(HacApiService::class.java)

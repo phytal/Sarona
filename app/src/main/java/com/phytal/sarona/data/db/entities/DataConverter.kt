@@ -7,18 +7,18 @@ import java.lang.reflect.Type
 
 class DataConverter {
     @TypeConverter
-    fun toCourseList(jsonString: String): ArrayList<ArrayList<Course>>? {
+    fun toCourseList(jsonString: String): List<Course>? {
         val gson = Gson()
         val type: Type = object :
-            TypeToken<ArrayList<ArrayList<Course>>>() {}.type
-        return gson.fromJson<ArrayList<ArrayList<Course>>>(jsonString, type)
+            TypeToken<List<Course>>() {}.type
+        return gson.fromJson<List<Course>>(jsonString, type)
     }
 
     @TypeConverter
-    fun fromCourseList(jsonString: ArrayList<ArrayList<Course>>): String? {
+    fun fromCourseList(jsonString: List<Course>): String? {
         val gson = Gson()
         val type: Type = object :
-            TypeToken<ArrayList<ArrayList<Course>>>() {}.type
+            TypeToken<List<Course>>() {}.type
         return gson.toJson(jsonString, type)
     }
 }

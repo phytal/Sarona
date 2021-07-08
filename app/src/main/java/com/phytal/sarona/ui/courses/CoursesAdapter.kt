@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.phytal.sarona.data.db.entities.Course
+import com.phytal.sarona.data.db.entities.MarkingPeriod
 import com.phytal.sarona.databinding.CourseItemBinding
 
 class CoursesAdapter(
@@ -36,8 +37,8 @@ class CoursesAdapter(
         return courses.size
     }
 
-    fun setCourses(courses: ArrayList<Course>) {
-        this.courses = courses
+    fun setCourses(mp: MarkingPeriod) {
+        this.courses = mp.courses
         notifyDataSetChanged()
     }
 

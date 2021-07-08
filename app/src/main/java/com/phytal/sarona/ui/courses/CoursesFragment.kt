@@ -4,25 +4,16 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.OnBackPressedCallback
 import androidx.core.view.doOnPreDraw
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.navigation.navOptions
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.google.android.material.transition.MaterialElevationScale
 import com.phytal.sarona.R
 import com.phytal.sarona.data.db.entities.Course
-import com.phytal.sarona.data.network.ConnectivityInterceptorImpl
-import com.phytal.sarona.data.network.HacApiService
 import com.phytal.sarona.databinding.FragmentCoursesBinding
-import com.phytal.sarona.ui.MainActivity
 import com.phytal.sarona.ui.base.ScopedFragment
-import com.phytal.sarona.ui.nav.Destinations
-import com.phytal.sarona.ui.nav.NavigationModel
 import kotlinx.coroutines.*
 import kotlinx.coroutines.Dispatchers.Main
 import org.kodein.di.KodeinAware
@@ -33,21 +24,14 @@ import org.kodein.di.generic.instance
 class CoursesFragment : ScopedFragment(), KodeinAware, CoursesAdapter.CourseAdapterListener {
     private val args: CoursesFragmentArgs by navArgs()
     private val markingPeriod: Int by lazy(LazyThreadSafetyMode.NONE) { args.markingPeriod }
-    private var maxMp : Int = -1
+    private var maxMp: Int = -1
     override val kodein by closestKodein()
-    private val viewModelFactory by instance<CurrentCourseViewModelFactory>()
-    private lateinit var viewModel: CourseViewModel
-//    private lateinit var courseNetworkDataSource: CourseNetworkDataSourceImpl
+    private val currentCourseViewModelFactory by instance<CurrentCourseViewModelFactory>()
+    private val pastCourseViewModelFactory by instance<PastCourseViewModelFactory>()
+    private lateinit var currentCourseViewModel: CurrentCourseViewModel
+    private lateinit var pastCourseViewModel: PastCourseViewModel
     private val adapter = CoursesAdapter(this)
     private lateinit var binding: FragmentCoursesBinding
-
-    private val hacApiServe by lazy {
-        HacApiService(
-            ConnectivityInterceptorImpl(
-                this.requireContext()
-            )
-        )
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -57,14 +41,13 @@ class CoursesFragment : ScopedFragment(), KodeinAware, CoursesAdapter.CourseAdap
         binding = FragmentCoursesBinding.inflate(inflater)
         binding.recyclerView.setHasFixedSize(true)
         binding.recyclerView.adapter = adapter
-        binding.recyclerView.layoutManager = LinearLayoutManager(context)
 
         binding.backBtn.setOnClickListener {
             // markingPeriod is 0, recyclerView already shows most recent mp
             var mp = markingPeriod
             if (mp == 0)
-                mp = maxMp-1
-            if (mp-1 > 0) {
+                mp = maxMp
+            if (mp - 1 > 0) {
                 val directions =
                     CoursesFragmentDirections.actionGlobalCoursesFragment(mp - 1)
                 findNavController().navigate(directions, navOptions {
@@ -79,7 +62,7 @@ class CoursesFragment : ScopedFragment(), KodeinAware, CoursesAdapter.CourseAdap
             var mp = markingPeriod
             if (mp == 0)
                 mp = maxMp
-            if (mp+1 < maxMp) {
+            if (mp + 1 <= maxMp) {
                 val directions =
                     CoursesFragmentDirections.actionGlobalCoursesFragment(mp + 1)
                 findNavController().navigate(directions, navOptions {
@@ -99,24 +82,32 @@ class CoursesFragment : ScopedFragment(), KodeinAware, CoursesAdapter.CourseAdap
         postponeEnterTransition()
         view.doOnPreDraw { startPostponedEnterTransition() }
 
-        viewModel = ViewModelProvider(this, viewModelFactory).get(CourseViewModel::class.java)
+        currentCourseViewModel =
+            ViewModelProvider(
+                this,
+                currentCourseViewModelFactory
+            ).get(CurrentCourseViewModel::class.java)
+        pastCourseViewModel =
+            ViewModelProvider(this, pastCourseViewModelFactory).get(PastCourseViewModel::class.java)
         bindUI()
     }
 
-    private fun bindUI() = launch{
-        val currentCourses = viewModel.courses.await()
+    private fun bindUI() = launch(Main) {
+        val currentCourses = currentCourseViewModel.currentCourses.await()
+        val pastCourses = pastCourseViewModel.pastCourses.await()
+
         currentCourses.observe(viewLifecycleOwner, Observer {
             if (it == null) return@Observer
-
-            maxMp = it.yearCourses.size
-
-            var mp = markingPeriod
-            if (mp == 0)
-                mp = maxMp
-
+            maxMp = it.mp
             binding.groupLoading.visibility = View.GONE
+            if (markingPeriod == 0 || markingPeriod == maxMp)
+                adapter.setCourses(it)
+        })
 
-            adapter.setCourses(it.yearCourses[mp-1])
+        pastCourses.observe(viewLifecycleOwner, Observer {
+            if (it == null) return@Observer
+            if (markingPeriod in 1 until maxMp)
+                adapter.setCourses(it[markingPeriod - 1])
         })
     }
 
