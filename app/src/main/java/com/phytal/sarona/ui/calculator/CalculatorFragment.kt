@@ -23,7 +23,7 @@ class CalculatorFragment : Fragment() {
                 ViewModelProvider(this).get(CalculatorViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_calculator, container, false)
         val textView: TextView = root.findViewById(R.id.text_calculator)
-        calculatorViewModel.text.observe(viewLifecycleOwner, Observer {
+        calculatorViewModel.text.observe(viewLifecycleOwner, {
             textView.text = it
         })
         return root

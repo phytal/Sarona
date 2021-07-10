@@ -4,17 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:ignore="UnusedAttribute">
 
-    <data>
-
-        <variable
-            name="assignment"
-            type="com.phytal.sarona.data.db.entities.Assignment" />
-
-        <variable
-            name="listener"
-            type="com.phytal.sarona.ui.assignments.AssignmentsAdapter.AssignmentAdapterListener" />
-    </data>
-
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/assignment_card"
         android:layout_width="match_parent"
@@ -24,7 +13,7 @@
         android:layout_marginBottom="15dp"
         android:clickable="true"
         android:focusable="true"
-        android:onClick="@{(view) -> listener.onAssignmentClick(view, assignment)}"
+        android:longClickable="true"
         app:cardCornerRadius="15dp"
         app:cardElevation="3dp"
         app:strokeWidth="1dp">

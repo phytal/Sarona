@@ -13,14 +13,16 @@ class AssignmentsAdapter(
 ) : RecyclerView.Adapter<AssignmentsAdapter.AssignmentHolder>() {
 
     interface AssignmentAdapterListener {
-        fun onAssignmentClick(cardView: View, assignment: Assignment)
+        fun onAssignmentClick(cardView: View, position: Int)
+        fun onAssignmentLongClick(cardView: View, position: Int)
     }
 
-    private var assignments : List<Assignment> = ArrayList()
+    var assignments: List<Assignment> = ArrayList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AssignmentHolder {
-        return AssignmentHolder (
-            AssignmentItemBinding.inflate(LayoutInflater.from(parent.context),
+        return AssignmentHolder(
+            AssignmentItemBinding.inflate(
+                LayoutInflater.from(parent.context),
                 parent,
                 false
             ),
@@ -36,20 +38,28 @@ class AssignmentsAdapter(
         return assignments.size
     }
 
-    fun setAssignments(assignments: List<Assignment>) {
+    fun setAssignmentList(assignments: List<Assignment>) {
         this.assignments = assignments
         notifyDataSetChanged()
     }
 
-    class AssignmentHolder (
+    class AssignmentHolder(
         private val binding: AssignmentItemBinding,
-        listener: AssignmentAdapterListener
-    ) : RecyclerView.ViewHolder(binding.root) {
+        val listener: AssignmentAdapterListener
+    ) : RecyclerView.ViewHolder(binding.root), View.OnClickListener, View.OnLongClickListener {
 
         init {
-            binding.run {
-                this.listener = listener
-            }
+            binding.root.setOnClickListener(this)
+            binding.root.setOnLongClickListener(this)
+        }
+
+        override fun onClick(v: View) {
+            listener.onAssignmentClick(v, adapterPosition)
+        }
+
+        override fun onLongClick(v: View): Boolean {
+            listener.onAssignmentLongClick(v, adapterPosition)
+            return true
         }
 
         fun bind(assignment: Assignment) {
@@ -62,7 +72,6 @@ class AssignmentsAdapter(
             binding.textViewGrade.text = score
             val maxPointsString = "/" + String.format("%.2f", assignment.max_points)
             binding.textViewMaxGrade.text = maxPointsString
-            binding.assignment = assignment
             binding.assignmentCard.strokeColor = when (assignment.type_of_grade) {
                 "Major Grades" -> Color.parseColor("#b37bfc")
                 "Minor Grades" -> Color.parseColor("#7bc4fc")

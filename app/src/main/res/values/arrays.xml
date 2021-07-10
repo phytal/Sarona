@@ -8,29 +8,17 @@
         <item>scaled</item>
         <item>incremented</item>
     </string-array>
-    <string-array name="pref_theme_entries">
+    <string-array name="pref_theme">
         <item>Dark</item>
         <item>Light</item>
         <item>Default</item>
     </string-array>
-    <string-array name="pref_theme_values">
-        <item>DARK</item>
-        <item>LIGHT</item>
-        <item>DEFAULT</item>
-    </string-array>
-    <string-array name="pref_language_entries">
+    <string-array name="pref_language">
         <item>English</item>
         <item>Español</item>
         <item>Français</item>
         <item>한곡어</item>
         <item>中文</item>
-    </string-array>
-    <string-array name="pref_language_values">
-        <item>EN</item>
-        <item>ES</item>
-        <item>FR</item>
-        <item>KR</item>
-        <item>CH</item>
     </string-array>
     <string-array name="welcome_district">
         <item>Frisco ISD</item>

@@ -75,4 +75,14 @@
     <string name="user_preference_file_key">com.phytal.sarona.user_preference</string>
     <string name="saved_theme_key">theme</string>
     <string name="saved_language_key">language</string>
+
+    <!--AddAssignmentDialog-->
+    <string name="add_assignment">Add Assignment</string>
+    <string name="category">Category</string>
+    <string name="assignment_name">Assignment Name</string>
+    <string name="mock_assignment">Mock Assignment</string>
+    <string name="score">Score</string>
+    <string name="max_score">Max Score</string>
+    <string name="weight">Weight</string>
+    <string name="add">Add</string>
 </resources>

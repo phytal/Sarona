@@ -42,7 +42,7 @@ class MenuBottomSheetDialogFragment(
         val themeAdapter = SpinnerAdapter(
             requireContext(),
             android.R.layout.simple_spinner_item,
-            resources.getStringArray(R.array.pref_theme_entries).toList()
+            resources.getStringArray(R.array.pref_theme).toList()
         )
         themeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
 
@@ -62,9 +62,9 @@ class MenuBottomSheetDialogFragment(
         val languageAdapter = SpinnerAdapter(
             requireContext(),
             android.R.layout.simple_spinner_item,
-            resources.getStringArray(R.array.pref_language_entries).toList()
+            resources.getStringArray(R.array.pref_language).toList()
         )
-        themeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        languageAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
 
         languageSpinner.adapter = languageAdapter
         languageSpinner.onItemSelectedListener = listener

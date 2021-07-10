@@ -10,10 +10,9 @@
             android:id="@+id/theme_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingTop="10dp"
-            android:layout_marginStart="17dp"
-            app:layout_constraintEnd_toEndOf="@+id/about_button"
-            app:layout_constraintStart_toStartOf="@+id/about_button"
+            android:paddingTop="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.textview.MaterialTextView
@@ -40,7 +39,7 @@
 
             <Spinner
                 android:id="@+id/theme_spinner"
-                android:layout_width="140dp"
+                android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -52,11 +51,10 @@
             android:id="@+id/language_layout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginEnd="15dp"
-            android:paddingTop="10dp"
-            app:layout_constraintEnd_toEndOf="@+id/logout_button"
-            app:layout_constraintStart_toStartOf="@+id/logout_button"
-            app:layout_constraintTop_toTopOf="parent">
+            android:paddingTop="15dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/theme_layout">
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/language_text"
@@ -83,7 +81,7 @@
 
             <Spinner
                 android:id="@+id/language_spinner"
-                android:layout_width="140dp"
+                android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/language_icon"
@@ -96,23 +94,22 @@
             android:layout_width="180dp"
             android:layout_height="wrap_content"
             android:layout_marginVertical="10dp"
-            android:layout_marginStart="10dp"
             android:paddingVertical="10dp"
             android:text="@string/about"
-            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/theme_layout" />
+            app:layout_constraintTop_toBottomOf="@+id/language_layout" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/logout_button"
             android:layout_width="180dp"
             android:layout_height="wrap_content"
-            android:layout_marginVertical="10dp"
-            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
             android:paddingVertical="10dp"
             android:text="@string/log_out"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/language_layout" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/about_button" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

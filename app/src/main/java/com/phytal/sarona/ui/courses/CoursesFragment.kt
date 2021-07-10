@@ -43,7 +43,6 @@ class CoursesFragment : ScopedFragment(), KodeinAware, CoursesAdapter.CourseAdap
         binding.recyclerView.adapter = adapter
 
         binding.backBtn.setOnClickListener {
-            // markingPeriod is 0, recyclerView already shows most recent mp
             var mp = markingPeriod
             if (mp == 0)
                 mp = maxMp

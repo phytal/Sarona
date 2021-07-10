@@ -2,7 +2,9 @@ package com.phytal.sarona.ui
 
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
+import android.annotation.SuppressLint
 import android.content.Context
+import android.content.pm.ActivityInfo
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
@@ -35,10 +37,11 @@ class MainActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListener,
         supportFragmentManager.findFragmentById(R.id.bottom_nav_drawer) as BottomNavDrawerFragment
     }
 
+    @SuppressLint("SourceLockedOrientationActivity")
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.Theme_Sarona_DayNight)
         super.onCreate(savedInstanceState)
-
+        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
         setUpBottomNavigation()
     }
 

@@ -5,18 +5,22 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ArrayAdapter
 import androidx.appcompat.app.AlertDialog
+import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import com.phytal.sarona.R
 import com.phytal.sarona.data.db.entities.Assignment
 import com.phytal.sarona.data.db.entities.Course
+import com.phytal.sarona.databinding.AddAssignmentDialogBinding
 import com.phytal.sarona.databinding.AssignmentDialogBinding
 import com.phytal.sarona.databinding.FragmentCourseViewBinding
 import com.phytal.sarona.ui.base.ScopedFragment
 import com.phytal.sarona.ui.courses.CurrentCourseViewModel
 import com.phytal.sarona.ui.courses.CurrentCourseViewModelFactory
 import com.phytal.sarona.util.MVAccelerateDecelerateInterpolator
+import com.phytal.sarona.util.SpinnerAdapter
 import kotlinx.coroutines.launch
 import org.kodein.di.KodeinAware
 import org.kodein.di.android.x.closestKodein
@@ -24,27 +28,27 @@ import org.kodein.di.generic.instance
 import kotlin.math.roundToInt
 
 
-class CourseViewFragment : ScopedFragment(), KodeinAware,
+class CourseViewFragment : ScopedFragment(),
     AssignmentsAdapter.AssignmentAdapterListener {
     private val args: CourseViewFragmentArgs by navArgs()
     private val course: Course by lazy(LazyThreadSafetyMode.NONE) { args.course }
     private lateinit var binding: FragmentCourseViewBinding
-    override val kodein by closestKodein()
-    private val viewModelFactory by instance<CurrentCourseViewModelFactory>()
-    private lateinit var viewModel: CurrentCourseViewModel
     private val assignmentsAdapter = AssignmentsAdapter(this)
     private val gradeTypeAdapter = GradeTypeAdapter()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentCourseViewBinding.inflate(inflater, container, false)
         binding.recyclerView.setHasFixedSize(true)
         binding.recyclerView.adapter = assignmentsAdapter
 
-//        binding.gradeCategories.setHasFixedSize(true)
         binding.gradeCategories.adapter = gradeTypeAdapter
+
+        binding.addGradeButton.setOnClickListener {
+            addMockAssignment()
+        }
 
         return binding.root
     }
@@ -52,12 +56,11 @@ class CourseViewFragment : ScopedFragment(), KodeinAware,
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel = ViewModelProvider(this, viewModelFactory).get(CurrentCourseViewModel::class.java)
         bindUI()
     }
 
     private fun bindUI() = launch {
-        assignmentsAdapter.setAssignments(course.assignments)
+        assignmentsAdapter.setAssignmentList(course.assignments)
         gradeTypeAdapter.submitList(course.grade_types)
 
         binding.courseName.text = course.name
@@ -75,8 +78,9 @@ class CourseViewFragment : ScopedFragment(), KodeinAware,
         binding.courseGrade.text = String.format("%.2f", courseGrade)
     }
 
-    override fun onAssignmentClick(cardView: View, assignment: Assignment) {
+    override fun onAssignmentClick(cardView: View, position: Int) {
         val binding = AssignmentDialogBinding.inflate(layoutInflater)
+        val assignment = assignmentsAdapter.assignments[position]
 
         binding.assignmentName.text = assignment.title_of_assignment
         val categoryString = "Category: " + assignment.type_of_grade
@@ -94,6 +98,37 @@ class CourseViewFragment : ScopedFragment(), KodeinAware,
 
         val builder = AlertDialog.Builder(requireContext(), R.style.CustomAlertDialog).create()
         builder.setView(binding.root)
+        builder.setCanceledOnTouchOutside(true)
+        builder.show()
+    }
+
+    override fun onAssignmentLongClick(cardView: View, position: Int) {
+        addMockAssignment(assignmentsAdapter.assignments[position])
+    }
+
+    private fun addMockAssignment(assignment: Assignment? = null) {
+        val dialogBinding = AddAssignmentDialogBinding.inflate(layoutInflater)
+
+        val gradeCategories = ArrayList<String>()
+        for (type in course.grade_types) {
+            gradeCategories.add(type.category)
+        }
+
+        val adapter = ArrayAdapter(requireContext(), R.layout.dropdown_menu_popup_item, gradeCategories)
+        dialogBinding.inputCategorySpinner.setAdapter(adapter)
+
+        // fills dialog if assignment is passed in
+        if (assignment != null) {
+            dialogBinding.addAssignmentText.text = "Edit Assignment"
+            dialogBinding.inputCategorySpinner.setText(assignment.type_of_grade, false)
+            dialogBinding.inputAssignmentName.setText(assignment.title_of_assignment)
+            dialogBinding.inputScore.setText(assignment.score)
+            dialogBinding.inputMaxScore.setText(assignment.max_points.toString())
+            dialogBinding.inputWeight.setText(assignment.weight.toString())
+        }
+
+        val builder = AlertDialog.Builder(requireContext(), R.style.CustomAlertDialog).create()
+        builder.setView(dialogBinding.root)
         builder.setCanceledOnTouchOutside(true)
         builder.show()
     }
