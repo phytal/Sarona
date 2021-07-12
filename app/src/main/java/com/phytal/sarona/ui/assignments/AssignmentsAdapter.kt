@@ -17,7 +17,7 @@ class AssignmentsAdapter(
         fun onAssignmentLongClick(cardView: View, position: Int)
     }
 
-    var assignments: List<Assignment> = ArrayList()
+    var assignments: ArrayList<Assignment> = ArrayList()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AssignmentHolder {
         return AssignmentHolder(
@@ -38,9 +38,19 @@ class AssignmentsAdapter(
         return assignments.size
     }
 
-    fun setAssignmentList(assignments: List<Assignment>) {
+    fun setAssignmentList(assignments: ArrayList<Assignment>) {
         this.assignments = assignments
         notifyDataSetChanged()
+    }
+
+    fun addAssignment(assignment: Assignment) {
+        assignments.add(0, assignment)
+        notifyItemInserted(0)
+    }
+
+    fun editAssignment(assignment: Assignment, position: Int) {
+        assignments[position] = assignment
+        notifyItemChanged(position)
     }
 
     class AssignmentHolder(
