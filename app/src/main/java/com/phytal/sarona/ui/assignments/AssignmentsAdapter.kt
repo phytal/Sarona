@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.phytal.sarona.data.db.entities.Assignment
 import com.phytal.sarona.databinding.AssignmentItemBinding
+import java.lang.Math.round
+import kotlin.math.roundToInt
 
 class AssignmentsAdapter(
     private val listener: AssignmentAdapterListener
@@ -75,12 +77,14 @@ class AssignmentsAdapter(
         fun bind(assignment: Assignment) {
             binding.textViewTitle.text = assignment.title_of_assignment
             binding.textViewDescription.text = assignment.date_due
-            var score = assignment.score
-            if (assignment.score.matches(Regex("\\d+"))) {
-                score = String.format("%.2f", score)
-            }
+            val score =
+                if (assignment.score.matches(Regex("-?\\d+(\\.\\d+)?")) && assignment.score.toDouble() < 100) {
+                    String.format("%.2f", assignment.score.toDouble())
+                } else assignment.score
             binding.textViewGrade.text = score
-            val maxPointsString = "/" + String.format("%.2f", assignment.max_points)
+            val maxPointsString = if (assignment.score.matches(Regex("\\d+"))) {
+                "/" + String.format("%.2f", assignment.max_points.toDouble())
+            } else assignment.max_points
             binding.textViewMaxGrade.text = maxPointsString
             binding.assignmentCard.strokeColor = when (assignment.type_of_grade) {
                 "Major Grades" -> Color.parseColor("#b37bfc")

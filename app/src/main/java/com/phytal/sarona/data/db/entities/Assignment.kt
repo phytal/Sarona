@@ -4,16 +4,16 @@ import android.os.Parcelable
 
 @kotlinx.parcelize.Parcelize
 data class Assignment(
-    val can_be_dropped: String,
+    val comment: String?,
     val date_assigned: String,
     val date_due: String,
-    val max_points: Double,
-    val percentage: Double,
+    val max_points: String,
+    val percentage: String,
     val score: String,
     val title_of_assignment: String,
-    val total_points: Double,
+    val total_points: String,
     val type_of_grade: String,
-    val weight: Double,
-    val weighted_total_points  : Double,
-    val weighted_score : Double
+    val weight: String,
+    val weighted_total_points  : String,
+    val weighted_score : String
 ) : Parcelable

@@ -85,6 +85,8 @@ class CourseViewFragment : ScopedFragment(),
         val grades = DoubleArray(course.grade_types.size)
         val weights = DoubleArray(course.grade_types.size)
         for (assignment in assignmentsAdapter.assignments) {
+            if (assignment.score == "X")
+                continue
             var categoryIndex = -1
             for (i in 0..course.grade_types.size) {
                 if (course.grade_types[i].category == assignment.type_of_grade) {
@@ -92,8 +94,12 @@ class CourseViewFragment : ScopedFragment(),
                     break
                 }
             }
-            grades[categoryIndex] += assignment.percentage
-            weights[categoryIndex] += assignment.weight
+            if (assignment.weighted_score == "N/A") {
+                grades[categoryIndex] += assignment.score.toDouble()
+                continue
+            }
+            grades[categoryIndex] += assignment.percentage.toDouble() * assignment.weight.toDouble()
+            weights[categoryIndex] += assignment.weight.toDouble()
         }
         var avg = 0.0
         val categories: ArrayList<GradeType?> = ArrayList()
@@ -124,13 +130,13 @@ class CourseViewFragment : ScopedFragment(),
         binding.assignmentCategory.text = categoryString
         binding.dateAssigned.text = assignment.date_assigned
         binding.dateDue.text = assignment.date_due
-        val scoreString = assignment.score + " / " + assignment.total_points.toString()
+        val scoreString = assignment.score + " / " + assignment.total_points
         binding.score.text = scoreString
         val weightedScoreString =
-            assignment.weighted_score.toString() + " / " + assignment.weighted_total_points.toString()
+            assignment.weighted_score + " / " + assignment.weighted_total_points
         binding.weightedPoints.text = weightedScoreString
-        binding.weight.text = assignment.weight.toString()
-        val percentageString = assignment.percentage.toString() + "%"
+        binding.weight.text = assignment.weight
+        val percentageString = assignment.percentage + "%"
         binding.percentage.text = percentageString
 
         val builder = AlertDialog.Builder(requireContext(), R.style.CustomAlertDialog).create()
@@ -162,8 +168,8 @@ class CourseViewFragment : ScopedFragment(),
             dialogBinding.inputCategorySpinner.setText(assignment.type_of_grade, false)
             dialogBinding.inputAssignmentName.setText(assignment.title_of_assignment)
             dialogBinding.inputScore.setText(assignment.score)
-            dialogBinding.inputMaxScore.setText(assignment.max_points.toString())
-            dialogBinding.inputWeight.setText(assignment.weight.toString())
+            dialogBinding.inputMaxScore.setText(assignment.max_points)
+            dialogBinding.inputWeight.setText(assignment.weight)
         }
 
         dialogBinding.addAssignmentButton.setOnClickListener {
@@ -175,41 +181,53 @@ class CourseViewFragment : ScopedFragment(),
                 !dialogBinding.inputWeight.text.isNullOrEmpty()
             ) {
                 val title = dialogBinding.inputAssignmentName.text.toString()
-                val score = dialogBinding.inputScore.text.toString().toDouble()
-                val maxScore = dialogBinding.inputMaxScore.text.toString().toDouble()
-                val weight = dialogBinding.inputWeight.text.toString().toDouble()
+                val score = dialogBinding.inputScore.text.toString().toDouble().toString()
+                val maxScore = dialogBinding.inputMaxScore.text.toString().toDouble().toString()
+                val weight = dialogBinding.inputWeight.text.toString().toDouble().toString()
+                val percentage = if (maxScore == "N/A" || score == "N/A") {
+                    "N/A"
+                } else
+                    (round(score.toDouble() / maxScore.toDouble() * 10000) / 100).toString()
+                val weightedScore = if (weight == "N/A" || score == "N/A") {
+                    "N/A"
+                } else
+                    (score.toDouble() * weight.toDouble()).toString()
+                val weightedTotalPoints = if (weight == "N/A" || maxScore == "N/A") {
+                    "N/A"
+                } else
+                    (maxScore.toDouble() * weight.toDouble()).toString()
                 if (assignment != null) {
                     assignmentsAdapter.editAssignment(
                         Assignment(
-                            assignment.can_be_dropped,
+                            assignment.comment,
                             assignment.date_assigned,
                             assignment.date_due,
                             maxScore,
-                            round(score / maxScore * 10000) / 100,
-                            score.toString(),
+                            percentage,
+                            score,
                             title,
                             maxScore,
                             category,
                             weight,
-                            maxScore * weight,
-                            score * weight
+                            weightedTotalPoints,
+                            weightedScore
                         ), position
                     )
                 } else {
                     assignmentsAdapter.addAssignment(
                         Assignment(
-                            "",
+                            null,
                             "",
                             "",
                             maxScore,
-                            round(score / maxScore * 10000) / 100,
-                            score.toString(),
+                            percentage,
+                            score,
                             title,
                             maxScore,
                             category,
                             weight,
-                            maxScore * weight,
-                            score * weight
+                            weightedTotalPoints,
+                            weightedScore
                         )
                     )
                 }
