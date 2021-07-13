@@ -9,5 +9,4 @@ interface CourseRepository {
     suspend fun getMp(loginInfo: LoginInformation, mp: Int): LiveData<out MarkingPeriod>
     suspend fun getPastMps(loginInfo: LoginInformation): LiveData<out List<MarkingPeriod>>
     suspend fun getAllMps(): LiveData<out List<MarkingPeriod>>
-    suspend fun isValidLogin(loginInfo: LoginInformation): LiveData<out Boolean>
 }

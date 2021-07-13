@@ -5,6 +5,7 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.phytal.sarona.data.network.response.CurrentMpResponse
+import com.phytal.sarona.data.network.response.MpResponse
 import com.phytal.sarona.data.network.response.PastMpResponse
 import com.phytal.sarona.internal.NoConnectivityException
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -61,23 +62,25 @@ class MpNetworkDataSourceImpl(
         }
     }
 
-    private val _isValidLogin = MutableLiveData<Boolean>()
-    override val validLogin: LiveData<Boolean>
-        get() = _isValidLogin
+    private val _downloadedMp = MutableLiveData<MpResponse>()
+    override val downloadedMp: LiveData<MpResponse>
+        get() = _downloadedMp
 
     @SuppressLint("CheckResult")
-    override suspend fun isValidLogin(hacLink: String, username: String, password: String) {
+    override suspend fun fetchMp(
+        hacLink: String,
+        username: String,
+        password: String,
+        mp: Int
+    ) {
         try {
-            hacApiService.getValidLogin(hacLink, username, password)
+            hacApiService.getMp(hacLink, username, password, mp)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe({ result ->
-                    if (result == "Accepted")
-                        _isValidLogin.postValue(true)
-                    else
-                        _isValidLogin.postValue(false)
+                    _downloadedMp.postValue(result)
                 },
-                    { error -> Log.e("Error", "Could not validate login", error) })
+                    { error -> Log.e("Error", "Could not fetch current marking period", error) })
         } catch (e: NoConnectivityException) {
             Log.e("Connectivity", "No internet connection.", e)
         }

@@ -2,12 +2,13 @@ package com.phytal.sarona.data.network
 
 import androidx.lifecycle.LiveData
 import com.phytal.sarona.data.network.response.CurrentMpResponse
+import com.phytal.sarona.data.network.response.MpResponse
 import com.phytal.sarona.data.network.response.PastMpResponse
 
 interface MpNetworkDataSource {
     val downloadedPastMps: LiveData<PastMpResponse>
     val downloadedCurrentMp: LiveData<CurrentMpResponse>
-    val validLogin: LiveData<Boolean>
+    val downloadedMp: LiveData<MpResponse>
 
     suspend fun fetchCurrentMp(
         hacLink: String,
@@ -19,10 +20,10 @@ interface MpNetworkDataSource {
         username: String,
         password: String
     )
-
-    suspend fun isValidLogin(
+    suspend fun fetchMp(
         hacLink: String,
         username: String,
-        password: String
+        password: String,
+        mp: Int
     )
 }

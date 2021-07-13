@@ -28,8 +28,7 @@ import com.phytal.sarona.util.contentView
 
 
 class MainActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListener,
-    NavController.OnDestinationChangedListener, NavigationAdapter.NavigationAdapterListener,
-    AdapterView.OnItemSelectedListener {
+    NavController.OnDestinationChangedListener, NavigationAdapter.NavigationAdapterListener {
 
     private lateinit var appBarConfiguration: AppBarConfiguration
     val binding: ActivityMainBinding by contentView(R.layout.activity_main)
@@ -41,7 +40,7 @@ class MainActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListener,
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.Theme_Sarona_DayNight)
         super.onCreate(savedInstanceState)
-        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT;
+        requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_PORTRAIT
         setUpBottomNavigation()
     }
 
@@ -128,7 +127,7 @@ class MainActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListener,
         navigateToHome(item.titleRes, item.destination)
     }
 
-    fun navigateToHome(@StringRes titleRes: Int, destination: Destinations) {
+    private fun navigateToHome(@StringRes titleRes: Int, destination: Destinations) {
         binding.bottomAppBarTitle.text = getString(titleRes)
         currentNavigationFragment?.apply {
             exitTransition = MaterialFadeThrough().apply {
@@ -182,38 +181,82 @@ class MainActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListener,
     }
 
     private fun showDarkThemeMenu() {
-        MenuBottomSheetDialogFragment(this).show(supportFragmentManager, "settings_menu")
-    }
-
-    override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
         val sharedPref = this.getSharedPreferences(
             getString(R.string.user_preference_file_key),
             Context.MODE_PRIVATE
         )
-        val selectedItem = parent?.getItemAtPosition(position).toString()
-        if (selectedItem == "Dark" || selectedItem == "Light" || selectedItem == "Default") {
-            val nightMode = when (selectedItem) {
-                "Light" -> AppCompatDelegate.MODE_NIGHT_NO
-                "Dark" -> AppCompatDelegate.MODE_NIGHT_YES
-                else -> AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
-            }
+        MenuBottomSheetDialogFragment(object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                if (parent.tag == position)
+                    return
+                parent.tag = position
+                val selectedItem = parent.getItemAtPosition(position).toString()
+                if (selectedItem == "Dark" || selectedItem == "Light" || selectedItem == "Default") {
+                    val nightMode = when (selectedItem) {
+                        "Light" -> AppCompatDelegate.MODE_NIGHT_NO
+                        "Dark" -> AppCompatDelegate.MODE_NIGHT_YES
+                        else -> AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
+                    }
 
-            if (sharedPref != null) {
-                with(sharedPref.edit()) {
-                    putString(getString(R.string.saved_theme_key), selectedItem)
-                    apply()
+                    if (sharedPref != null) {
+                        with(sharedPref.edit()) {
+                            putString(
+                                getString(R.string.saved_theme_key),
+                                selectedItem
+                            )
+                            apply()
+                        }
+                    }
+                    delegate.localNightMode = nightMode
+                    val prev = supportFragmentManager.findFragmentByTag("settings_menu")
+                    if (prev != null) {
+                        val df: MenuBottomSheetDialogFragment =
+                            prev as MenuBottomSheetDialogFragment
+                        df.dismiss()
+                    }
                 }
             }
 
-            delegate.localNightMode = nightMode
-            val prev = supportFragmentManager.findFragmentByTag("settings_menu")
-            if (prev != null) {
-                val df: MenuBottomSheetDialogFragment = prev as MenuBottomSheetDialogFragment
-                df.dismissFragment()
-            }
-        }
-    }
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
+        }, object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                if (parent.tag == position)
+                    return
+                parent.tag = position
+                val selectedItem = parent.getItemAtPosition(position).toString()
+                if (selectedItem == "English" || selectedItem == "Español" || selectedItem == "Français" || selectedItem == "한곡어" || selectedItem == "中文") {
+                    // TODO: Change Language
 
-    override fun onNothingSelected(parent: AdapterView<*>?) {
+                    if (sharedPref != null) {
+                        with(sharedPref.edit()) {
+                            putString(
+                                getString(R.string.saved_language_key),
+                                selectedItem
+                            )
+                            apply()
+                        }
+                    }
+
+                    val prev = supportFragmentManager.findFragmentByTag("settings_menu")
+                    if (prev != null) {
+                        val df: MenuBottomSheetDialogFragment =
+                            prev as MenuBottomSheetDialogFragment
+                        df.dismiss()
+                    }
+                }
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
+        }).show(supportFragmentManager, "settings_menu")
     }
 }

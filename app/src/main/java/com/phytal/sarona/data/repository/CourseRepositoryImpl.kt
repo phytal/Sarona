@@ -5,6 +5,7 @@ import com.phytal.sarona.data.db.MpDao
 import com.phytal.sarona.data.db.entities.MarkingPeriod
 import com.phytal.sarona.data.network.MpNetworkDataSource
 import com.phytal.sarona.data.network.response.CurrentMpResponse
+import com.phytal.sarona.data.network.response.MpResponse
 import com.phytal.sarona.data.network.response.PastMpResponse
 import com.phytal.sarona.data.provider.LoginInformation
 import kotlinx.coroutines.*
@@ -22,6 +23,9 @@ class CourseRepositoryImpl(
             }
             downloadedPastMps.observeForever { newPastCourses ->
                 persistFetchedPastMps(newPastCourses)
+            }
+            downloadedMp.observeForever { newCourses ->
+                persistFetchedMp(newCourses)
             }
         }
     }
@@ -42,7 +46,7 @@ class CourseRepositoryImpl(
 
     override suspend fun getMp(loginInfo: LoginInformation, mp: Int): LiveData<out MarkingPeriod> {
         return withContext(Dispatchers.IO) {
-            // assuming data is up to date
+            fetchMp(loginInfo, mp)
             return@withContext mpDao.getMp(mp)
         }
     }
@@ -50,13 +54,6 @@ class CourseRepositoryImpl(
     override suspend fun getAllMps(): LiveData<out List<MarkingPeriod>> {
         return withContext(Dispatchers.IO) {
             return@withContext mpDao.getAllMps()
-        }
-    }
-
-    override suspend fun isValidLogin(loginInfo: LoginInformation): LiveData<out Boolean> {
-        return withContext(Dispatchers.IO) {
-            fetchValidLogin(loginInfo)
-            return@withContext mpNetworkDataSource.validLogin
         }
     }
 
@@ -72,6 +69,13 @@ class CourseRepositoryImpl(
         GlobalScope.launch(Dispatchers.IO) {
             for (pastCourseList in fetchedCourses.pastMps)
                 mpDao.upsert(pastCourseList)
+        }
+    }
+
+    @DelicateCoroutinesApi
+    private fun persistFetchedMp(fetchedCourses: MpResponse) {
+        GlobalScope.launch(Dispatchers.IO) {
+            mpDao.upsert(fetchedCourses.mp)
         }
     }
 
@@ -91,11 +95,12 @@ class CourseRepositoryImpl(
         )
     }
 
-    private suspend fun fetchValidLogin(loginInfo: LoginInformation){
-        mpNetworkDataSource.isValidLogin(
+    private suspend fun fetchMp(loginInfo: LoginInformation, mp: Int) {
+        mpNetworkDataSource.fetchMp(
             loginInfo.link,
             loginInfo.username,
-            loginInfo.password
+            loginInfo.password,
+            mp
         )
     }
 }

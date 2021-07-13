@@ -2,6 +2,8 @@ package com.phytal.sarona.data.network
 
 import com.phytal.sarona.data.network.adapter.NetworkResponseAdapterFactory
 import com.phytal.sarona.data.network.response.CurrentMpResponse
+import com.phytal.sarona.data.network.response.LoginResponse
+import com.phytal.sarona.data.network.response.MpResponse
 import com.phytal.sarona.data.network.response.PastMpResponse
 import io.reactivex.Observable
 import io.reactivex.schedulers.Schedulers
@@ -29,12 +31,20 @@ interface HacApiService {
         @Query("p") password: String
     ): Observable<CurrentMpResponse>
 
+    @GET("mp")
+    fun getMp(
+        @Query("l") hacLink: String,
+        @Query("u") username: String,
+        @Query("p") password: String,
+        @Query("mp") mp: Int
+    ): Observable<MpResponse>
+
     @GET("login")
     fun getValidLogin(
         @Query("l") hacLink: String,
         @Query("u") username: String,
         @Query("p") password: String
-    ): Observable<String>
+    ): Observable<LoginResponse>
 
     companion object {
         operator fun invoke(

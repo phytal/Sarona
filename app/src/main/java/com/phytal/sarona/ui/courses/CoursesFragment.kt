@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.view.doOnPreDraw
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -28,8 +29,10 @@ class CoursesFragment : ScopedFragment(), KodeinAware, CoursesAdapter.CourseAdap
     override val kodein by closestKodein()
     private val currentCourseViewModelFactory by instance<CurrentCourseViewModelFactory>()
     private val pastCourseViewModelFactory by instance<PastCourseViewModelFactory>()
+    private val mpCourseViewModelFactory by instance<MpCourseViewModelFactory>()
     private lateinit var currentCourseViewModel: CurrentCourseViewModel
     private lateinit var pastCourseViewModel: PastCourseViewModel
+    private lateinit var mpCourseViewModel: MpCourseViewModel
     private val adapter = CoursesAdapter(this)
     private lateinit var binding: FragmentCoursesBinding
 
@@ -73,6 +76,13 @@ class CoursesFragment : ScopedFragment(), KodeinAware, CoursesAdapter.CourseAdap
             }
         }
 
+        binding.swipeRefreshLayout.setOnRefreshListener {
+            var mp = markingPeriod
+            if (mp == 0)
+                mp = maxMp
+            refreshMp(mp)
+        }
+
         return binding.root
     }
 
@@ -88,6 +98,8 @@ class CoursesFragment : ScopedFragment(), KodeinAware, CoursesAdapter.CourseAdap
             ).get(CurrentCourseViewModel::class.java)
         pastCourseViewModel =
             ViewModelProvider(this, pastCourseViewModelFactory).get(PastCourseViewModel::class.java)
+        mpCourseViewModel =
+            ViewModelProvider(this, mpCourseViewModelFactory).get(MpCourseViewModel::class.java)
         bindUI()
     }
 
@@ -107,6 +119,18 @@ class CoursesFragment : ScopedFragment(), KodeinAware, CoursesAdapter.CourseAdap
             if (it == null) return@Observer
             if (markingPeriod in 1 until maxMp)
                 adapter.setCourses(it[markingPeriod - 1])
+        })
+    }
+
+    private fun refreshMp(mp: Int) = launch(Main) {
+        mpCourseViewModel.setMp(mp)
+        val mpCourses = mpCourseViewModel.mpCourses.await()
+
+        mpCourses.observe(viewLifecycleOwner, Observer {
+            if (it == null) return@Observer
+
+            binding.swipeRefreshLayout.isRefreshing = false
+            adapter.setCourses(it)
         })
     }
 

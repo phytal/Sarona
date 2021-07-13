@@ -12,11 +12,11 @@ import com.phytal.sarona.R
 import com.phytal.sarona.util.SpinnerAdapter
 
 class MenuBottomSheetDialogFragment(
-    private val listener: AdapterView.OnItemSelectedListener
+    private val themeListener: AdapterView.OnItemSelectedListener,
+    private val languageListener: AdapterView.OnItemSelectedListener
 ) : BottomSheetDialogFragment() {
     private lateinit var languageSpinner: Spinner
     private lateinit var themeSpinner: Spinner
-    private var initialSelect = false
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -45,19 +45,19 @@ class MenuBottomSheetDialogFragment(
             resources.getStringArray(R.array.pref_theme).toList()
         )
         themeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-
         themeSpinner.adapter = themeAdapter
 
         // sets selected spinner item from shared preferences
         val themeValue = sharedPref?.getString(getString(R.string.saved_theme_key), "Default")
         for (i in 0 until themeSpinner.count) {
             if (themeValue == themeSpinner.getItemAtPosition(i).toString()) {
+                themeSpinner.tag = i
                 themeSpinner.setSelection(i)
                 break
             }
         }
 
-        themeSpinner.onItemSelectedListener = listener
+        themeSpinner.onItemSelectedListener = themeListener
 
         val languageAdapter = SpinnerAdapter(
             requireContext(),
@@ -67,14 +67,17 @@ class MenuBottomSheetDialogFragment(
         languageAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
 
         languageSpinner.adapter = languageAdapter
-        languageSpinner.onItemSelectedListener = listener
-    }
+//      sets selected spinner item from shared preferences
+        val langValue = sharedPref?.getString(getString(R.string.saved_language_key), "English")
+        for (i in 0 until languageSpinner.count) {
+            if (langValue == languageSpinner.getItemAtPosition(i).toString()) {
+                languageSpinner.tag = i
+                languageSpinner.setSelection(i)
+                break
+            }
+        }
 
-    fun dismissFragment() {
-        if (!initialSelect)
-            initialSelect = true
-        else
-            dismiss()
+        languageSpinner.onItemSelectedListener = languageListener
     }
 }
 

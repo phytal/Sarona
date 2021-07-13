@@ -7,18 +7,35 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.Toast
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.fragment.app.Fragment
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputLayout
 import com.phytal.sarona.R
+import com.phytal.sarona.data.network.HacApiService
+import com.phytal.sarona.data.provider.LoginInformation
 import com.phytal.sarona.databinding.FragmentWelcomeBinding
+import com.phytal.sarona.ui.base.ScopedFragment
 import com.phytal.sarona.ui.courses.CoursesFragmentDirections
 import com.phytal.sarona.util.SpinnerAdapter
+import kotlinx.coroutines.Dispatchers.Main
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
+import org.kodein.di.KodeinAware
+import org.kodein.di.android.x.closestKodein
+import org.kodein.di.generic.instance
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 
-class WelcomeFragment : Fragment(), AdapterView.OnItemSelectedListener {
+class WelcomeFragment : ScopedFragment(), KodeinAware, AdapterView.OnItemSelectedListener {
+    override val kodein by closestKodein()
     lateinit var linkLayout: TextInputLayout
+    private val loginViewModelFactory by instance<LoginViewModelFactory>()
+    private lateinit var loginViewModel: LoginViewModel
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -64,23 +81,52 @@ class WelcomeFragment : Fragment(), AdapterView.OnItemSelectedListener {
                 Toast.makeText(context, "Please enter a username and password", Toast.LENGTH_SHORT)
                     .show()
             } else {
-                // TODO: try login first then save
-                if (sharedPref != null) {
-                    with(sharedPref.edit()) {
-                        putString(getString(R.string.saved_username_key), username)
-                        putString(getString(R.string.saved_password_key), password)
-                        putString(getString(R.string.saved_link_key), link)
-                        apply()
-                    }
-                }
+                val loginSnackbar = Snackbar.make(
+                    binding.root,
+                    "Logging in..",
+                    Snackbar.LENGTH_INDEFINITE
+                )
+                loginSnackbar.show()
+                // Checks login information before proceeding
+                loginViewModel.fetchValidLogin(link, username, password)
+                loginViewModel.validLogin.observe(viewLifecycleOwner, Observer { result ->
+                    result.getContentIfNotHandled()?.let {
+                        loginSnackbar.dismiss()
+                        if (it) {
+                            if (sharedPref != null) {
+                                with(sharedPref.edit()) {
+                                    putString(getString(R.string.saved_username_key), username)
+                                    putString(getString(R.string.saved_password_key), password)
+                                    putString(getString(R.string.saved_link_key), link)
+                                    apply()
+                                }
+                            }
 
-                val directions =
-                    CoursesFragmentDirections.actionGlobalCoursesFragment()
-                findNavController().navigate(directions)
+                            val directions =
+                                CoursesFragmentDirections.actionGlobalCoursesFragment()
+                            findNavController().navigate(directions)
+                        } else {
+                            Snackbar.make(
+                                binding.root,
+                                "Invalid login. If you think this is an error, please report this bug.",
+                                Snackbar.LENGTH_LONG
+                            ).show()
+                            return@Observer
+                        }
+
+                    }
+                })
             }
         }
 
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        loginViewModel =
+            ViewModelProvider(this, loginViewModelFactory).get(LoginViewModel::class.java)
     }
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
