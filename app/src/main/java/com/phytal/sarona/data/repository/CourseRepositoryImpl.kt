@@ -24,8 +24,8 @@ class CourseRepositoryImpl(
             downloadedPastMps.observeForever { newPastCourses ->
                 persistFetchedPastMps(newPastCourses)
             }
-            downloadedMp.observeForever { newCourses ->
-                persistFetchedMp(newCourses)
+            downloadedMp.observeForever {  newCourses ->
+                    persistFetchedMp(newCourses)
             }
         }
     }

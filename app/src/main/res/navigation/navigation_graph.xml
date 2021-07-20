@@ -64,6 +64,16 @@
         app:destination="@+id/nav_settings" />
 
     <fragment
+        android:id="@+id/nav_login"
+        android:name="com.phytal.sarona.ui.welcome.LoginFragment"
+        android:label="LoginFragment">
+    </fragment>
+
+    <action
+        android:id="@+id/action_global_loginFragment"
+        app:destination="@+id/nav_login" />
+
+    <fragment
         android:id="@+id/nav_welcome"
         android:name="com.phytal.sarona.ui.welcome.WelcomeFragment"
         android:label="WelcomeFragment">

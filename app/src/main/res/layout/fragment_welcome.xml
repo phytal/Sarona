@@ -1,165 +1,57 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/welcome_linear_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".ui.welcome.WelcomeFragment">
+    android:layout_height="match_parent">
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/welcome_logo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:adjustViewBounds="true"
+        android:alpha="0"
         android:contentDescription="@string/simple_grade_logo_desc"
-        android:maxWidth="140dp"
+        android:maxWidth="200dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/sarona_logo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/materialTextView"
+        android:id="@+id/welcome_app_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:alpha="0"
         android:text="@string/welcome_text"
         android:textAppearance="@style/TextAppearance.Sarona.Headline2"
         android:textSize="55sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toBottomOf="@+id/welcome_logo" />
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/materialTextView2"
+        android:id="@+id/welcome_app_desc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:alpha="0"
         android:text="@string/welcome_subtitle"
         android:textAppearance="@style/TextAppearance.Sarona.Subtitle2"
-        android:textSize="15sp"
+        android:textSize="25sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/materialTextView" />
-
-    <Spinner
-        android:id="@+id/district_spinner"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:textAppearance="@style/TextAppearance.Sarona.Subtitle2"
-        app:layout_constraintBottom_toTopOf="@+id/editLinkLayout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/materialTextView2" />
-
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/editLinkLayout"
-        style="@style/Widget.Sarona.TextInputLayout"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:hint="@string/welcome_link"
-        app:boxCornerRadiusBottomEnd="30dp"
-        app:boxCornerRadiusBottomStart="30dp"
-        app:boxCornerRadiusTopEnd="30dp"
-        app:boxCornerRadiusTopStart="30dp"
-        app:helperText="@string/welcome_link_example"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/district_spinner"
-        app:startIconDrawable="@drawable/ic_outline_link">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/editTextLink"
-            style="@style/TextAppearance.Sarona.TextInputLayout.HintText"
-            android:layout_width="match_parent"
-            android:layout_height="54dp"
-            android:ellipsize="start"
-            android:ems="10"
-            android:inputType="textAutoComplete"
-            android:singleLine="true"
-            app:boxStrokeColor="#FFFF" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/editUsernameLayout"
-        style="@style/Widget.Sarona.TextInputLayout"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:hint="@string/welcome_username"
-        app:boxCornerRadiusBottomEnd="30dp"
-        app:boxCornerRadiusBottomStart="30dp"
-        app:boxCornerRadiusTopEnd="30dp"
-        app:boxCornerRadiusTopStart="30dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editLinkLayout"
-        app:startIconDrawable="@drawable/ic_outline_person">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/editTextUsername"
-            style="@style/TextAppearance.Sarona.TextInputLayout.HintText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ellipsize="start"
-            android:ems="10"
-            android:inputType="textAutoComplete"
-            android:singleLine="true" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/textInputLayout"
-        style="@style/Widget.Sarona.TextInputLayout"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
-        android:hint="@string/welcome_password"
-        app:boxCornerRadiusBottomEnd="30dp"
-        app:boxCornerRadiusBottomStart="30dp"
-        app:boxCornerRadiusTopEnd="30dp"
-        app:boxCornerRadiusTopStart="30dp"
-        app:endIconMode="password_toggle"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editUsernameLayout"
-        app:startIconDrawable="@drawable/ic_outline_lock">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/editTextPassword"
-            style="@style/TextAppearance.Sarona.TextInputLayout.HintText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ellipsize="start"
-            android:ems="10"
-            android:inputType="textPassword"
-            android:singleLine="true" />
-    </com.google.android.material.textfield.TextInputLayout>
+        app:layout_constraintTop_toBottomOf="@+id/welcome_app_name" />
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/login_button"
-        android:layout_width="300dp"
+        android:id="@+id/welcome_continue_button"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:paddingVertical="13dp"
-        android:text="@string/welcome_login"
-        app:cornerRadius="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />
-
-    <com.google.android.material.textview.MaterialTextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:text="@string/welcome_copyright"
-        android:textAppearance="@style/TextAppearance.Sarona.Caption"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginBottom="60dp"
+        android:alpha="0"
+        android:paddingVertical="10dp"
+        android:text="Continue"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
+        app:layout_constraintEnd_toEndOf="@+id/welcome_app_desc"
+        app:layout_constraintStart_toStartOf="@+id/welcome_app_desc" />
 </androidx.constraintlayout.widget.ConstraintLayout>

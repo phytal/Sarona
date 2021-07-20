@@ -1,16 +1,14 @@
 package com.phytal.sarona.ui.courses
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.Toast
+import android.view.*
 import androidx.core.view.doOnPreDraw
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.navigation.navOptions
+import com.google.android.material.snackbar.Snackbar
 import com.phytal.sarona.R
 import com.phytal.sarona.data.db.entities.Course
 import com.phytal.sarona.databinding.FragmentCoursesBinding
@@ -103,6 +101,11 @@ class CoursesFragment : ScopedFragment(), KodeinAware, CoursesAdapter.CourseAdap
         bindUI()
     }
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
+
     private fun bindUI() = launch(Main) {
         val currentCourses = currentCourseViewModel.currentCourses.await()
         val pastCourses = pastCourseViewModel.pastCourses.await()
@@ -124,13 +127,14 @@ class CoursesFragment : ScopedFragment(), KodeinAware, CoursesAdapter.CourseAdap
 
     private fun refreshMp(mp: Int) = launch(Main) {
         mpCourseViewModel.setMp(mp)
-        val mpCourses = mpCourseViewModel.mpCourses.await()
+        mpCourseViewModel.fetchMpCourses()
+        mpCourseViewModel.mpCourses.observe(viewLifecycleOwner, { result ->
+            result.getContentIfNotHandled()?.let {
+                adapter.setCourses(it)
+                binding.swipeRefreshLayout.isRefreshing = false
+                Snackbar.make(binding.root, "Successfully loaded new data!", Snackbar.LENGTH_SHORT).show()
+            }
 
-        mpCourses.observe(viewLifecycleOwner, Observer {
-            if (it == null) return@Observer
-
-            binding.swipeRefreshLayout.isRefreshing = false
-            adapter.setCourses(it)
         })
     }
 
@@ -153,5 +157,13 @@ class CoursesFragment : ScopedFragment(), KodeinAware, CoursesAdapter.CourseAdap
                     popExit = R.anim.slide_out_right
                 }
             })
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.menu_refresh ->
+                refreshMp(markingPeriod).start()
+            else -> super.onOptionsItemSelected(item)
+        }
     }
 }

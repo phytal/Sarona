@@ -23,6 +23,7 @@ import androidx.navigation.ui.navigateUp
 import com.google.android.material.transition.MaterialFadeThrough
 import com.phytal.sarona.R
 import com.phytal.sarona.databinding.ActivityMainBinding
+import com.phytal.sarona.ui.courses.CoursesFragment
 import com.phytal.sarona.ui.nav.*
 import com.phytal.sarona.util.contentView
 
@@ -105,14 +106,12 @@ class MainActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListener,
         binding.run {
             bottomAppBar.performHide()
             // Get a handle on the animator that hides the bottom app bar so we can wait to hide
-            // the fab and bottom app bar until after it's exit animation finishes.
+            // the bottom app bar until after it's exit animation finishes.
             bottomAppBar.animate().setListener(object : AnimatorListenerAdapter() {
                 var isCanceled = false
                 override fun onAnimationEnd(animation: Animator?) {
                     if (isCanceled) return
 
-                    // Hide the BottomAppBar to avoid it showing above the keyboard
-                    // when composing a new email.
                     bottomAppBar.visibility = View.GONE
                 }
 
@@ -175,7 +174,9 @@ class MainActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListener,
                 bottomNavDrawer.close()
                 showDarkThemeMenu()
             }
-            R.id.menu_refresh -> true //TODO: refresh data here
+//            R.id.menu_refresh -> {
+//                (javaClass )
+//            }
         }
         return true
     }

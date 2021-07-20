@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import com.phytal.sarona.data.network.response.CurrentMpResponse
 import com.phytal.sarona.data.network.response.MpResponse
 import com.phytal.sarona.data.network.response.PastMpResponse
+import com.phytal.sarona.internal.Event
 
 interface MpNetworkDataSource {
     val downloadedPastMps: LiveData<PastMpResponse>
