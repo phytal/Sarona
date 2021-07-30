@@ -12,8 +12,19 @@
         <item name="itemIconTint">@color/color_on_surface_emphasis_medium</item>
     </style>
 
+    <style name="Widget.Sarona.BottomAppBarStyle" parent="Widget.MaterialComponents.BottomAppBar.PrimarySurface">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.Sarona.BottomAppBar</item>
+        <item name="android:textColor">@color/color_on_surface_emphasis_high</item>
+    </style>
+
+    <style name="ThemeOverlay.Sarona.BottomAppBar" parent="">
+        <item name="colorPrimary">@color/sarona_white_50</item>
+        <item name="colorOnPrimary">@color/sarona_black_800</item>
+    </style>
+
     <style name="Widget.Sarona.TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <item name="hintTextAppearance">@style/TextAppearance.Sarona.TextInputLayout.HintText</item>
+        <item name="android:fontFamily">@font/mplus</item>
         <item name="hintTextColor">@color/color_on_surface_emphasis_high</item>
         <item name="android:paddingBottom">8dp</item>
         <item name="boxStrokeColor">@color/color_on_surface_emphasis_high</item>
@@ -21,17 +32,24 @@
 
     <style name="TextAppearance.Sarona.TextInputLayout.HintText" parent="TextAppearance.Sarona.Subtitle2">
         <item name="android:textColor">?android:attr/textColorPrimary</item>
+        <item name="android:fontFamily">@font/mplus</item>
     </style>
 
     <style name="Widget.Sarona.Button" parent="Widget.MaterialComponents.Button">
         <item name="android:textColor">?android:attr/textColorPrimary</item>
+        <item name="android:fontFamily">@font/mplus</item>
         <item name="backgroundTint">?attr/colorPrimaryDark</item>
     </style>
 
     <style name="Widget.Sarona.Button.TextButton" parent="Widget.MaterialComponents.Button.TextButton">
         <item name="android:textColor">?android:attr/textColorPrimary</item>
     </style>
-    <style name="CustomAlertDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
+
+    <style name="Widget.Sarona.TextView" parent="Widget.MaterialComponents.TextView">
+        <item name="android:fontFamily">@font/mplus</item>
+    </style>
+
+    <style name="CustomAlertDialog" parent="Theme.AppCompat.DayNight.Dialog.Alert">
         <item name="android:windowBackground">@drawable/assignment_dialog_bg</item>
     </style>
 </resources>

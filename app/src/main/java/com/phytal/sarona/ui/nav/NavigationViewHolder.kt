@@ -1,9 +1,13 @@
 package com.phytal.sarona.ui.nav
 
+import android.content.res.ColorStateList
+import android.content.res.Configuration
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
+import com.phytal.sarona.R
 import com.phytal.sarona.databinding.NavDividerItemLayoutBinding
 import com.phytal.sarona.databinding.NavMenuItemLayoutBinding
+import com.phytal.sarona.util.themeColor
 
 sealed class NavigationViewHolder<T : NavigationModelItem>(
     view: View
@@ -22,6 +26,7 @@ sealed class NavigationViewHolder<T : NavigationModelItem>(
                 navListener = listener
                 executePendingBindings()
             }
+//            binding.navItemTitle.setTextColor(binding.root.context.getColor(R.color.color_on_surface_emphasis_medium))
         }
     }
 

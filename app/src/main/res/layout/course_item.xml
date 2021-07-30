@@ -37,7 +37,6 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_centerInParent="true"
-                android:fontFamily="@font/mplus"
                 android:text="@string/course_item_grade"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
                 android:textStyle="bold" />
@@ -50,7 +49,6 @@
                 android:layout_marginEnd="25dp"
                 android:layout_toStartOf="@id/text_view_grade"
                 android:ellipsize="end"
-                android:fontFamily="@font/mplus"
                 android:maxLines="1"
                 android:text="@string/course_item_title"
                 android:textAppearance="@style/TextAppearance.AppCompat.Large"
@@ -61,7 +59,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/text_view_title"
-                android:fontFamily="@font/mplus"
                 android:text="@string/course_item_description"
                 android:textStyle="bold" />
         </RelativeLayout>

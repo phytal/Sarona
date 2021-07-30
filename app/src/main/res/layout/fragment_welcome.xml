@@ -49,7 +49,7 @@
         android:layout_marginHorizontal="20dp"
         android:layout_marginBottom="60dp"
         android:alpha="0"
-        android:paddingVertical="10dp"
+        android:paddingVertical="15dp"
         android:text="Continue"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/welcome_app_desc"

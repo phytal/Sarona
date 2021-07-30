@@ -81,6 +81,8 @@
                 android:gravity="center_vertical"
                 android:maxLines="1"
                 android:textAppearance="@style/TextAppearance.Sarona.Headline4"
+                android:textStyle="bold"
+                android:typeface="serif"
                 app:autoSizeMaxTextSize="38sp"
                 app:autoSizeMinTextSize="30sp"
                 app:autoSizeStepGranularity="2sp"
@@ -91,7 +93,6 @@
                 tools:text="Grade" />
 
             <com.google.android.material.button.MaterialButton
-                style="@style/Widget.MaterialComponents.Button"
                 android:id="@+id/add_grade_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

@@ -81,8 +81,8 @@
         app:layout_constraintTop_toBottomOf="@+id/input_layout_assignment_name">
 
         <com.google.android.material.textfield.TextInputEditText
-            style="@style/TextAppearance.Sarona.TextInputLayout.HintText"
             android:id="@+id/input_score"
+            style="@style/TextAppearance.Sarona.TextInputLayout.HintText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -105,8 +105,8 @@
         app:layout_constraintTop_toBottomOf="@+id/input_layout_assignment_name">
 
         <com.google.android.material.textfield.TextInputEditText
-            style="@style/TextAppearance.Sarona.TextInputLayout.HintText"
             android:id="@+id/input_max_score"
+            style="@style/TextAppearance.Sarona.TextInputLayout.HintText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -131,8 +131,8 @@
         app:layout_constraintTop_toBottomOf="@+id/input_layout_score">
 
         <com.google.android.material.textfield.TextInputEditText
-            style="@style/TextAppearance.Sarona.TextInputLayout.HintText"
             android:id="@+id/input_weight"
+            style="@style/TextAppearance.Sarona.TextInputLayout.HintText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -148,6 +148,7 @@
         android:layout_marginBottom="20dp"
         android:paddingVertical="10dp"
         android:text="@string/add"
+        app:cornerRadius="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/input_layout_max_score"
         app:layout_constraintStart_toStartOf="@+id/input_layout_max_score"

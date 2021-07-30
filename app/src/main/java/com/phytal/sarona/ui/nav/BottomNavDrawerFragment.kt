@@ -1,7 +1,7 @@
 package com.phytal.sarona.ui.nav
 
-import android.animation.ValueAnimator
 import android.content.res.ColorStateList
+import android.content.res.Configuration
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,19 +11,12 @@ import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.observe
 import com.google.android.material.bottomsheet.BottomSheetBehavior
-import com.google.android.material.bottomsheet.BottomSheetBehavior.STATE_COLLAPSED
-import com.google.android.material.bottomsheet.BottomSheetBehavior.STATE_EXPANDED
-import com.google.android.material.bottomsheet.BottomSheetBehavior.STATE_HALF_EXPANDED
-import com.google.android.material.bottomsheet.BottomSheetBehavior.STATE_HIDDEN
-import com.google.android.material.bottomsheet.BottomSheetBehavior.from
+import com.google.android.material.bottomsheet.BottomSheetBehavior.*
 import com.google.android.material.shape.MaterialShapeDrawable
 import com.phytal.sarona.R
 import com.phytal.sarona.databinding.FragmentBottomNavDrawerBinding
-import com.phytal.sarona.util.lerp
 import com.phytal.sarona.util.themeColor
-import com.phytal.sarona.util.themeInterpolator
 import kotlin.LazyThreadSafetyMode.NONE
-import kotlin.math.abs
 
 /**
  * A [Fragment] which acts as a bottom navigation drawer.
@@ -31,28 +24,6 @@ import kotlin.math.abs
 class BottomNavDrawerFragment :
     Fragment(),
     NavigationAdapter.NavigationAdapterListener {
-
-    /**
-     * Enumeration of states in which the account picker can be in.
-     */
-    enum class SandwichState {
-
-        /**
-         * The account picker is not visible. The navigation drawer is in its default state.
-         */
-        CLOSED,
-
-        /**
-         * the account picker is visible and open.
-         */
-        OPEN,
-
-        /**
-         * The account picker sandwiching animation is running. The account picker is neither open
-         * nor closed.
-         */
-        SETTLING
-    }
 
     private lateinit var binding: FragmentBottomNavDrawerBinding
 
@@ -75,9 +46,19 @@ class BottomNavDrawerFragment :
             R.attr.bottomSheetStyle,
             0
         ).apply {
-            fillColor = ColorStateList.valueOf(
-                backgroundContext.themeColor(R.attr.colorPrimarySurfaceVariant)
-            )
+            when (requireContext().resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
+                Configuration.UI_MODE_NIGHT_NO -> {
+                    fillColor = ColorStateList.valueOf(
+                        requireContext().getColor(R.color.sarona_white_300)
+                    )
+                }
+                Configuration.UI_MODE_NIGHT_YES -> {
+                    fillColor = ColorStateList.valueOf(
+                        backgroundContext.themeColor(R.attr.colorPrimarySurfaceVariant)
+                    )
+                }
+            }
+
             elevation = resources.getDimension(R.dimen.plane_08)
             initializeElevationOverlay(requireContext())
         }
@@ -91,9 +72,19 @@ class BottomNavDrawerFragment :
             R.attr.bottomSheetStyle,
             0
         ).apply {
-            fillColor = ColorStateList.valueOf(
-                foregroundContext.themeColor(R.attr.colorPrimarySurface)
-            )
+            when (requireContext().resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK) {
+                Configuration.UI_MODE_NIGHT_NO -> {
+                    fillColor = ColorStateList.valueOf(
+                        requireContext().getColor(R.color.sarona_white_50)
+                    )
+                }
+                Configuration.UI_MODE_NIGHT_YES -> {
+                    fillColor = ColorStateList.valueOf(
+                        foregroundContext.themeColor(R.attr.colorPrimarySurface)
+                    )
+                }
+            }
+
             elevation = resources.getDimension(R.dimen.plane_16)
             shadowCompatibilityMode = MaterialShapeDrawable.SHADOW_COMPAT_MODE_NEVER
             initializeElevationOverlay(requireContext())
@@ -110,28 +101,6 @@ class BottomNavDrawerFragment :
         }
     }
 
-    private var sandwichState: SandwichState = SandwichState.CLOSED
-    private var sandwichAnim: ValueAnimator? = null
-    private val sandwichInterp by lazy(NONE) {
-        requireContext().themeInterpolator(R.attr.motionInterpolatorPersistent)
-    }
-    // Progress value which drives the animation of the sandwiching account picker. Responsible
-    // for both calling progress updates and state updates.
-    private var sandwichProgress: Float = 0F
-        set(value) {
-            if (field != value)  {
-                onSandwichProgressChanged(value)
-                val newState = when(value) {
-                    0F -> SandwichState.CLOSED
-                    1F -> SandwichState.OPEN
-                    else -> SandwichState.SETTLING
-                }
-                if (sandwichState != newState) onSandwichStateChanged(newState)
-                sandwichState = newState
-                field = value
-            }
-        }
-
     private val closeDrawerOnBackPressed = object : OnBackPressedCallback(false) {
         override fun handleOnBackPressed() {
             close()
@@ -147,7 +116,7 @@ class BottomNavDrawerFragment :
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = FragmentBottomNavDrawerBinding.inflate(inflater, container, false)
         binding.foregroundContainer.setOnApplyWindowInsetsListener { view, windowInsets ->
             // Record the window's top inset so it can be applied when the bottom sheet is slide up
@@ -173,21 +142,9 @@ class BottomNavDrawerFragment :
                 // Scrim view transforms
                 addOnSlideAction(AlphaSlideAction(scrimView))
                 addOnStateChangedAction(VisibilityStateAction(scrimView))
-                // Foreground transforms
-                addOnSlideAction(ForegroundSheetTransformSlideAction(
-                    binding.foregroundContainer,
-                    foregroundShapeDrawable,
-                    binding.profileImageView
-                ))
                 // Recycler transforms
                 addOnStateChangedAction(ScrollToTopStateAction(navRecyclerView))
                 // Close the sandwiching account picker if open
-                addOnStateChangedAction(object : OnStateChangedAction {
-                    override fun onStateChanged(sheet: View, newState: Int) {
-                        sandwichAnim?.cancel()
-                        sandwichProgress = 0F
-                    }
-                })
                 // If the drawer is open, pressing the system back button should close the drawer.
                 addOnStateChangedAction(object : OnStateChangedAction {
                     override fun onStateChanged(sheet: View, newState: Int) {
@@ -195,8 +152,6 @@ class BottomNavDrawerFragment :
                     }
                 })
             }
-
-            profileImageView.setOnClickListener { toggleSandwich() }
 
             behavior.addBottomSheetCallback(bottomSheetCallback)
             behavior.state = STATE_HIDDEN
@@ -212,13 +167,11 @@ class BottomNavDrawerFragment :
     }
 
     fun toggle() {
-        when {
-            sandwichState == SandwichState.OPEN -> toggleSandwich()
-            behavior.state == STATE_HIDDEN -> open()
-            behavior.state == STATE_HIDDEN
-                || behavior.state == STATE_HALF_EXPANDED
-                || behavior.state == STATE_EXPANDED
-                || behavior.state == STATE_COLLAPSED -> close()
+        when (behavior.state) {
+            STATE_HIDDEN -> open()
+            STATE_HALF_EXPANDED,
+            STATE_EXPANDED,
+            STATE_COLLAPSED -> close()
         }
     }
 
@@ -254,86 +207,5 @@ class BottomNavDrawerFragment :
         NavigationModel.setNavigationMenuItemChecked(item.id)
         close()
         navigationListeners.forEach { it.onNavMenuItemClicked(item) }
-    }
-
-    /**
-     * Open or close the account picker "sandwich".
-     */
-    private fun toggleSandwich() {
-        val initialProgress = sandwichProgress
-        val newProgress = when (sandwichState) {
-            SandwichState.CLOSED -> {
-                // Store the original top location of the background container so we can animate
-                // the delta between its original top position and the top position needed to just
-                // show the account picker RecyclerView, and back again.
-                binding.backgroundContainer.setTag(
-                    R.id.tag_view_top_snapshot,
-                    binding.backgroundContainer.top
-                )
-                1F
-            }
-            SandwichState.OPEN -> 0F
-            SandwichState.SETTLING -> return
-        }
-        sandwichAnim?.cancel()
-        sandwichAnim = ValueAnimator.ofFloat(initialProgress, newProgress).apply {
-            addUpdateListener { sandwichProgress = animatedValue as Float }
-            interpolator = sandwichInterp
-            duration = (abs(newProgress - initialProgress) *
-                resources.getInteger(R.integer.motion_duration_medium)).toLong()
-        }
-        sandwichAnim?.start()
-    }
-
-    /**
-     * Called each time the value of [sandwichProgress] changes. [progress] is the state of the
-     * sandwiching, with 0F being the default [SandwichState.CLOSED] state and 1F being the
-     * [SandwichState.OPEN] state.
-     */
-    private fun onSandwichProgressChanged(progress: Float) {
-        binding.run {
-            val navProgress = lerp(0F, 1F, 0F, 0.5F, progress)
-
-            foregroundContainer.translationY =
-                (binding.foregroundContainer.height * 0.15F) * navProgress
-            profileImageView.scaleX = 1F - navProgress
-            profileImageView.scaleY = 1F - navProgress
-            profileImageView.alpha = 1F - navProgress
-            foregroundContainer.alpha = 1F - navProgress
-
-            foregroundShapeDrawable.interpolation = 1F - navProgress
-
-            // Animate the translationY of the backgroundContainer so just the account picker is
-            // peeked above the BottomAppBar.
-            backgroundContainer.translationY = progress *
-                ((scrimView.bottom - accountRecyclerView.height
-                    - resources.getDimension(R.dimen.bottom_app_bar_height)) -
-                    (backgroundContainer.getTag(R.id.tag_view_top_snapshot) as Int))
-        }
-
-        // Call any actions which have been registered to run on progress changes.
-        sandwichSlideActions.forEach { it.onSlide(progress) }
-    }
-
-    /**
-     * Called when the [SandwichState] of the sandwiching account picker has changed.
-     */
-    private fun onSandwichStateChanged(state: SandwichState) {
-        // Change visibility/clickability of views which obstruct user interaction with
-        // the account list.
-        when (state) {
-            SandwichState.OPEN -> {
-                binding.run {
-                    foregroundContainer.visibility = View.GONE
-                    profileImageView.isClickable = false
-                }
-            }
-            else -> {
-                binding.run {
-                    foregroundContainer.visibility = View.VISIBLE
-                    profileImageView.isClickable = true
-                }
-            }
-        }
     }
 }

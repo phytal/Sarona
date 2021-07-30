@@ -4,7 +4,9 @@ import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import com.phytal.sarona.R
 import com.phytal.sarona.data.db.entities.Assignment
 import com.phytal.sarona.databinding.AssignmentItemBinding
 import java.lang.Math.round
@@ -87,10 +89,10 @@ class AssignmentsAdapter(
             } else assignment.max_points
             binding.textViewMaxGrade.text = maxPointsString
             binding.assignmentCard.strokeColor = when (assignment.type_of_grade) {
-                "Major Grades" -> Color.parseColor("#b37bfc")
-                "Minor Grades" -> Color.parseColor("#7bc4fc")
-                "Non-graded" -> Color.parseColor("#fcb37b")
-                else -> Color.parseColor("#c4fc7b")
+                "Major Grades" -> ContextCompat.getColor(binding.root.context, R.color.grades_1)
+                "Minor Grades" -> ContextCompat.getColor(binding.root.context, R.color.grades_2)
+                "Non-graded" -> ContextCompat.getColor(binding.root.context, R.color.grades_3)
+                else -> ContextCompat.getColor(binding.root.context, R.color.grades_4)
             }
         }
     }
