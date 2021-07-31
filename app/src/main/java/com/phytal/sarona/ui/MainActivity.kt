@@ -156,6 +156,9 @@ class MainActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListener,
             R.id.nav_welcome -> {
                 hideBottomAppBar()
             }
+            R.id.nav_login -> {
+                hideBottomAppBar()
+            }
             R.id.nav_courses -> {
                 setBottomAppBarForHome(R.menu.bottom_app_bar_menu)
             }

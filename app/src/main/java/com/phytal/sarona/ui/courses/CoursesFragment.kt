@@ -13,6 +13,7 @@ import com.phytal.sarona.R
 import com.phytal.sarona.data.db.entities.Course
 import com.phytal.sarona.databinding.FragmentCoursesBinding
 import com.phytal.sarona.ui.base.ScopedFragment
+import io.reactivex.observers.DefaultObserver
 import kotlinx.coroutines.*
 import kotlinx.coroutines.Dispatchers.Main
 import org.kodein.di.KodeinAware
@@ -111,7 +112,10 @@ class CoursesFragment : ScopedFragment(), KodeinAware, CoursesAdapter.CourseAdap
         val pastCourses = pastCourseViewModel.pastCourses.await()
 
         currentCourses.observe(viewLifecycleOwner, Observer {
-            if (it == null) return@Observer
+            if (it == null) {
+//                Snackbar.make(binding.root, "Failed to fetch current courses", Snackbar.LENGTH_LONG).show()
+                return@Observer
+            }
             maxMp = it.mp
             binding.groupLoading.visibility = View.GONE
             if (markingPeriod == 0 || markingPeriod == maxMp)
@@ -119,7 +123,10 @@ class CoursesFragment : ScopedFragment(), KodeinAware, CoursesAdapter.CourseAdap
         })
 
         pastCourses.observe(viewLifecycleOwner, Observer {
-            if (it == null) return@Observer
+            if (it == null) {
+//                Snackbar.make(binding.root, "Failed to fetch past courses", Snackbar.LENGTH_LONG).show()
+                return@Observer
+            }
             if (markingPeriod in 1 until maxMp)
                 adapter.setCourses(it[markingPeriod - 1])
         })
@@ -128,7 +135,7 @@ class CoursesFragment : ScopedFragment(), KodeinAware, CoursesAdapter.CourseAdap
     private fun refreshMp(mp: Int) = launch(Main) {
         mpCourseViewModel.setMp(mp)
         mpCourseViewModel.fetchMpCourses()
-        mpCourseViewModel.mpCourses.observe(viewLifecycleOwner, { result ->
+        mpCourseViewModel.mpCourses.observe(viewLifecycleOwner, Observer { result ->
             result.getContentIfNotHandled()?.let {
                 adapter.setCourses(it)
                 binding.swipeRefreshLayout.isRefreshing = false

@@ -19,12 +19,15 @@ class CourseRepositoryImpl(
     init {
         mpNetworkDataSource.apply {
             downloadedCurrentMp.observeForever { newCurrentCourses ->
-                persistFetchedCurrentMp(newCurrentCourses)
+                if (newCurrentCourses != null)
+                    persistFetchedCurrentMp(newCurrentCourses)
             }
             downloadedPastMps.observeForever { newPastCourses ->
-                persistFetchedPastMps(newPastCourses)
+                if (newPastCourses != null)
+                    persistFetchedPastMps(newPastCourses)
             }
             downloadedMp.observeForever {  newCourses ->
+                if (newCourses != null)
                     persistFetchedMp(newCourses)
             }
         }

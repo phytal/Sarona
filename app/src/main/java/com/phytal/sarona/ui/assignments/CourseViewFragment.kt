@@ -7,8 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import androidx.appcompat.app.AlertDialog
-import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
 import com.phytal.sarona.R
 import com.phytal.sarona.data.db.entities.Assignment
@@ -18,14 +16,8 @@ import com.phytal.sarona.databinding.AddAssignmentDialogBinding
 import com.phytal.sarona.databinding.AssignmentDialogBinding
 import com.phytal.sarona.databinding.FragmentCourseViewBinding
 import com.phytal.sarona.ui.base.ScopedFragment
-import com.phytal.sarona.ui.courses.CurrentCourseViewModel
-import com.phytal.sarona.ui.courses.CurrentCourseViewModelFactory
 import com.phytal.sarona.util.MVAccelerateDecelerateInterpolator
-import com.phytal.sarona.util.SpinnerAdapter
 import kotlinx.coroutines.launch
-import org.kodein.di.KodeinAware
-import org.kodein.di.android.x.closestKodein
-import org.kodein.di.generic.instance
 import kotlin.math.round
 import kotlin.math.roundToInt
 
