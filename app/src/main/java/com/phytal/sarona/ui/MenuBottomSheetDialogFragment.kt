@@ -101,7 +101,7 @@ class MenuBottomSheetDialogFragment(
         }
 
         binding.aboutButton.setOnClickListener {
-            val url = "https://linktr.ee/gradesimple"
+            val url = "https://linktr.ee/simplegrade"
             val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
             startActivity(browserIntent)
         }
