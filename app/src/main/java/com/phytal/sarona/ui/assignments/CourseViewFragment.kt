@@ -76,6 +76,7 @@ class CourseViewFragment : ScopedFragment(),
     private fun reCalculateAverage() {
         val grades = DoubleArray(course.grade_types.size)
         val weights = DoubleArray(course.grade_types.size)
+        if (weights.isEmpty()) return
         for (assignment in assignmentsAdapter.assignments) {
             if (assignment.score == "X")
                 continue
