@@ -154,6 +154,8 @@ class CoursesFragment : ScopedFragment(), KodeinAware, CoursesAdapter.CourseAdap
     override fun onCourseClick(cardView: View, course: Course) {
 //        val courseCardDetailTransitionName = getString(R.string.course_card_detail_transition_name)
 //        val extras = FragmentNavigatorExtras(cardView to courseCardDetailTransitionName)
+        if (course.assignments.isEmpty())
+            return
         val directions = CoursesFragmentDirections.actionNavCoursesToNavCourseView(course)
         findNavController().navigate(directions,
             navOptions {

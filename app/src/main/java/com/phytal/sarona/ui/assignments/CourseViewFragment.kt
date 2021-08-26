@@ -35,7 +35,6 @@ class CourseViewFragment : ScopedFragment(),
         savedInstanceState: Bundle?
     ): View {
         binding = FragmentCourseViewBinding.inflate(inflater, container, false)
-        binding.recyclerView.setHasFixedSize(true)
         binding.recyclerView.adapter = assignmentsAdapter
 
         binding.gradeCategories.adapter = gradeTypeAdapter
@@ -101,7 +100,10 @@ class CourseViewFragment : ScopedFragment(),
 
         for (i in grades.indices) {
             val sum = grades[i] / weights[i]
-            avg += sum * course.grade_types[i].weight / 100
+            if (course.grade_types.size > 1)
+                avg += sum * course.grade_types[i].weight / 100
+            else
+                avg = sum
             categories[i] =
                 GradeType(
                     gradeTypeAdapter.currentList[i].category,

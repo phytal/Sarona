@@ -18,3 +18,5 @@ An Android grade-fetching app made with Kotlin. The app fetches student grades f
 
 ## Credits
 - [William Zhang](https://www.linkedin.com/in/william-zhang-452141191/) ([Phytal](https://github.com/Phytal)) - Creator and Designer
+
+<a href='https://play.google.com/store/apps/details?id=com.phytal.sarona&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' src='https://play.google.com/intl/en_us/badges/static/images/badges/en_badge_web_generic.png' height=80/></a>
