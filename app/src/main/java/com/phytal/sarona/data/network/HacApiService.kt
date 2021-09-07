@@ -4,7 +4,7 @@ import com.phytal.sarona.data.network.adapter.NetworkResponseAdapterFactory
 import com.phytal.sarona.data.network.response.CurrentMpResponse
 import com.phytal.sarona.data.network.response.LoginResponse
 import com.phytal.sarona.data.network.response.MpResponse
-import com.phytal.sarona.data.network.response.PastMpResponse
+import com.phytal.sarona.data.network.response.OtherMpResponse
 import io.reactivex.Observable
 import io.reactivex.schedulers.Schedulers
 import okhttp3.OkHttpClient
@@ -17,12 +17,12 @@ import java.util.concurrent.TimeUnit
 
 interface HacApiService {
 
-    @GET("pastMp")
+    @GET("otherMp")
     fun getPastMps(
         @Query("l") hacLink: String,
         @Query("u") username: String,
         @Query("p") password: String
-    ): Observable<PastMpResponse>
+    ): Observable<OtherMpResponse>
 
     @GET("currentMp")
     fun getCurrentMp(

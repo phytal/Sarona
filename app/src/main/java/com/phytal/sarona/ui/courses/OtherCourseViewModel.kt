@@ -10,6 +10,6 @@ class PastCourseViewModel(
     loginProvider: LoginProvider
 ) : CourseViewModel(loginProvider) {
     val pastCourses by lazyDeferred {
-        repository.getPastMps(loginInformation)
+        repository.getOtherMps(loginInformation)
     }
 }

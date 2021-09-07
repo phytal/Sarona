@@ -6,8 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.phytal.sarona.data.network.response.CurrentMpResponse
 import com.phytal.sarona.data.network.response.MpResponse
-import com.phytal.sarona.data.network.response.PastMpResponse
-import com.phytal.sarona.internal.Event
+import com.phytal.sarona.data.network.response.OtherMpResponse
 import com.phytal.sarona.internal.NoConnectivityException
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -17,12 +16,12 @@ class MpNetworkDataSourceImpl(
     private val hacApiService: HacApiService
 ) : MpNetworkDataSource {
 
-    private val _downloadedPastMps = MutableLiveData<PastMpResponse>()
-    override val downloadedPastMps: LiveData<PastMpResponse>
+    private val _downloadedPastMps = MutableLiveData<OtherMpResponse>()
+    override val downloadedOtherMps: LiveData<OtherMpResponse>
         get() = _downloadedPastMps
 
     @SuppressLint("CheckResult")
-    override suspend fun fetchPastMps(
+    override suspend fun fetchOtherMps(
         hacLink: String,
         username: String,
         password: String

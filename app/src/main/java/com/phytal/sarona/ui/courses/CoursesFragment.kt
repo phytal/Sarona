@@ -2,18 +2,19 @@ package com.phytal.sarona.ui.courses
 
 import android.os.Bundle
 import android.view.*
+import android.widget.Toolbar
 import androidx.core.view.doOnPreDraw
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.navigation.navOptions
+import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.snackbar.Snackbar
 import com.phytal.sarona.R
 import com.phytal.sarona.data.db.entities.Course
 import com.phytal.sarona.databinding.FragmentCoursesBinding
 import com.phytal.sarona.ui.base.ScopedFragment
-import io.reactivex.observers.DefaultObserver
 import kotlinx.coroutines.*
 import kotlinx.coroutines.Dispatchers.Main
 import org.kodein.di.KodeinAware
@@ -24,16 +25,19 @@ import org.kodein.di.generic.instance
 class CoursesFragment : ScopedFragment(), KodeinAware, CoursesAdapter.CourseAdapterListener {
     private val args: CoursesFragmentArgs by navArgs()
     private val markingPeriod: Int by lazy(LazyThreadSafetyMode.NONE) { args.markingPeriod }
+    private var currentMp: Int = -1
     private var maxMp: Int = -1
     override val kodein by closestKodein()
     private val currentCourseViewModelFactory by instance<CurrentCourseViewModelFactory>()
-    private val pastCourseViewModelFactory by instance<PastCourseViewModelFactory>()
+    private val pastCourseViewModelFactory by instance<OtherCourseViewModelFactory>()
     private val mpCourseViewModelFactory by instance<MpCourseViewModelFactory>()
     private lateinit var currentCourseViewModel: CurrentCourseViewModel
     private lateinit var pastCourseViewModel: PastCourseViewModel
     private lateinit var mpCourseViewModel: MpCourseViewModel
     private val adapter = CoursesAdapter(this)
     private lateinit var binding: FragmentCoursesBinding
+    private var updatedCourses = 0
+    private var refreshed = 0
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -47,7 +51,7 @@ class CoursesFragment : ScopedFragment(), KodeinAware, CoursesAdapter.CourseAdap
         binding.backBtn.setOnClickListener {
             var mp = markingPeriod
             if (mp == 0)
-                mp = maxMp
+                mp = currentMp
             if (mp - 1 > 0) {
                 val directions =
                     CoursesFragmentDirections.actionGlobalCoursesFragment(mp - 1)
@@ -57,12 +61,17 @@ class CoursesFragment : ScopedFragment(), KodeinAware, CoursesAdapter.CourseAdap
                         exit = android.R.animator.fade_out
                     }
                 })
-            }
+            } else
+                Snackbar.make(
+                    binding.root,
+                    "Reached the minimum marking period!",
+                    Snackbar.LENGTH_SHORT
+                ).show()
         }
         binding.forwardBtn.setOnClickListener {
             var mp = markingPeriod
             if (mp == 0)
-                mp = maxMp
+                mp = currentMp
             if (mp + 1 <= maxMp) {
                 val directions =
                     CoursesFragmentDirections.actionGlobalCoursesFragment(mp + 1)
@@ -72,14 +81,29 @@ class CoursesFragment : ScopedFragment(), KodeinAware, CoursesAdapter.CourseAdap
                         exit = android.R.animator.fade_out
                     }
                 })
-            }
+            } else
+                Snackbar.make(
+                    binding.root,
+                    "Reached the maximum marking period!",
+                    Snackbar.LENGTH_SHORT
+                ).show()
         }
 
+        activity?.findViewById<BottomAppBar>(R.id.bottom_app_bar)?.setOnMenuItemClickListener {
+            var mp = markingPeriod
+            if (mp == 0)
+                mp = currentMp
+            when (it.itemId) {
+                R.id.menu_refresh ->
+                    refreshMp(mp).start()
+                else -> super.onOptionsItemSelected(it)
+            }
+        }
         binding.swipeRefreshLayout.setOnRefreshListener {
             var mp = markingPeriod
             if (mp == 0)
-                mp = maxMp
-            refreshMp(mp)
+                mp = currentMp
+            refreshMp(mp - 1)
         }
 
         return binding.root
@@ -109,39 +133,53 @@ class CoursesFragment : ScopedFragment(), KodeinAware, CoursesAdapter.CourseAdap
 
     private fun bindUI() = launch(Main) {
         val currentCourses = currentCourseViewModel.currentCourses.await()
-        val pastCourses = pastCourseViewModel.pastCourses.await()
+        val otherCourses = pastCourseViewModel.pastCourses.await()
 
         currentCourses.observe(viewLifecycleOwner, Observer {
             if (it == null) {
-//                Snackbar.make(binding.root, "Failed to fetch current courses", Snackbar.LENGTH_LONG).show()
+                Snackbar.make(binding.root, "Failed to fetch current courses", Snackbar.LENGTH_LONG).show()
                 return@Observer
             }
+            currentMp = it.mp
             maxMp = it.mp
             binding.groupLoading.visibility = View.GONE
-            if (markingPeriod == 0 || markingPeriod == maxMp)
+            if (markingPeriod == 0 || markingPeriod == currentMp) {
                 adapter.setCourses(it)
+                if ((markingPeriod == 0 && updatedCourses == 1) || (markingPeriod == currentMp && updatedCourses == maxMp))
+                    Snackbar.make(binding.root, "Successfully loaded new data!", Snackbar.LENGTH_SHORT).show()
+                updatedCourses++
+            }
         })
 
-        pastCourses.observe(viewLifecycleOwner, Observer {
+        otherCourses.observe(viewLifecycleOwner, Observer {
             if (it == null) {
-//                Snackbar.make(binding.root, "Failed to fetch past courses", Snackbar.LENGTH_LONG).show()
+                Snackbar.make(binding.root, "Failed to fetch other courses", Snackbar.LENGTH_LONG).show()
                 return@Observer
             }
-            if (markingPeriod in 1 until maxMp)
-                adapter.setCourses(it[markingPeriod - 1])
+            if (it.isNotEmpty()) {
+                maxMp = maxMp.coerceAtLeast(it[it.size - 1].mp)
+                if (markingPeriod != currentMp && markingPeriod != 0) {
+                    if (markingPeriod < currentMp)
+                        adapter.setCourses(it[markingPeriod-1])
+                    else
+                        adapter.setCourses(it[markingPeriod-2])
+                }
+            }
         })
     }
 
     private fun refreshMp(mp: Int) = launch(Main) {
         mpCourseViewModel.setMp(mp)
-        mpCourseViewModel.fetchMpCourses()
-        mpCourseViewModel.mpCourses.observe(viewLifecycleOwner, Observer { result ->
-            result.getContentIfNotHandled()?.let {
-                adapter.setCourses(it)
-                binding.swipeRefreshLayout.isRefreshing = false
-                Snackbar.make(binding.root, "Successfully loaded new data!", Snackbar.LENGTH_SHORT).show()
+        val mpCourses = mpCourseViewModel.mpCourses.await()
+        mpCourses.observe(viewLifecycleOwner, Observer {
+            if (it == null) return@Observer
+            if (refreshed < maxMp) {
+                refreshed++
+                return@Observer
             }
-
+            adapter.setCourses(it)
+            binding.swipeRefreshLayout.isRefreshing = false
+            Snackbar.make(binding.root, "Successfully loaded new data!", Snackbar.LENGTH_SHORT).show()
         })
     }
 
@@ -166,13 +204,5 @@ class CoursesFragment : ScopedFragment(), KodeinAware, CoursesAdapter.CourseAdap
                     popExit = R.anim.slide_out_right
                 }
             })
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.menu_refresh ->
-                refreshMp(markingPeriod).start()
-            else -> super.onOptionsItemSelected(item)
-        }
     }
 }

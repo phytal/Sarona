@@ -39,6 +39,7 @@ class CoursesAdapter(
 
     fun setCourses(mp: MarkingPeriod) {
         this.courses = mp.courses
+
         notifyDataSetChanged()
     }
 

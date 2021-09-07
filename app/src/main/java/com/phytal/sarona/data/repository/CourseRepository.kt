@@ -7,6 +7,6 @@ import com.phytal.sarona.data.provider.LoginInformation
 interface CourseRepository {
     suspend fun getCurrentMp(loginInfo: LoginInformation): LiveData<out MarkingPeriod>
     suspend fun getMp(loginInfo: LoginInformation, mp: Int): LiveData<out MarkingPeriod>
-    suspend fun getPastMps(loginInfo: LoginInformation): LiveData<out List<MarkingPeriod>>
+    suspend fun getOtherMps(loginInfo: LoginInformation): LiveData<out List<MarkingPeriod>>
     suspend fun getAllMps(): LiveData<out List<MarkingPeriod>>
 }

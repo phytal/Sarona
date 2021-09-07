@@ -69,7 +69,7 @@ class CourseViewFragment : ScopedFragment(),
             interpolator = MVAccelerateDecelerateInterpolator()
             start()
         }
-        binding.courseGrade.text = String.format("%.2f", courseGrade)
+        binding.courseGrade.text = if(courseGrade != 100.0) String.format("%.2f", courseGrade) else 100.0.toString()
     }
 
     private fun reCalculateAverage() {

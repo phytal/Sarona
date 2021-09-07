@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.phytal.sarona.data.provider.LoginProvider
 import com.phytal.sarona.data.repository.CourseRepository
 
-class PastCourseViewModelFactory(
+class OtherCourseViewModelFactory(
     private val repository: CourseRepository,
     private val loginProvider: LoginProvider
 ): ViewModelProvider.NewInstanceFactory() {

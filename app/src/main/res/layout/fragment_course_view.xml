@@ -81,15 +81,14 @@
                 android:textAlignment="center"
                 android:textAppearance="@style/TextAppearance.Sarona.Headline4"
                 android:textStyle="bold"
-                android:typeface="serif"
-                app:autoSizeMaxTextSize="38sp"
+                app:autoSizeMaxTextSize="40sp"
                 app:autoSizeMinTextSize="30sp"
                 app:autoSizeStepGranularity="2sp"
                 app:layout_constraintBottom_toBottomOf="@+id/grade_progress_bar"
                 app:layout_constraintEnd_toEndOf="@+id/grade_progress_bar"
                 app:layout_constraintStart_toStartOf="@+id/grade_progress_bar"
                 app:layout_constraintTop_toTopOf="@+id/grade_progress_bar"
-                tools:text="Grade" />
+                tools:text="100.0" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/add_grade_button"

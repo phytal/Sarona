@@ -177,9 +177,6 @@ class MainActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListener,
                 bottomNavDrawer.close()
                 showDarkThemeMenu()
             }
-//            R.id.menu_refresh -> {
-//                (javaClass )
-//            }
         }
         return true
     }

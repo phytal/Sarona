@@ -9,10 +9,9 @@ import com.phytal.sarona.data.db.entities.MarkingPeriod
 import com.phytal.sarona.data.db.entities.DataConverter
 import com.phytal.sarona.internal.helpers.SingletonHolder
 
-@Database(entities = [MarkingPeriod::class], version = 1)
+@Database(entities = [MarkingPeriod::class], version = 2)
 @TypeConverters(DataConverter::class)
 abstract class MpDatabase: RoomDatabase() {
-
     abstract fun mpDao(): MpDao
 
     companion object : SingletonHolder<MpDatabase, Context>({
