@@ -22,6 +22,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import com.google.android.material.transition.MaterialFadeThrough
 import com.phytal.sarona.R
+import com.phytal.sarona.data.db.entities.Course
 import com.phytal.sarona.databinding.ActivityMainBinding
 import com.phytal.sarona.ui.courses.CoursesFragment
 import com.phytal.sarona.ui.nav.*

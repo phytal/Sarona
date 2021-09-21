@@ -14,6 +14,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.phytal.sarona.R
 import com.phytal.sarona.data.db.entities.Course
 import com.phytal.sarona.databinding.FragmentCoursesBinding
+import com.phytal.sarona.ui.MainActivity
 import com.phytal.sarona.ui.base.ScopedFragment
 import kotlinx.coroutines.*
 import kotlinx.coroutines.Dispatchers.Main
@@ -171,16 +172,19 @@ class CoursesFragment : ScopedFragment(), KodeinAware, CoursesAdapter.CourseAdap
     private fun refreshMp(mp: Int) = launch(Main) {
         mpCourseViewModel.setMp(mp)
         val mpCourses = mpCourseViewModel.mpCourses.await()
-        mpCourses.observe(viewLifecycleOwner, Observer {
-            if (it == null) return@Observer
-            if (refreshed < maxMp) {
-                refreshed++
-                return@Observer
-            }
-            adapter.setCourses(it)
-            binding.swipeRefreshLayout.isRefreshing = false
-            Snackbar.make(binding.root, "Successfully loaded new data!", Snackbar.LENGTH_SHORT).show()
-        })
+        if (view != null) {
+            mpCourses.observe(viewLifecycleOwner, Observer {
+                if (it == null) return@Observer
+                if (refreshed < maxMp) {
+                    refreshed++
+                    return@Observer
+                }
+                adapter.setCourses(it)
+                binding.swipeRefreshLayout.isRefreshing = false
+                Snackbar.make(binding.root, "Successfully loaded new data!", Snackbar.LENGTH_SHORT)
+                    .show()
+            })
+        }
     }
 
     private suspend fun setNewTextOnMainThread(input: String) {
