@@ -21,20 +21,20 @@ object NavigationModel {
             destination = Destinations.CLASSES,
             checked = false
         ),
-        NavigationModelItem.NavMenuItem(
-            id = GRADES_ID,
-            icon = R.drawable.ic_twotone_grades,
-            titleRes = R.string.nav_grades,
-            destination = Destinations.GRADES,
-            checked = false
-        ),
-        NavigationModelItem.NavMenuItem(
-            id = GPA_ID,
-            icon = R.drawable.ic_twotone_gpa,
-            titleRes = R.string.nav_gpa,
-            destination = Destinations.GPA,
-            checked = false
-        )
+//        NavigationModelItem.NavMenuItem(
+//            id = GRADES_ID,
+//            icon = R.drawable.ic_twotone_grades,
+//            titleRes = R.string.nav_grades,
+//            destination = Destinations.GRADES,
+//            checked = false
+//        ),
+//        NavigationModelItem.NavMenuItem(
+//            id = GPA_ID,
+//            icon = R.drawable.ic_twotone_gpa,
+//            titleRes = R.string.nav_gpa,
+//            destination = Destinations.GPA,
+//            checked = false
+//        )
     )
 
     private val _navigationList: MutableLiveData<List<NavigationModelItem>> = MutableLiveData()

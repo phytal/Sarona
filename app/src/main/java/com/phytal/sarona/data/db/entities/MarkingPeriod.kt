@@ -10,6 +10,7 @@ import androidx.room.TypeConverters
 data class MarkingPeriod(
     @PrimaryKey
     val mp: Int,
+    val current: Boolean,
     @TypeConverters(DataConverter::class)
     val courses: List<Course>
 )

@@ -6,7 +6,6 @@ import com.phytal.sarona.data.db.entities.MarkingPeriod
 import com.phytal.sarona.data.network.MpNetworkDataSource
 import com.phytal.sarona.data.network.response.CurrentMpResponse
 import com.phytal.sarona.data.network.response.MpResponse
-import com.phytal.sarona.data.network.response.PastMpResponse
 import com.phytal.sarona.data.provider.LoginInformation
 import kotlinx.coroutines.*
 
@@ -19,12 +18,11 @@ class CourseRepositoryImpl(
     init {
         mpNetworkDataSource.apply {
             downloadedCurrentMp.observeForever { newCurrentCourses ->
-                persistFetchedCurrentMp(newCurrentCourses)
-            }
-            downloadedPastMps.observeForever { newPastCourses ->
-                persistFetchedPastMps(newPastCourses)
+                if (newCurrentCourses != null)
+                    persistFetchedCurrentMp(newCurrentCourses)
             }
             downloadedMp.observeForever {  newCourses ->
+                if (newCourses != null)
                     persistFetchedMp(newCourses)
             }
         }
@@ -34,13 +32,6 @@ class CourseRepositoryImpl(
         return withContext(Dispatchers.IO) {
             fetchCurrentMp(loginInfo)
             return@withContext mpDao.getCurrentMp()
-        }
-    }
-
-    override suspend fun getPastMps(loginInfo: LoginInformation): LiveData<out List<MarkingPeriod>> {
-        return withContext(Dispatchers.IO) {
-            fetchPastMp(loginInfo)
-            return@withContext mpDao.getPastMps()
         }
     }
 
@@ -65,14 +56,6 @@ class CourseRepositoryImpl(
     }
 
     @DelicateCoroutinesApi
-    private fun persistFetchedPastMps(fetchedCourses: PastMpResponse) {
-        GlobalScope.launch(Dispatchers.IO) {
-            for (pastCourseList in fetchedCourses.pastMps)
-                mpDao.upsert(pastCourseList)
-        }
-    }
-
-    @DelicateCoroutinesApi
     private fun persistFetchedMp(fetchedCourses: MpResponse) {
         GlobalScope.launch(Dispatchers.IO) {
             mpDao.upsert(fetchedCourses.mp)
@@ -81,14 +64,6 @@ class CourseRepositoryImpl(
 
     private suspend fun fetchCurrentMp(loginInfo: LoginInformation) {
         mpNetworkDataSource.fetchCurrentMp(
-            loginInfo.link,
-            loginInfo.username,
-            loginInfo.password
-        )
-    }
-
-    private suspend fun fetchPastMp(loginInfo: LoginInformation) {
-        mpNetworkDataSource.fetchPastMps(
             loginInfo.link,
             loginInfo.username,
             loginInfo.password

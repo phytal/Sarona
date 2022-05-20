@@ -37,6 +37,16 @@ class LoginFragment : ScopedFragment(), KodeinAware, AdapterView.OnItemSelectedL
             Context.MODE_PRIVATE
         )
 
+        // navigate to CourseFragment if saved login
+        if (sharedPref?.getString(getString(R.string.saved_username_key), null) != null &&
+            sharedPref.getString(getString(R.string.saved_password_key), null) != null &&
+            sharedPref.getString(getString(R.string.saved_link_key), null) != null
+        ) {
+            val directions =
+                CoursesFragmentDirections.actionGlobalCoursesFragment()
+            findNavController().navigate(directions)
+        }
+
         val binding = FragmentLoginBinding.inflate(inflater)
         linkLayout = binding.editLinkLayout
 

@@ -25,9 +25,9 @@
     <style name="Widget.Sarona.TextInputLayout" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <item name="hintTextAppearance">@style/TextAppearance.Sarona.TextInputLayout.HintText</item>
         <item name="android:fontFamily">@font/mplus</item>
-        <item name="hintTextColor">@color/color_on_surface_emphasis_high</item>
+        <item name="hintTextColor">?android:colorPrimary</item>
         <item name="android:paddingBottom">8dp</item>
-        <item name="boxStrokeColor">@color/color_on_surface_emphasis_high</item>
+        <item name="boxStrokeColor">?android:colorPrimary</item>
     </style>
 
     <style name="TextAppearance.Sarona.TextInputLayout.HintText" parent="TextAppearance.Sarona.Subtitle2">

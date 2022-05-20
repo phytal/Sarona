@@ -85,4 +85,5 @@
     <string name="max_score">Max Score</string>
     <string name="weight">Weight</string>
     <string name="add">Add</string>
+    <string name="fetching_grades">Fetching grades..</string>
 </resources>

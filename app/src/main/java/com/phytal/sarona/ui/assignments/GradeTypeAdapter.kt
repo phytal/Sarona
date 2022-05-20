@@ -37,7 +37,6 @@ class GradeTypeHolder (
         val weightString = "Weight: " + gradeType.weight
         binding.gradeWeight.text = weightString
         binding.gradeType = gradeType
-        //TODO: un-hardcode colors
         binding.assignmentCard.strokeColor = when (gradeType.category) {
             "Major Grades" -> ContextCompat.getColor(binding.root.context, R.color.grades_1)
             "Minor Grades" -> ContextCompat.getColor(binding.root.context, R.color.grades_2)

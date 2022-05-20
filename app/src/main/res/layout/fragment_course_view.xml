@@ -6,6 +6,17 @@
     android:layout_height="match_parent"
     tools:context=".ui.assignments.CourseViewFragment">
 
+    <ImageView
+        android:id="@+id/back_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:contentDescription="@string/back_button"
+        android:padding="8dp"
+        android:src="@drawable/ic_baseline_keyboard_arrow_left_40"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/course_name"
         android:layout_width="wrap_content"
@@ -26,9 +37,8 @@
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:id="@+id/coordinatorLayout2"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="160dp"
-        android:paddingBottom="150dp"
+        android:layout_height="0dp"
+        android:paddingVertical="10dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -37,7 +47,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:scrollbars="vertical"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -78,19 +88,18 @@
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:autoSizeTextType="uniform"
-                android:gravity="center_vertical"
                 android:maxLines="1"
+                android:textAlignment="center"
                 android:textAppearance="@style/TextAppearance.Sarona.Headline4"
                 android:textStyle="bold"
-                android:typeface="serif"
-                app:autoSizeMaxTextSize="38sp"
+                app:autoSizeMaxTextSize="40sp"
                 app:autoSizeMinTextSize="30sp"
                 app:autoSizeStepGranularity="2sp"
                 app:layout_constraintBottom_toBottomOf="@+id/grade_progress_bar"
                 app:layout_constraintEnd_toEndOf="@+id/grade_progress_bar"
                 app:layout_constraintStart_toStartOf="@+id/grade_progress_bar"
                 app:layout_constraintTop_toTopOf="@+id/grade_progress_bar"
-                tools:text="Grade" />
+                tools:text="100.0" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/add_grade_button"

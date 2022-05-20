@@ -7,9 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import androidx.appcompat.app.AlertDialog
-import androidx.databinding.DataBindingUtil
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.navArgs
+import com.google.android.material.bottomappbar.BottomAppBar
 import com.phytal.sarona.R
 import com.phytal.sarona.data.db.entities.Assignment
 import com.phytal.sarona.data.db.entities.Course
@@ -18,14 +17,8 @@ import com.phytal.sarona.databinding.AddAssignmentDialogBinding
 import com.phytal.sarona.databinding.AssignmentDialogBinding
 import com.phytal.sarona.databinding.FragmentCourseViewBinding
 import com.phytal.sarona.ui.base.ScopedFragment
-import com.phytal.sarona.ui.courses.CurrentCourseViewModel
-import com.phytal.sarona.ui.courses.CurrentCourseViewModelFactory
 import com.phytal.sarona.util.MVAccelerateDecelerateInterpolator
-import com.phytal.sarona.util.SpinnerAdapter
 import kotlinx.coroutines.launch
-import org.kodein.di.KodeinAware
-import org.kodein.di.android.x.closestKodein
-import org.kodein.di.generic.instance
 import kotlin.math.round
 import kotlin.math.roundToInt
 
@@ -42,13 +35,18 @@ class CourseViewFragment : ScopedFragment(),
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        activity?.findViewById<BottomAppBar>(R.id.bottom_app_bar)?.menu?.findItem(R.id.menu_refresh)?.isVisible =
+            false
+
         binding = FragmentCourseViewBinding.inflate(inflater, container, false)
-        binding.recyclerView.setHasFixedSize(true)
         binding.recyclerView.adapter = assignmentsAdapter
 
         binding.gradeCategories.adapter = gradeTypeAdapter
         binding.addGradeButton.setOnClickListener {
             addMockAssignment()
+        }
+        binding.backBtn.setOnClickListener {
+            activity?.onBackPressed()
         }
 
         return binding.root
@@ -78,14 +76,16 @@ class CourseViewFragment : ScopedFragment(),
             interpolator = MVAccelerateDecelerateInterpolator()
             start()
         }
-        binding.courseGrade.text = String.format("%.2f", courseGrade)
+        binding.courseGrade.text =
+            if (courseGrade != 100.0) String.format("%.2f", courseGrade) else 100.0.toString()
     }
 
     private fun reCalculateAverage() {
         val grades = DoubleArray(course.grade_types.size)
         val weights = DoubleArray(course.grade_types.size)
+        if (weights.isEmpty()) return
         for (assignment in assignmentsAdapter.assignments) {
-            if (assignment.score == "X")
+            if (assignment.score == "X" || assignment.score == "")
                 continue
             var categoryIndex = -1
             for (i in 0..course.grade_types.size) {
@@ -108,7 +108,10 @@ class CourseViewFragment : ScopedFragment(),
 
         for (i in grades.indices) {
             val sum = grades[i] / weights[i]
-            avg += sum * course.grade_types[i].weight / 100
+            if (course.grade_types.size > 1)
+                avg += sum * course.grade_types[i].weight / 100
+            else
+                avg = sum
             categories[i] =
                 GradeType(
                     gradeTypeAdapter.currentList[i].category,
@@ -175,69 +178,88 @@ class CourseViewFragment : ScopedFragment(),
         dialogBinding.addAssignmentButton.setOnClickListener {
             val category = dialogBinding.inputCategorySpinner.text.toString()
 
-            if (category.isNotEmpty() &&
-                !dialogBinding.inputScore.text.isNullOrEmpty() &&
-                !dialogBinding.inputMaxScore.text.isNullOrEmpty() &&
-                !dialogBinding.inputWeight.text.isNullOrEmpty()
-            ) {
-                val title = dialogBinding.inputAssignmentName.text.toString()
-                val score = dialogBinding.inputScore.text.toString().toDouble().toString()
-                val maxScore = dialogBinding.inputMaxScore.text.toString().toDouble().toString()
-                val weight = dialogBinding.inputWeight.text.toString().toDouble().toString()
-                val percentage = if (maxScore == "N/A" || score == "N/A") {
-                    "N/A"
-                } else
-                    (round(score.toDouble() / maxScore.toDouble() * 10000) / 100).toString()
-                val weightedScore = if (weight == "N/A" || score == "N/A") {
-                    "N/A"
-                } else
-                    (score.toDouble() * weight.toDouble()).toString()
-                val weightedTotalPoints = if (weight == "N/A" || maxScore == "N/A") {
-                    "N/A"
-                } else
-                    (maxScore.toDouble() * weight.toDouble()).toString()
-                if (assignment != null) {
-                    assignmentsAdapter.editAssignment(
-                        Assignment(
-                            assignment.comment,
-                            assignment.date_assigned,
-                            assignment.date_due,
-                            maxScore,
-                            percentage,
-                            score,
-                            title,
-                            maxScore,
-                            category,
-                            weight,
-                            weightedTotalPoints,
-                            weightedScore
-                        ), position
-                    )
-                } else {
-                    assignmentsAdapter.addAssignment(
-                        Assignment(
-                            null,
-                            "",
-                            "",
-                            maxScore,
-                            percentage,
-                            score,
-                            title,
-                            maxScore,
-                            category,
-                            weight,
-                            weightedTotalPoints,
-                            weightedScore
-                        )
-                    )
+            if (category.isNotEmpty()) {
+                var containsCategory = false
+                for (cat in course.grade_types) {
+                    if (cat.category == category) {
+                        containsCategory = true
+                        break
+                    }
                 }
-                reCalculateAverage()
-                builder.dismiss()
+                if (containsCategory &&
+                    !dialogBinding.inputScore.text.isNullOrEmpty() &&
+                    !dialogBinding.inputMaxScore.text.isNullOrEmpty() &&
+                    !dialogBinding.inputWeight.text.isNullOrEmpty() &&
+                    dialogBinding.inputScore.text.toString().isDouble() &&
+                    dialogBinding.inputMaxScore.text.toString().isDouble() &&
+                    dialogBinding.inputWeight.text.toString().isDouble()
+                ) {
+                    val title = dialogBinding.inputAssignmentName.text.toString()
+                    val score = dialogBinding.inputScore.text.toString().toDouble().toString()
+                    val maxScore = dialogBinding.inputMaxScore.text.toString().toDouble().toString()
+                    val weight = dialogBinding.inputWeight.text.toString().toDouble().toString()
+                    val percentage = if (maxScore == "N/A" || score == "N/A") {
+                        "N/A"
+                    } else
+                        (round(score.toDouble() / maxScore.toDouble() * 10000) / 100).toString()
+                    val weightedScore = if (weight == "N/A" || score == "N/A") {
+                        "N/A"
+                    } else
+                        (score.toDouble() * weight.toDouble()).toString()
+                    val weightedTotalPoints = if (weight == "N/A" || maxScore == "N/A") {
+                        "N/A"
+                    } else
+                        (maxScore.toDouble() * weight.toDouble()).toString()
+                    if (assignment != null) {
+                        assignmentsAdapter.editAssignment(
+                            Assignment(
+                                assignment.comment,
+                                assignment.date_assigned,
+                                assignment.date_due,
+                                maxScore,
+                                percentage,
+                                score,
+                                title,
+                                maxScore,
+                                category,
+                                weight,
+                                weightedTotalPoints,
+                                weightedScore
+                            ), position
+                        )
+                    } else {
+                        assignmentsAdapter.addAssignment(
+                            Assignment(
+                                null,
+                                "",
+                                "",
+                                maxScore,
+                                percentage,
+                                score,
+                                title,
+                                maxScore,
+                                category,
+                                weight,
+                                weightedTotalPoints,
+                                weightedScore
+                            )
+                        )
+                    }
+                    reCalculateAverage()
+                    builder.dismiss()
+                }
             }
         }
 
         builder.setView(dialogBinding.root)
         builder.setCanceledOnTouchOutside(true)
         builder.show()
+    }
+
+    private fun String.isDouble(): Boolean {
+        return when (toDoubleOrNull()) {
+            null -> false
+            else -> true
+        }
     }
 }

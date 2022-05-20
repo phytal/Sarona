@@ -13,7 +13,6 @@ import com.phytal.sarona.internal.helpers.ThemeHelper
 import com.phytal.sarona.internal.helpers.ThemeHelper.applyTheme
 import com.phytal.sarona.ui.courses.CurrentCourseViewModelFactory
 import com.phytal.sarona.ui.courses.MpCourseViewModelFactory
-import com.phytal.sarona.ui.courses.PastCourseViewModelFactory
 import com.phytal.sarona.ui.welcome.LoginViewModelFactory
 import org.kodein.di.Kodein
 import org.kodein.di.KodeinAware
@@ -36,7 +35,6 @@ class SaronaApplication : Application(), KodeinAware {
         bind<CourseRepository>() with singleton { CourseRepositoryImpl(instance(), instance()) }
         bind<LoginProvider>() with singleton { LoginProviderImpl(instance()) }
         bind() from provider { CurrentCourseViewModelFactory(instance(), instance()) }
-        bind() from provider { PastCourseViewModelFactory(instance(), instance()) }
         bind() from provider { MpCourseViewModelFactory(instance(), instance()) }
         bind() from provider { LoginViewModelFactory(instance()) }
     }

@@ -22,6 +22,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import com.google.android.material.transition.MaterialFadeThrough
 import com.phytal.sarona.R
+import com.phytal.sarona.data.db.entities.Course
 import com.phytal.sarona.databinding.ActivityMainBinding
 import com.phytal.sarona.ui.courses.CoursesFragment
 import com.phytal.sarona.ui.nav.*
@@ -156,6 +157,9 @@ class MainActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListener,
             R.id.nav_welcome -> {
                 hideBottomAppBar()
             }
+            R.id.nav_login -> {
+                hideBottomAppBar()
+            }
             R.id.nav_courses -> {
                 setBottomAppBarForHome(R.menu.bottom_app_bar_menu)
             }
@@ -174,9 +178,6 @@ class MainActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListener,
                 bottomNavDrawer.close()
                 showDarkThemeMenu()
             }
-//            R.id.menu_refresh -> {
-//                (javaClass )
-//            }
         }
         return true
     }
