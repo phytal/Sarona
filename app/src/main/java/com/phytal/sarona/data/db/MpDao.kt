@@ -18,7 +18,7 @@ interface MpDao {
     @Query("SELECT * FROM mp_table")
     fun getAllMps(): LiveData<List<MarkingPeriod>>
 
-    @Query("SELECT * FROM mp_table WHERE mp LIKE :mp+1 LIMIT 1")
+    @Query("SELECT * FROM mp_table WHERE mp LIKE :mp LIMIT 1")
     fun getMp(mp: Int): LiveData<MarkingPeriod>
 
     @Query("SELECT * FROM mp_table WHERE current IS 1 LIMIT 1")

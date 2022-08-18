@@ -4,11 +4,13 @@ import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
 import android.annotation.SuppressLint
 import android.content.Context
+import android.content.Intent
 import android.content.pm.ActivityInfo
+import android.net.Uri
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
-import android.widget.AdapterView
+import android.widget.Toast
 import androidx.annotation.MenuRes
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
@@ -22,11 +24,11 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
 import com.google.android.material.transition.MaterialFadeThrough
 import com.phytal.sarona.R
-import com.phytal.sarona.data.db.entities.Course
 import com.phytal.sarona.databinding.ActivityMainBinding
-import com.phytal.sarona.ui.courses.CoursesFragment
 import com.phytal.sarona.ui.nav.*
+import com.phytal.sarona.ui.welcome.LoginFragmentDirections
 import com.phytal.sarona.util.contentView
+import java.util.*
 
 
 class MainActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListener,
@@ -64,17 +66,6 @@ class MainActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListener,
         bottomNavDrawer.apply {
             addOnSlideAction(HalfClockwiseRotateSlideAction(binding.bottomAppBarChevron))
             addOnSlideAction(AlphaSlideAction(binding.bottomAppBarTitle, true))
-            addOnStateChangedAction(ChangeSettingsMenuStateAction { showSettings ->
-                // Toggle between the current destination's BAB menu and the menu which should
-                // be displayed when the BottomNavigationDrawer is open.
-                binding.bottomAppBar.replaceMenu(
-                    if (showSettings) {
-                        R.menu.bottom_app_bar_settings_menu
-                    } else {
-                        R.menu.bottom_app_bar_menu
-                    }
-                )
-            })
 
             addOnSandwichSlideAction(HalfCounterClockwiseRotateSlideAction(binding.bottomAppBarChevron))
             addNavigationListener(this@MainActivity)
@@ -124,7 +115,30 @@ class MainActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListener,
     }
 
     override fun onNavMenuItemClicked(item: NavigationModelItem.NavMenuItem) {
-        navigateToHome(item.titleRes, item.destination)
+        if (item.destination == Destinations.ABOUT) {
+            val url = "https://linktr.ee/simplegrade"
+            val browserIntent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+            startActivity(browserIntent)
+        }
+        else if (item.destination == Destinations.LOGOUT) {
+            val loginSharedPref = this.getSharedPreferences(
+                getString(R.string.login_preference_file_key),
+                Context.MODE_PRIVATE
+            )
+
+            if (loginSharedPref != null) {
+                with(loginSharedPref.edit()) {
+                    clear()
+                    apply()
+                }
+            }
+            val directions =
+                LoginFragmentDirections.actionGlobalLoginFragment()
+            findNavController(R.id.nav_host_fragment).navigate(directions)
+            Toast.makeText(this, "Successfully logged out!", Toast.LENGTH_LONG).show()
+        }
+        else
+            navigateToHome(item.titleRes, item.destination)
     }
 
     private fun navigateToHome(@StringRes titleRes: Int, destination: Destinations) {
@@ -136,8 +150,7 @@ class MainActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListener,
         }
         val directions = when (destination) {
             Destinations.CLASSES -> R.id.nav_courses
-            Destinations.GPA -> R.id.nav_gpa
-            Destinations.GRADES -> R.id.nav_grades
+            else -> R.id.nav_courses
         }
         findNavController(R.id.nav_host_fragment).navigate(directions)
     }
@@ -163,12 +176,6 @@ class MainActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListener,
             R.id.nav_courses -> {
                 setBottomAppBarForHome(R.menu.bottom_app_bar_menu)
             }
-            R.id.nav_grades -> {
-                setBottomAppBarForHome(R.menu.bottom_app_bar_menu)
-            }
-            R.id.nav_gpa -> {
-                setBottomAppBarForHome(R.menu.bottom_app_bar_menu)
-            }
         }
     }
 
@@ -182,83 +189,35 @@ class MainActivity : AppCompatActivity(), Toolbar.OnMenuItemClickListener,
         return true
     }
 
-    private fun showDarkThemeMenu() {
+    private fun onDarkThemeMenuItemSelected(itemId: Int): Boolean {
         val sharedPref = this.getSharedPreferences(
             getString(R.string.user_preference_file_key),
             Context.MODE_PRIVATE
         )
-        MenuBottomSheetDialogFragment(object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(
-                parent: AdapterView<*>,
-                view: View?,
-                position: Int,
-                id: Long
-            ) {
-                if (parent.tag == position)
-                    return
-                parent.tag = position
-                val selectedItem = parent.getItemAtPosition(position).toString()
-                if (selectedItem == "Dark" || selectedItem == "Light" || selectedItem == "Default") {
-                    val nightMode = when (selectedItem) {
-                        "Light" -> AppCompatDelegate.MODE_NIGHT_NO
-                        "Dark" -> AppCompatDelegate.MODE_NIGHT_YES
-                        else -> AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
-                    }
 
-                    if (sharedPref != null) {
-                        with(sharedPref.edit()) {
-                            putString(
-                                getString(R.string.saved_theme_key),
-                                selectedItem
-                            )
-                            apply()
-                        }
-                    }
-                    delegate.localNightMode = nightMode
-                    val prev = supportFragmentManager.findFragmentByTag("settings_menu")
-                    if (prev != null) {
-                        val df: MenuBottomSheetDialogFragment =
-                            prev as MenuBottomSheetDialogFragment
-                        df.dismiss()
-                    }
-                }
+        val nightMode = when (itemId) {
+            R.id.menu_light -> AppCompatDelegate.MODE_NIGHT_NO
+            R.id.menu_dark -> AppCompatDelegate.MODE_NIGHT_YES
+            else -> AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
+        }
+
+        if (sharedPref != null) {
+            with(sharedPref.edit()) {
+                putString(
+                    getString(R.string.saved_theme_key),
+                    itemId.toString()
+                )
+                apply()
             }
+        }
 
-            override fun onNothingSelected(parent: AdapterView<*>?) {}
-        }, object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(
-                parent: AdapterView<*>,
-                view: View?,
-                position: Int,
-                id: Long
-            ) {
-                if (parent.tag == position)
-                    return
-                parent.tag = position
-                val selectedItem = parent.getItemAtPosition(position).toString()
-                if (selectedItem == "English" || selectedItem == "Español" || selectedItem == "Français" || selectedItem == "한곡어" || selectedItem == "中文") {
-                    // TODO: Change Language
+        delegate.localNightMode = nightMode
+        return true
+    }
 
-                    if (sharedPref != null) {
-                        with(sharedPref.edit()) {
-                            putString(
-                                getString(R.string.saved_language_key),
-                                selectedItem
-                            )
-                            apply()
-                        }
-                    }
-
-                    val prev = supportFragmentManager.findFragmentByTag("settings_menu")
-                    if (prev != null) {
-                        val df: MenuBottomSheetDialogFragment =
-                            prev as MenuBottomSheetDialogFragment
-                        df.dismiss()
-                    }
-                }
-            }
-
-            override fun onNothingSelected(parent: AdapterView<*>?) {}
-        }).show(supportFragmentManager, "settings_menu")
+    private fun showDarkThemeMenu() {
+        MenuBottomSheetDialogFragment(R.menu.dark_theme_bottom_sheet_menu) {
+            onDarkThemeMenuItemSelected(it.itemId)
+        }.show(supportFragmentManager, null)
     }
 }

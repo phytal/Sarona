@@ -1,5 +1,6 @@
 package com.phytal.sarona.ui.courses
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -37,6 +38,7 @@ class CoursesAdapter(
         return courses.size
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     fun setCourses(mp: MarkingPeriod) {
         this.courses = mp.courses
 

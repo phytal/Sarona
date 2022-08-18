@@ -19,6 +19,7 @@
             android:id="@+id/action_nav_courses_self"
             app:destination="@id/nav_courses" />
     </fragment>
+
     <action
         android:id="@+id/action_global_coursesFragment"
         app:destination="@+id/nav_courses"
@@ -34,30 +35,6 @@
             android:name="course"
             app:argType="com.phytal.sarona.data.db.entities.Course" />
     </fragment>
-
-    <fragment
-        android:id="@+id/nav_grades"
-        android:name="com.phytal.sarona.ui.grades.GradesFragment"
-        android:label="GradesFragment"/>
-    <action
-        android:id="@+id/action_global_gradesFragment"
-        app:destination="@+id/nav_grades" />
-
-    <fragment
-        android:id="@+id/nav_transcript"
-        android:name="com.phytal.sarona.ui.transcript.TranscriptFragment"
-        android:label="TranscriptFragment"/>
-    <action
-        android:id="@+id/action_global_transcriptFragment"
-        app:destination="@+id/nav_transcript" />
-
-    <fragment
-        android:id="@+id/nav_gpa"
-        android:name="com.phytal.sarona.ui.calculator.CalculatorFragment"
-        android:label="GpaFragment"/>
-    <action
-        android:id="@+id/action_global_gpaFragment"
-        app:destination="@+id/nav_gpa" />
 
     <action
         android:id="@+id/action_global_settingsFragment"

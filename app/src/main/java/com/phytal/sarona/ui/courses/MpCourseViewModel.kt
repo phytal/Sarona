@@ -9,13 +9,13 @@ class MpCourseViewModel(
     private val repository: CourseRepository,
     loginProvider: LoginProvider
 ) : CourseViewModel(loginProvider) {
-    private var mp = 0
+    private var mp = 1
 
     val mpCourses by lazyDeferred {
         repository.getMp(loginInformation, mp)
     }
 
     fun setMp(mp: Int) {
-        this.mp = mp-1
+        this.mp = mp
     }
 }

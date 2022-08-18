@@ -10,8 +10,8 @@ import com.phytal.sarona.R
 object NavigationModel {
 
     const val CLASSES_ID = 0
-    const val GRADES_ID = 1
-    const val GPA_ID = 2
+    const val ABOUT_ID = 1
+    const val LOGOUT_ID = 2
 
     private var navigationMenuItems = mutableListOf(
         NavigationModelItem.NavMenuItem(
@@ -21,20 +21,20 @@ object NavigationModel {
             destination = Destinations.CLASSES,
             checked = false
         ),
-//        NavigationModelItem.NavMenuItem(
-//            id = GRADES_ID,
-//            icon = R.drawable.ic_twotone_grades,
-//            titleRes = R.string.nav_grades,
-//            destination = Destinations.GRADES,
-//            checked = false
-//        ),
-//        NavigationModelItem.NavMenuItem(
-//            id = GPA_ID,
-//            icon = R.drawable.ic_twotone_gpa,
-//            titleRes = R.string.nav_gpa,
-//            destination = Destinations.GPA,
-//            checked = false
-//        )
+        NavigationModelItem.NavMenuItem(
+            id = ABOUT_ID,
+            icon = R.drawable.ic_twotone_about,
+            titleRes = R.string.nav_about,
+            destination = Destinations.ABOUT,
+            checked = false
+        ),
+        NavigationModelItem.NavMenuItem(
+            id = LOGOUT_ID,
+            icon = R.drawable.ic_twotone_logout,
+            titleRes = R.string.nav_logout,
+            destination = Destinations.LOGOUT,
+            checked = false
+        )
     )
 
     private val _navigationList: MutableLiveData<List<NavigationModelItem>> = MutableLiveData()

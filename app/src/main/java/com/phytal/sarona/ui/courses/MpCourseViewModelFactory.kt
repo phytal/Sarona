@@ -11,7 +11,7 @@ class MpCourseViewModelFactory(
 ): ViewModelProvider.NewInstanceFactory() {
 
     @Suppress("UNCHECKED_CAST")
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
         return MpCourseViewModel(repository, loginProvider) as T
     }
 }

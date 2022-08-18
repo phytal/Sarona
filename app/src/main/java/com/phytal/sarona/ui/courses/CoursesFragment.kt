@@ -1,20 +1,18 @@
 package com.phytal.sarona.ui.courses
 
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.view.*
-import android.widget.Toolbar
 import androidx.core.view.doOnPreDraw
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.navigation.navOptions
-import com.google.android.material.bottomappbar.BottomAppBar
 import com.google.android.material.snackbar.Snackbar
 import com.phytal.sarona.R
 import com.phytal.sarona.data.db.entities.Course
 import com.phytal.sarona.databinding.FragmentCoursesBinding
-import com.phytal.sarona.ui.MainActivity
 import com.phytal.sarona.ui.base.ScopedFragment
 import kotlinx.coroutines.*
 import kotlinx.coroutines.Dispatchers.Main
@@ -76,13 +74,6 @@ class CoursesFragment : ScopedFragment(), KodeinAware, CoursesAdapter.CourseAdap
                 Snackbar.make(binding.root, "Reached the maximum marking period!", Snackbar.LENGTH_SHORT).show()
         }
 
-        activity?.findViewById<BottomAppBar>(R.id.bottom_app_bar)?.setOnMenuItemClickListener {
-            when (it.itemId) {
-                R.id.menu_refresh ->
-                    refreshMp(markingPeriod).start()
-                else -> super.onOptionsItemSelected(it)
-            }
-        }
         binding.swipeRefreshLayout.setOnRefreshListener {
             refreshMp(currentMp)
         }
@@ -96,10 +87,7 @@ class CoursesFragment : ScopedFragment(), KodeinAware, CoursesAdapter.CourseAdap
         view.doOnPreDraw { startPostponedEnterTransition() }
 
         currentCourseViewModel =
-            ViewModelProvider(
-                this,
-                currentCourseViewModelFactory
-            ).get(CurrentCourseViewModel::class.java)
+            ViewModelProvider(this, currentCourseViewModelFactory).get(CurrentCourseViewModel::class.java)
         mpCourseViewModel =
             ViewModelProvider(this, mpCourseViewModelFactory).get(MpCourseViewModel::class.java)
         bindUI()
@@ -116,10 +104,11 @@ class CoursesFragment : ScopedFragment(), KodeinAware, CoursesAdapter.CourseAdap
         if (currentMp != 0) {
             val courses = mpCourseViewModel.mpCourses.await()
             courses.observe(viewLifecycleOwner, Observer {
-                if (it == null) { Snackbar.make(binding.root, "Failed to fetch marking period " + (currentMp), Snackbar.LENGTH_LONG).show()
+                binding.groupLoading.visibility = View.GONE
+                if (it == null) { Snackbar.make(binding.root,
+                    "Failed to fetch marking period $currentMp", Snackbar.LENGTH_LONG).show()
                     return@Observer
                 }
-                binding.groupLoading.visibility = View.GONE
 
                 adapter.setCourses(it)
                 if (updatedCourses in 2 downTo 1) {
@@ -130,13 +119,15 @@ class CoursesFragment : ScopedFragment(), KodeinAware, CoursesAdapter.CourseAdap
         } else {
             val currentCourses = currentCourseViewModel.currentCourses.await()
             currentCourses.observe(viewLifecycleOwner, Observer {
+                binding.groupLoading.visibility = View.GONE
                 if (it == null) {
                     Snackbar.make(binding.root, "Failed to fetch current marking period", Snackbar.LENGTH_LONG).show()
                     return@Observer
                 }
                 currentMp = it.mp
-                binding.groupLoading.visibility = View.GONE
+
                 adapter.setCourses(it)
+                binding.swipeRefreshLayout.isRefreshing = false
                 if (updatedCourses in 2 downTo 1)
                     Snackbar.make(binding.root, "Successfully loaded new data!", Snackbar.LENGTH_SHORT
                     ).show()
@@ -145,15 +136,26 @@ class CoursesFragment : ScopedFragment(), KodeinAware, CoursesAdapter.CourseAdap
         }
     }
 
-
     private fun refreshMp(mp: Int) = launch(Main) {
+        val timer = object: CountDownTimer(20000, 1000) {
+            override fun onTick(millisUntilFinished: Long) {}
+
+            override fun onFinish() {
+                if (refreshed == 0) {
+                    binding.swipeRefreshLayout.isRefreshing = false
+                    Snackbar.make(binding.root,
+                        "Failed to fetch marking period $currentMp", Snackbar.LENGTH_LONG).show()
+                }
+            }
+        }
+        timer.start()
+
         mpCourseViewModel.setMp(mp)
         val mpCourses = mpCourseViewModel.mpCourses.await()
         if (view != null) {
             mpCourses.observe(viewLifecycleOwner, Observer {
                 if (it == null) return@Observer
-                if (refreshed in 2 downTo 1) {
-                    refreshed = 0
+                if (refreshed > 0 && currentMp != 0) {
                     adapter.setCourses(it)
                     binding.swipeRefreshLayout.isRefreshing = false
                     Snackbar.make(binding.root, "Successfully loaded new data!", Snackbar.LENGTH_SHORT)
@@ -164,17 +166,12 @@ class CoursesFragment : ScopedFragment(), KodeinAware, CoursesAdapter.CourseAdap
         }
     }
 
-    private suspend fun setNewTextOnMainThread(input: String) {
-        withContext(Main) {
-            binding.textViewLoading.text = input
-        }
-    }
-
     override fun onCourseClick(cardView: View, course: Course) {
 //        val courseCardDetailTransitionName = getString(R.string.course_card_detail_transition_name)
 //        val extras = FragmentNavigatorExtras(cardView to courseCardDetailTransitionName)
         if (course.assignments.isEmpty())
             return
+        updatedCourses = 0
         val directions = CoursesFragmentDirections.actionNavCoursesToNavCourseView(course)
         findNavController().navigate(directions,
             navOptions {

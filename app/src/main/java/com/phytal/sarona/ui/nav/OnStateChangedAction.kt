@@ -13,46 +13,6 @@ interface OnStateChangedAction {
 }
 
 /**
- * A state change action that tells the calling client when a open-sheet specific menu should be
- * used.
- */
-class ChangeSettingsMenuStateAction(
-    private val onShouldShowSettingsMenu: (showSettings: Boolean) -> Unit
-) : OnStateChangedAction {
-
-    private var hasCalledShowSettingsMenu: Boolean = false
-
-    override fun onStateChanged(sheet: View, newState: Int) {
-        if (newState == BottomSheetBehavior.STATE_HIDDEN) {
-            hasCalledShowSettingsMenu = false
-            onShouldShowSettingsMenu(false)
-        } else {
-            if (!hasCalledShowSettingsMenu) {
-                hasCalledShowSettingsMenu = true
-                onShouldShowSettingsMenu(true)
-            }
-        }
-    }
-}
-
-/**
- * A state change action that handles showing the fab when the sheet is hidden and hiding the fab
- * when the sheet is not hidden.
- */
-class ShowHideFabStateAction(
-    private val fab: FloatingActionButton
-) : OnStateChangedAction {
-
-    override fun onStateChanged(sheet: View, newState: Int) {
-        if (newState == BottomSheetBehavior.STATE_HIDDEN) {
-            fab.show()
-        } else {
-            fab.hide()
-        }
-    }
-}
-
-/**
  * A state change action that sets a view's visibility depending on whether the sheet is hidden
  * or not.
  *

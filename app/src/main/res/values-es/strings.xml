@@ -1,0 +1,86 @@
+<resources>
+    <string name="app_name">SimpleGrade</string>
+    <!--BottomNavBar-->
+    <string name="bottom_app_bar_chevron_content_desc">Abrir o cerrar el cajón de navegación inferior</string>
+    <string name="bottom_app_bar_logo_content_desc">Logotipo de SimpleGrade</string>
+    <string name="action_settings">Ajustes</string>
+    <string name="nav_courses">Clases</string>
+    <string name="nav_settings">Ajustes</string>
+    <string name="nav_welcome">Bienvenidos</string>
+    <string name="menu_settings">Ajustes</string>
+    <string name="menu_refresh">Actualizar</string>
+    <string name="bottom_nav_drawer_image_content_desc">Imagen Navegación</string>
+
+    <!--SettingsMenu-->
+    <string name="menu_dark_theme_light">Ligero</string>
+    <string name="menu_dark_theme_dark">Oscuro</string>
+    <string name="menu_dark_theme_system_default">Sistema por defecto</string>
+    <string name="theme_text">Thema</string>
+    <string name="theme_icon">Icono de Tema</string>
+    <string name="language_text">Idioma</string>
+    <string name="language_icon">Icono de Idioma</string>
+    <string name="log_out">Cerrar Sesión</string>
+    <string name="about">Sobre</string>
+    <string name="privacy_policy">Política de Privacidad</string>
+    <string name="tos">Términos de Servicio</string>
+
+    <!--CourseItem-->
+    <string name="course_item_grade">Calificación</string>
+    <string name="course_item_title">Título de Curso</string>
+    <string name="course_item_description">Id de Curso</string>
+
+    <!--WelcomeFragment-->
+    <string name="simple_grade_logo_desc">Logotipo de SimpleGrade</string>
+    <string name="welcome_agreement">Esta aplicación utiliza las credenciales que proporcionó anteriormente para recuperar y mostrar información de calificaciones y clases de su Centro de acceso desde el hogar (HAC). Al usar esta aplicación, acepta nuestros términos de servicio y política de privacidad.</string>
+    <string name="welcome_login">Iniciar Sesión</string>
+    <string name="welcome_password">Clave</string>
+    <string name="welcome_username">Nombre de Usuario</string>
+    <string name="welcome_link">Enlace HAC</string>
+    <string name="welcome_link_example">e.g. hac.friscoisd.org</string>
+    <string name="welcome_text">SimpleGrade</string>
+    <string name="welcome_subtitle">Visualización de Calificaciones Simplificada</string>
+    <string name="welcome_copyright">©2021 Phytal</string>
+
+    <!--AssignmentDialog-->
+    <string name="assignment_score">Puntaje</string>
+    <string name="assignment_weight">Peso</string>
+    <string name="assignment_date_due">Fecha de Vencimiento</string>
+    <string name="assignment_weighted_points">Puntos Ponderados</string>
+    <string name="assignment_percent">Porcentaje</string>
+
+    <!--CourseFragment-->
+    <string name="assignment_item_title">Título de Tarea</string>
+    <string name="assignment_date_assigned">Fecha Asignada</string>
+    <string name="course_item_max_grade">/Grado Máximo</string>
+    <string name="forward_button">Botón de Avance</string>
+    <string name="back_button">Botón de Retroceso</string>
+    <string name="loading">Cargando</string>
+    <string name="course_card_detail_transition_name">course_card_detail</string>
+    <string name="course_card_transition_name">course_card_%1$s</string>
+    <string name="course_name">Nombre del Curso</string>
+    <string name="grade">Calificación</string>
+    <string name="nav_courseView">Vista del Curso</string>
+
+    <!--CourseViewFragment-->
+    <string name="add_grade">Agregar Calificación</string>
+
+    <!--SharedPreferences-->
+    <string name="login_preference_file_key">com.phytal.sarona.login_preference</string>
+    <string name="saved_username_key">username</string>
+    <string name="saved_password_key">password</string>
+    <string name="saved_link_key">link</string>
+    <string name="user_preference_file_key">com.phytal.sarona.user_preference</string>
+    <string name="saved_theme_key">theme</string>
+    <string name="saved_language_key">language</string>
+
+    <!--AddAssignmentDialog-->
+    <string name="add_assignment">Agregar Tarea</string>
+    <string name="category">Categoría</string>
+    <string name="assignment_name">Nombre de la Asignación</string>
+    <string name="mock_assignment">Asignación Simulada</string>
+    <string name="score">Puntaje</string>
+    <string name="max_score">Máximo Puntaje</string>
+    <string name="weight">Peso</string>
+    <string name="add">Agregar</string>
+    <string name="fetching_grades">Obteniendo calificaciones..</string>
+</resources>

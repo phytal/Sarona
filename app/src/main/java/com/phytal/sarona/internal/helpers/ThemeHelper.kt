@@ -2,11 +2,12 @@ package com.phytal.sarona.internal.helpers
 
 import android.os.Build
 import androidx.appcompat.app.AppCompatDelegate
+import com.phytal.sarona.R
 
 object ThemeHelper {
-    private const val LIGHT_MODE = "Light"
-    private const val DARK_MODE = "Dark"
-    const val DEFAULT_MODE = "Default"
+    private const val LIGHT_MODE = R.id.menu_light.toString()
+    private const val DARK_MODE = R.id.menu_dark.toString()
+    const val DEFAULT_MODE = R.id.menu_system_default.toString()
     fun applyTheme(themePref: String) {
         when (themePref) {
             LIGHT_MODE -> {

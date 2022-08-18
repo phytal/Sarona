@@ -35,7 +35,7 @@ class CourseViewFragment : ScopedFragment(),
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        activity?.findViewById<BottomAppBar>(R.id.bottom_app_bar)?.menu?.findItem(R.id.menu_refresh)?.isVisible =
+        activity?.findViewById<BottomAppBar>(R.id.bottom_app_bar)?.menu?.findItem(R.id.menu_settings)?.isVisible =
             false
 
         binding = FragmentCourseViewBinding.inflate(inflater, container, false)
